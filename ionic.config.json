@@ -1,0 +1,8 @@
+{
+  "name": "Food History",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "vue",
+  "id": "d64b154f"
+}

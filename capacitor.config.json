@@ -1,0 +1,6 @@
+{
+	"appId": "io.ionic.starter",
+	"appName": "Food History",
+	"webDir": "dist",
+	"bundledWebRuntime": false
+}
