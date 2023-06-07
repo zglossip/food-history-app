@@ -1,8 +1,8 @@
 <template>
   <ion-app>
-    <ion-split-pane content-id="main-content">
+    <!-- <ion-split-pane content-id="main-content">
       <ion-menu content-id="main-content" type="overlay">
-        <!-- <ion-content>
+        <ion-content>
           <ion-list id="inbox-list">
             <ion-list-header>Inbox</ion-list-header>
             <ion-note>hi@ionicframework.com</ion-note>
@@ -23,45 +23,27 @@
               <ion-label>{{ label }}</ion-label>
             </ion-item>
           </ion-list>
-        </ion-content> -->
+        </ion-content>
       </ion-menu>
-      <ion-router-outlet id="main-content"></ion-router-outlet>
-    </ion-split-pane>
+
+    </ion-split-pane> -->
+    <ion-router-outlet id="main-content" />
+    <ion-page>
+        <ion-header :translucent="true">
+            <ion-toolbar>
+                <ion-title>Browse</ion-title>
+            </ion-toolbar>
+        </ion-header>
+        <ion-content :fullscreen="true">
+            <recipe-card :recipe="generateRecipe()"/>
+        </ion-content>
+    </ion-page>
   </ion-app>
 </template>
 
 <script setup lang="ts">
-import {
-  IonApp,
-  IonContent,
-  IonIcon,
-  IonItem,
-  IonLabel,
-  IonList,
-  IonListHeader,
-  IonMenu,
-  IonMenuToggle,
-  IonNote,
-  IonRouterOutlet,
-  IonSplitPane,
-} from '@ionic/vue';
-import { ref } from 'vue';
-import {
-  archiveOutline,
-  archiveSharp,
-  bookmarkOutline,
-  bookmarkSharp,
-  heartOutline,
-  heartSharp,
-  mailOutline,
-  mailSharp,
-  paperPlaneOutline,
-  paperPlaneSharp,
-  trashOutline,
-  trashSharp,
-  warningOutline,
-  warningSharp,
-} from 'ionicons/icons';
+import { generateRecipe } from '../tests/data/defaults';
+import RecipeCard from './components/common/recipeCard/RecipeCard.vue';
 </script>
 
 <style scoped>

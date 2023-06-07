@@ -1,15 +1,15 @@
-import { createApp } from "vue";
+// import { createApp } from "vue";
 
-export const mockMount = (composable: Function) => {
-    let result;
-    const app = createApp({
-        setup() {
-            result = composable()
+// export const mockMount = (composable: Function) => {
+//     let result;
+//     const app = createApp({
+//         setup() {
+//             result = composable()
 
-            return () => {};
-        }
-    })
+//             return () => {};
+//         }
+//     })
 
-    app.mount(document.createElement('div'));
-    return result
-}
+//     app.mount(document.createElement('div'));
+//     return result
+// }

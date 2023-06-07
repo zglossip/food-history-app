@@ -1,7 +1,10 @@
 <template>
     <ion-card>
         <ion-card-header>
-            <ion-card-title>{{ recipe.name }}</ion-card-title>
+            <ion-card-title>
+                <span>{{ recipe.name }}</span>
+                <!-- <ion-icon name="create" class="ion-float-left"/> -->
+            </ion-card-title>
             <ion-card-subtitle>{{ formattedServingTag }}</ion-card-subtitle>
         </ion-card-header>
         <ion-card-content>
@@ -14,14 +17,16 @@
 
 <script setup lang="ts">
 import { Recipe } from '@/models/Recipe';
-import { toRefs } from 'vue';
-import { useRecipeCardService, RecipeCardService } from '@/components/common/recipeCard/recipeCardService';
+import { ref, toRefs , defineProps} from 'vue';
+import { useRecipeCardService } from '@/components/common/recipeCard/recipeCardService';
 
 interface Props {
-    recipe: Recipe
+    recipe: Recipe,
+    displayEditButton?: boolean
 }
 
-const {recipe} = toRefs(defineProps<Props>())
+const props = defineProps<Props>()
+const {recipe, displayEditButton = ref(false)} = toRefs(props)
 
 const {formattedServingTag, formattedCuisineTag, formattedCourseTag, formattedTagTag} = useRecipeCardService(recipe)
 

@@ -3,40 +3,36 @@ import { RouteRecordRaw } from 'vue-router';
 
 const routes: Array<RouteRecordRaw> = [
   {
-    path: '',
-    redirect: '/recipe/browse'
-  },
-  {
-    path: '/recipe/browse',
-    component: () => import ('../views/Browse.vue')
+    path: '/browse',
+    component: () => import ('@/views/BrowseView.vue')
   },
   {
     path: '/recipe/:id',
-    component: () => import ('../views/Recipe.vue')
+    component: () => import ('@/views/RecipeView.vue')
   },
   {
     path: '/recipe/create',
-    component: () => import('../views/createEdit/CreateEditHeader.vue')
+    component: () => import('@/views/createEdit/CreateEditHeaderView.vue')
   },
   {
     path: '/recipe/create/ingredients',
-    component: () => import('../views/createEdit/CreateEditIngredients.vue')
+    component: () => import('@/views/createEdit/CreateEditIngredientsView.vue')
   },
   {
     path: '/recipe/create/instructions',
-    component: () => import('../views/createEdit/CreateEditInstructions.vue')
+    component: () => import('@/views/createEdit/CreateEditInstructionsView.vue')
   },
   {
     path: '/recipe/edit/:id',
-    component: () => import('../views/createEdit/CreateEditHeader.vue')
+    component: () => import('@/views/createEdit/CreateEditHeaderView.vue')
   },
   {
     path: '/recipe/edit/:id/ingredients',
-    component: () => import('../views/createEdit/CreateEditIngredients.vue')
+    component: () => import('@/views/createEdit/CreateEditIngredientsView.vue')
   },
   {
     path: '/recipe/edit/:id/instructions',
-    component: () => import('../views/createEdit/CreateEditInstructions.vue')
+    component: () => import('@/views/createEdit/CreateEditInstructionsView.vue')
   }
 ]
 
