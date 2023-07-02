@@ -8,6 +8,7 @@
       <ion-card-subtitle>{{ formattedServingTag }}</ion-card-subtitle>
     </ion-card-header>
     <ion-card-content>
+      <div v-if="displayEditButton" />
       <ul>
         <li
           v-for="(tag, i) in [
@@ -26,7 +27,7 @@
 
 <script setup lang="ts">
 import { Recipe } from "@/models/Recipe";
-import { ref, toRefs, defineProps } from "vue";
+import { ref, toRefs } from "vue";
 import { useRecipeCardService } from "@/components/common/recipeCard/recipeCardService";
 
 interface Props {

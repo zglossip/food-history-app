@@ -1,18 +1,9 @@
 import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
-import { fileURLToPath } from "url";
-import path from "path";
-import eslint from "vite-plugin-eslint";
-
-const filename = fileURLToPath(import.meta.url);
-const pathSegments = path.dirname(filename);
+import eslint from 'vite-plugin-eslint'
 
 export default defineConfig({
-  plugins: [vue(), eslint()],
-  resolve: {
-    alias: {
-      "@": path.resolve(pathSegments, "./src"),
-    },
-    extensions: [".mjs", ".js", ".ts", ".jsx", ".tsx", ".json"],
-  },
+  plugins: [vue(), eslint({
+    exclude: ['/virtual:/**', 'node_modules/**'],
+  })]
 });
