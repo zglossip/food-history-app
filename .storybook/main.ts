@@ -6,6 +6,7 @@ const config: StorybookConfig = {
     "@storybook/addon-links",
     "@storybook/addon-essentials",
     "@storybook/addon-interactions",
+    "@storybook/addon-controls",
   ],
   framework: {
     name: "@storybook/vue3-vite",
@@ -15,17 +16,17 @@ const config: StorybookConfig = {
     autodocs: "tag",
   },
   viteFinal: async (config) => {
-    config.base = '/storybook/'
+    config.base = "/storybook/";
 
-    if(config.resolve) {
+    if (config.resolve) {
       config.resolve.alias = {
         ...config.resolve.alias,
-        '@': '/src',
-        '@tests': '/tests'
-      }
+        "@": "/src",
+        "@tests": "/tests",
+      };
     }
-    return config
-  }
+    return config;
+  },
 };
 
 export default config;

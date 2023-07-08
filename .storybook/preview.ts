@@ -20,7 +20,7 @@ import "@ionic/vue/css/display.css";
 /* Theme variables */
 import "@/theme/variables.css";
 
-setup((app) => app.use(IonicVue))
+setup((app) => app.use(IonicVue));
 
 const preview: Preview = {
   parameters: {
@@ -34,10 +34,10 @@ const preview: Preview = {
   },
   decorators: [
     (story: any) => ({
-      components: {story, IonApp},
-      template: '<ion-app><story/></ion-app>'
-    })
-  ]
+      components: { story, IonApp },
+      template: "<ion-app><story/></ion-app>",
+    }),
+  ],
 };
 
 export default preview;

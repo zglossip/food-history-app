@@ -1,9 +1,12 @@
 import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
-import eslint from 'vite-plugin-eslint'
+import eslint from "vite-plugin-eslint";
 
 export default defineConfig({
-  plugins: [vue(), eslint({
-    exclude: ['/virtual:/**', 'node_modules/**'],
-  })]
+  plugins: [
+    vue(),
+    eslint({
+      exclude: ["/virtual:/**", "node_modules/**"],
+    }),
+  ],
 });
