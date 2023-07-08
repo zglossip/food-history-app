@@ -33,7 +33,7 @@
 </template>
 
 <script setup lang="ts">
-import { Recipe } from "@/models/Recipe";
+import { Recipe } from "@/types/Recipe";
 import { toRefs } from "vue";
 import { useRecipeCardService } from "@/components/viewRecipe/recipeCard/recipeCardService";
 import {

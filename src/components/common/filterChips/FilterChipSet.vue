@@ -4,7 +4,7 @@
       <img :src="iconUrl" :alt="iconAltText" />
     </ion-avatar>
     <ion-label>{{ element }}</ion-label>
-    <ion-icon :icon="closeCircle" :click="$emit('close')" />
+    <ion-icon :icon="closeCircle" @click="$emit('close', element)" />
   </ion-chip>
 </template>
 

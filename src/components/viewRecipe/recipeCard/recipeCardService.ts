@@ -1,4 +1,4 @@
-import { Recipe } from "@/models/Recipe";
+import { Recipe } from "@/types/Recipe";
 import { ComputedRef, Ref, computed, toRefs } from "vue";
 
 export interface RecipeCardService {
