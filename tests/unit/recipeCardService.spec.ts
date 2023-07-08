@@ -1,7 +1,7 @@
 import {
   RecipeCardService,
   useRecipeCardService,
-} from "@/components/common/recipeCard/recipeCardService";
+} from "@/components/viewRecipe/recipeCard/recipeCardService";
 import { Recipe } from "@/models/Recipe";
 import { generateRecipe } from "../data/defaults";
 import { toRef } from "vue";

@@ -10,9 +10,9 @@
             <ion-card-subtitle>{{ formattedServingTag }}</ion-card-subtitle>
           </ion-col>
           <ion-col>
-            <ion-button @click="$emit('edit')" class="edit-button"
-              >EDIT</ion-button
-            >
+            <ion-button @click="$emit('edit')" class="edit-button">
+              EDIT
+            </ion-button>
           </ion-col>
         </ion-row>
       </ion-grid>
