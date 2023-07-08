@@ -35,7 +35,7 @@
 <script setup lang="ts">
 import { Recipe } from "@/models/Recipe";
 import { toRefs } from "vue";
-import { useRecipeCardService } from "@/components/common/recipeCard/recipeCardService";
+import { useRecipeCardService } from "@/components/viewRecipe/recipeCard/recipeCardService";
 import {
   IonCard,
   IonCardHeader,
