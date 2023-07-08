@@ -10,7 +10,7 @@
     <ion-card-content>
       <div v-if="displayEditButton" />
       <ul>
-        <li
+        <fragment
           v-for="(tag, i) in [
             formattedCuisineTag,
             formattedCourseTag,
@@ -18,8 +18,8 @@
           ]"
           :key="i"
         >
-          {{ tag }}
-        </li>
+          <li v-if="tag">{{ tag }}</li>
+        </fragment>
       </ul>
     </ion-card-content>
   </ion-card>
@@ -29,6 +29,7 @@
 import { Recipe } from "@/models/Recipe";
 import { ref, toRefs } from "vue";
 import { useRecipeCardService } from "@/components/common/recipeCard/recipeCardService";
+import { IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent } from "@ionic/vue";
 
 interface Props {
   recipe: Recipe;
