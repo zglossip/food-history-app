@@ -5,6 +5,7 @@ import { generateRecipe } from "@tests/data/defaults";
 
 const meta: Meta<typeof RecipeCard> = {
   component: RecipeCard,
+  argTypes: { onEdit: {action: 'edit clicked'}}
 };
 
 export default meta;
