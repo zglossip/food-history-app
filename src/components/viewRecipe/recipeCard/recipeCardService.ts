@@ -1,6 +1,8 @@
 import { Recipe } from "@/types/Recipe";
 import { ComputedRef, Ref, computed, toRefs } from "vue";
 
+export const injectionKey = Symbol();
+
 export interface RecipeCardService {
   formattedServingTag: ComputedRef<string>;
   formattedCuisineTag: ComputedRef<string | boolean>;

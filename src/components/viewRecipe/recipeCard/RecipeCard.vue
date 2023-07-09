@@ -33,9 +33,11 @@
 </template>
 
 <script setup lang="ts">
-import { Recipe } from "@/types/Recipe";
-import { toRefs } from "vue";
-import { useRecipeCardService } from "@/components/viewRecipe/recipeCard/recipeCardService";
+import { inject, toRefs } from "vue";
+import {
+  useRecipeCardService,
+  injectionKey,
+} from "@/components/viewRecipe/recipeCard/recipeCardService";
 import {
   IonCard,
   IonCardHeader,
@@ -47,10 +49,7 @@ import {
   IonRow,
   IonCol,
 } from "@ionic/vue";
-
-interface Props {
-  recipe: Recipe;
-}
+import { Props } from "./Props";
 
 const props = defineProps<Props>();
 const { recipe } = toRefs(props);
@@ -60,7 +59,7 @@ const {
   formattedCuisineTag,
   formattedCourseTag,
   formattedTagTag,
-} = useRecipeCardService(recipe);
+} = inject(injectionKey, useRecipeCardService)(recipe);
 </script>
 
 <style scoped>

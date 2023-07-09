@@ -1,5 +1,5 @@
 export enum FilterType {
-    COURSE = "course", 
-    CUISINE = "cuisine", 
-    TAG = "tag"
+  COURSE = "course",
+  CUISINE = "cuisine",
+  TAG = "tag",
 }
