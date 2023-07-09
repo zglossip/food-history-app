@@ -17,10 +17,12 @@ export const generateRecipe = (recipe: Partial<Recipe> = {}): Recipe => ({
 
 const DEFAULT_INGREDIENT: Ingredient = {
   name: "Test",
-  quantity: 1
-}
+  quantity: 1,
+};
 
-export const generateIngredient = (ingredient: Partial<Ingredient> = {}): Ingredient => ({
+export const generateIngredient = (
+  ingredient: Partial<Ingredient> = {}
+): Ingredient => ({
   ...DEFAULT_INGREDIENT,
-  ...ingredient
-})
+  ...ingredient,
+});

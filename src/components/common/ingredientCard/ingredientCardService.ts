@@ -15,11 +15,12 @@ export const useIngredientCardService = (
   const ingredients: Ref<Ingredient[]> = ref([]);
   const isLoading: Ref<boolean> = ref(true);
 
-  fetchIngredients(recipeId).then(
-    (ingredientResponse: Ingredient[]) =>
-      (ingredients.value = ingredientResponse)
-  )
-  .finally(() => isLoading.value = false)
+  fetchIngredients(recipeId)
+    .then(
+      (ingredientResponse: Ingredient[]) =>
+        (ingredients.value = ingredientResponse)
+    )
+    .finally(() => (isLoading.value = false));
 
   return { ingredients, isLoading };
 };

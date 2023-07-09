@@ -18,6 +18,5 @@ export const fetchIngredients = async (
   return get<Ingredient[], Ingredient[]>("", []);
 };
 export function mockImplementation(arg0: () => void) {
-    throw new Error("Function not implemented.");
+  throw new Error("Function not implemented.");
 }
-
