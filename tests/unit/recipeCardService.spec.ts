@@ -3,7 +3,7 @@ import {
   useRecipeCardService,
 } from "@/components/viewRecipe/recipeCard/recipeCardService";
 import { Recipe } from "@/types/Recipe";
-import { generateRecipe } from "../data/defaults";
+import { generateRecipe } from "@tests/data/defaults";
 import { toRef } from "vue";
 
 interface Givens {
