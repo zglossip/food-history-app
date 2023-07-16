@@ -13,10 +13,9 @@ const get = async <T, K>(url: string, d: K): Promise<T | K> => {
 };
 
 export const fetchIngredients = async (
-  recipeId: number
-): Promise<Ingredient[]> => {
-  return get<Ingredient[], Ingredient[]>("", []);
-};
-export function mockImplementation(arg0: () => void) {
-  throw new Error("Function not implemented.");
-}
+  ingredientUrl: string
+): Promise<Ingredient[]> => get<Ingredient[], Ingredient[]>(ingredientUrl, []);
+
+export const fetchInstructions = async (
+  instructionUrl: string
+): Promise<string[]> => get<string[], string[]>(instructionUrl, []);

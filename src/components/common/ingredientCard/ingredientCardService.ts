@@ -10,12 +10,12 @@ export interface IngredientCardService {
 }
 
 export const useIngredientCardService = (
-  recipeId: number
+  ingredientUrl: string
 ): IngredientCardService => {
   const ingredients: Ref<Ingredient[]> = ref([]);
   const isLoading: Ref<boolean> = ref(true);
 
-  fetchIngredients(recipeId)
+  fetchIngredients(ingredientUrl)
     .then(
       (ingredientResponse: Ingredient[]) =>
         (ingredients.value = ingredientResponse)

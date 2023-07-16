@@ -39,7 +39,7 @@ import {
 import IngredientItem from "@/components/common/ingredientCard/IngredientItem.vue";
 
 interface Props {
-  recipeId: number;
+  ingredientUrl: string;
 }
 
 const props = defineProps<Props>();
@@ -47,5 +47,5 @@ const props = defineProps<Props>();
 const { isLoading, ingredients } = inject(
   injectionKey,
   useIngredientCardService
-)(props.recipeId);
+)(props.ingredientUrl);
 </script>

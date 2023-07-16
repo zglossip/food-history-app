@@ -11,7 +11,7 @@ import { generateIngredient } from "@tests/data/defaults";
 import { until } from "@vueuse/core";
 
 interface Givens {
-  recipeId: number;
+  ingredientUrl: string;
 }
 
 interface Stubs {
@@ -28,7 +28,10 @@ const setup = (
   givens: Partial<Givens> = {},
   stubs: Partial<Stubs> = {}
 ): Setup => {
-  const verifiedGivens: Givens = { ...{ recipeId: 1 }, ...givens };
+  const verifiedGivens: Givens = {
+    ...{ ingredientUrl: "www.test.com" },
+    ...givens,
+  };
   const verifiedStubs: Stubs = {
     ...{
       fetchIngredients: jest.fn().mockResolvedValue([generateIngredient()]),
@@ -41,7 +44,7 @@ const setup = (
   );
 
   const service: IngredientCardService = useIngredientCardService(
-    verifiedGivens.recipeId
+    verifiedGivens.ingredientUrl
   );
 
   return { service, givens: verifiedGivens, stubs: verifiedStubs };

@@ -1,7 +1,5 @@
 import { formatMeasurementText } from "@/components/common/ingredientCard/ingredientItemService";
-import { Ingredient } from "@/types/Ingredient";
 import { generateIngredient } from "@tests/data/defaults";
-import { Ref, ref } from "vue";
 
 describe("useIngredientItemService.ts", () => {
   it("formats with uom", () => {
