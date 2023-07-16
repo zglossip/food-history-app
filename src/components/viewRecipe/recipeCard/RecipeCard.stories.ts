@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/vue3";
 
 import RecipeCard from "./RecipeCard.vue";
-import { RecipeCardService, injectionKey } from "./recipeCardService";
+import { RecipeCardService, injectionKey } from "@/services/recipeCardService";
 import { generateRecipe } from "@tests/data/defaults";
 import { computed, provide } from "vue";
 

@@ -20,8 +20,8 @@
 
 <script setup lang="ts">
 import { inject } from "vue";
-import {IonSpinner, IonItem, IonLabel, IonList} from '@ionic/vue'
-import ButtonCard from '@/components/common/buttonCard/ButtonCard.vue'
+import { IonSpinner, IonItem, IonLabel, IonList } from "@ionic/vue";
+import ButtonCard from "@/components/common/buttonCard/ButtonCard.vue";
 import {
   injectionKey,
   useInstructionCardService,
@@ -39,5 +39,5 @@ const { isLoading, instructions } = inject(
   useInstructionCardService
 )(props.instructionUrl);
 
-defineEmits(['edit'])
+defineEmits(["edit"]);
 </script>

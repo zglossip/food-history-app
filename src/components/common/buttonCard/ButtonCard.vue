@@ -10,7 +10,10 @@
             <slot name="header" />
           </ion-col>
           <ion-col>
-            <ion-button @click="$emit('buttonClicked')" class="button-card-button">
+            <ion-button
+              @click="$emit('buttonClicked')"
+              class="button-card-button"
+            >
               {{ buttonText }}
             </ion-button>
           </ion-col>
@@ -18,7 +21,7 @@
       </ion-grid>
     </ion-card-header>
     <ion-card-content>
-        <slot />
+      <slot />
     </ion-card-content>
   </ion-card>
 </template>
@@ -32,7 +35,7 @@ import {
   IonCol,
   IonButton,
   IonCardContent,
-  IonCardTitle
+  IonCardTitle,
 } from "@ionic/vue";
 
 interface Props {
@@ -47,10 +50,10 @@ withDefaults(defineProps<Props>(), {
 
 <style scoped>
 .button-card-header {
-    margin-inline: 0 !important;
+  margin-inline: 0 !important;
 }
 
 .button-card-button {
-    float: right;
+  float: right;
 }
 </style>

@@ -26,14 +26,9 @@ import {
   injectionKey,
 } from "@/components/common/ingredientCard/ingredientCardService";
 import { inject, Fragment } from "vue";
-import {
-  IonList,
-  IonSpinner,
-  IonItem,
-  IonLabel,
-} from "@ionic/vue";
+import { IonList, IonSpinner, IonItem, IonLabel } from "@ionic/vue";
 import IngredientItem from "@/components/common/ingredientCard/IngredientItem.vue";
-import ButtonCard from "@/components/common/buttonCard/ButtonCard.vue"
+import ButtonCard from "@/components/common/buttonCard/ButtonCard.vue";
 
 interface Props {
   ingredientUrl: string;
@@ -46,5 +41,5 @@ const { isLoading, ingredients } = inject(
   useIngredientCardService
 )(props.ingredientUrl);
 
-defineEmits(['edit'])
+defineEmits(["edit"]);
 </script>
