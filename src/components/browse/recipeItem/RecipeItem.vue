@@ -4,7 +4,7 @@
       <ion-row>
         <ion-col>
           <ion-label>
-            <span>
+            <span class="recipe-item-title">
               {{ recipe.name }}
             </span>
             <p>
@@ -63,7 +63,11 @@ const {
 
 <style scoped>
 .recipe-item {
-    cursor: pointer;
+  cursor: pointer;
+}
+
+.recipe-item-title {
+  font-size: 1.5rem;
 }
 
 .recipe-item-arrow {
