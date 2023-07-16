@@ -1,9 +1,9 @@
-import type { Meta, StoryObj } from "@storybook/vue3";
-
-import RecipeCard from "./RecipeCard.vue";
+import { Meta, StoryObj } from "@storybook/vue3";
+import RecipeItem from "./RecipeItem.vue";
+import { computed, provide } from "vue";
 import { RecipeService, injectionKey } from "@/services/recipeService";
 import { generateRecipe } from "@tests/data/defaults";
-import { computed, provide } from "vue";
+import { action } from "@storybook/addon-actions";
 
 const TEST_RECIPE_NAME = "Fried Rice";
 const TEST_SERVING_TAG = "4 servings";
@@ -11,10 +11,9 @@ const TEST_CUISINE_TAG = "Cuisines: American, Chinese";
 const TEST_COURSE_TAG = "Courses: Main, Side";
 const TEST_TAG_TAG = "Tags: fav, St. Louis";
 
-const meta: Meta<typeof RecipeCard> = {
-  component: RecipeCard,
+const meta: Meta<typeof RecipeItem> = {
+  component: RecipeItem,
   argTypes: {
-    onEdit: { action: "edit clicked" },
     formattedCuisineTag: {
       options: [TEST_CUISINE_TAG, false],
       type: "select",
@@ -32,11 +31,11 @@ const meta: Meta<typeof RecipeCard> = {
 
 export default meta;
 
-type Story = StoryObj<typeof RecipeCard>;
+type Story = StoryObj<typeof RecipeItem>;
 
 const Template: Story = {
   render: (args: any) => ({
-    components: { RecipeCard },
+    components: { RecipeItem },
     setup: () => {
       provide(
         injectionKey,
@@ -45,13 +44,13 @@ const Template: Story = {
           formattedCuisineTag: computed(() => args.formattedCuisineTag),
           formattedCourseTag: computed(() => args.formattedCourseTag),
           formattedTagTag: computed(() => args.formattedTagTag),
-          navigate: () => ({}),
+          navigate: args.navigate,
         })
       );
 
       return { args };
     },
-    template: '<RecipeCard v-bind="args" />',
+    template: `<RecipeItem v-bind="args" />`,
   }),
   args: {
     recipe: generateRecipe({
@@ -61,6 +60,7 @@ const Template: Story = {
     formattedCuisineTag: TEST_CUISINE_TAG,
     formattedCourseTag: TEST_COURSE_TAG,
     formattedTagTag: TEST_TAG_TAG,
+    navigate: () => action("navigated")(),
   },
 };
 

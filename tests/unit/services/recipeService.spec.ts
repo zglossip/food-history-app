@@ -1,29 +1,39 @@
-import {
-  RecipeCardService,
-  useRecipeCardService,
-} from "@/services/recipeCardService";
+import { RecipeService, useRecipeService } from "@/services/recipeService";
 import { Recipe } from "@/types/Recipe";
 import { generateRecipe } from "@tests/data/defaults";
 import { toRef } from "vue";
+import type { Router } from "vue-router";
 
 interface Givens {
   recipe: Recipe;
 }
 
-interface Setup {
-  service: RecipeCardService;
-  givens: Givens;
+interface Stubs {
+  push: jest.Mock<VoidFunction>;
 }
 
-const setup = (givens: Partial<Givens> = {}): Setup => {
+interface Setup {
+  service: RecipeService;
+  givens: Givens;
+  stubs: Stubs;
+}
+
+const setup = (
+  givens: Partial<Givens> = {},
+  stubs: Partial<Stubs> = {}
+): Setup => {
   const verifiedGivens: Givens = { ...{ recipe: generateRecipe() }, ...givens };
+  const verifiedStubs: Stubs = { ...{ push: jest.fn() }, ...stubs };
+  const mockRouter = {
+    push: verifiedStubs.push,
+  } as unknown as Router;
 
-  const service = useRecipeCardService(toRef(verifiedGivens.recipe));
+  const service = useRecipeService(toRef(verifiedGivens.recipe), mockRouter);
 
-  return { service, givens: verifiedGivens };
+  return { service, givens: verifiedGivens, stubs: verifiedStubs };
 };
 
-describe("useRecipeCardService.ts", () => {
+describe("useRecipeService.ts", () => {
   it("formats servings", () => {
     const recipe: Recipe = generateRecipe({
       servingAmount: 5,
@@ -92,5 +102,18 @@ describe("useRecipeCardService.ts", () => {
   it("formats no tags", () => {
     const { service } = setup();
     expect(service.formattedTagTag.value).toBeFalsy;
+  });
+
+  it("navigates", async () => {
+    const id: number = 100;
+    const push = jest.fn();
+    const { service } = setup({ recipe: generateRecipe({ id: id }) }, { push });
+
+    service.navigate();
+
+    console.log("Mock push calls:", push.mock.calls);
+
+    expect(push).toHaveBeenCalledWith(`/recipe/${id}`);
+    expect(push).toHaveBeenCalledTimes(1);
   });
 });

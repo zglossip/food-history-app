@@ -21,10 +21,7 @@
 
 <script setup lang="ts">
 import { inject, toRefs } from "vue";
-import {
-  useRecipeCardService,
-  injectionKey,
-} from "@/services/recipeCardService";
+import { useRecipeService, injectionKey } from "@/services/recipeService";
 import { IonCardTitle, IonCardSubtitle } from "@ionic/vue";
 import ButtonCard from "@/components/common/buttonCard/ButtonCard.vue";
 import { Props } from "./Props";
@@ -37,17 +34,7 @@ const {
   formattedCuisineTag,
   formattedCourseTag,
   formattedTagTag,
-} = inject(injectionKey, useRecipeCardService)(recipe);
+} = inject(injectionKey, useRecipeService)(recipe);
 
 defineEmits(["edit"]);
 </script>
-
-<style scoped>
-.recipe-card-header {
-  margin-inline: 0 !important;
-}
-
-.edit-button {
-  float: right;
-}
-</style>

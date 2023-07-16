@@ -1,18 +1,21 @@
 import { Recipe } from "@/types/Recipe";
 import { ComputedRef, Ref, computed } from "vue";
+import { Router } from "vue-router";
 
 export const injectionKey = Symbol();
 
-export interface RecipeCardService {
+export interface RecipeService {
   formattedServingTag: ComputedRef<string>;
   formattedCuisineTag: ComputedRef<string | boolean>;
   formattedCourseTag: ComputedRef<string | boolean>;
   formattedTagTag: ComputedRef<string | boolean>;
+  navigate: VoidFunction;
 }
 
-export const useRecipeCardService = (
-  recipe: Ref<Recipe>
-): RecipeCardService => {
+export const useRecipeService = (
+  recipe: Ref<Recipe>,
+  router?: Router
+): RecipeService => {
   const formatTag = (
     tagName: string,
     tags: Array<string>
@@ -46,10 +49,15 @@ export const useRecipeCardService = (
     formatTag("Tag", recipe.value.tags)
   );
 
+  const navigate = (): void => {
+    router?.push(`/recipe/${recipe.value.id}`);
+  };
+
   return {
     formattedServingTag,
     formattedCuisineTag,
     formattedCourseTag,
     formattedTagTag,
+    navigate,
   };
 };
