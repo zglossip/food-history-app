@@ -24,4 +24,7 @@ export const useInstructionCardService = (
   return { instructions, isLoading };
 };
 
-export const formatInstruction = (position: number, instruction: string): string => `${position}: ${instruction}`
+export const formatInstruction = (
+  position: number,
+  instruction: string
+): string => `${position}: ${instruction}`;

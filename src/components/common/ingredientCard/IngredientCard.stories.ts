@@ -31,7 +31,7 @@ const Template: Story = {
     template: '<IngredientCard v-bind="args" />',
   }),
   args: {
-    ingredientUrl: 'www.test.com',
+    ingredientUrl: "www.test.com",
     isLoading: false,
     ingredients: [
       generateIngredient({
