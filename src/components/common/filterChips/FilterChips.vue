@@ -1,5 +1,5 @@
 <template>
-  <ion-card>
+  <ion-card class="filter-chips">
     <ion-card-content>
       <filter-chip-set
         :elements="courseTypes"
@@ -42,3 +42,10 @@ defineProps<Props>();
 const emit = defineEmits(["remove-chip"]);
 const close = (data: FilterChipData) => emit("remove-chip", data);
 </script>
+
+<style scoped>
+.filter-chips {
+  width: 100%;
+  margin: 0;
+}
+</style>
