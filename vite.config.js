@@ -3,10 +3,16 @@ import vue from "@vitejs/plugin-vue";
 import eslint from "vite-plugin-eslint";
 
 export default defineConfig({
+  base: "/fh",
   plugins: [
     vue(),
     eslint({
       exclude: ["/virtual:/**", "node_modules/**"],
     }),
   ],
+  resolve: {
+    alias: {
+      "@": "/src",
+    },
+  },
 });

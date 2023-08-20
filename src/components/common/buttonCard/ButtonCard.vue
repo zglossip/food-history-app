@@ -11,8 +11,8 @@
           </ion-col>
           <ion-col>
             <ion-button
-              @click="$emit('buttonClicked')"
               class="button-card-button"
+              @click="$emit('buttonClicked')"
             >
               {{ buttonText }}
             </ion-button>
@@ -45,7 +45,10 @@ interface Props {
 
 withDefaults(defineProps<Props>(), {
   buttonText: "EDIT",
+  headerText: "",
 });
+
+defineEmits(["buttonClicked"]);
 </script>
 
 <style scoped>

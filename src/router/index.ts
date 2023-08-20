@@ -4,7 +4,7 @@ import { RouteRecordRaw } from "vue-router";
 const routes: Array<RouteRecordRaw> = [
   {
     path: "/browse",
-    component: () => import("@/views/BrowseView.vue"),
+    component: () => import("@/views/browseView/BrowseView.vue"),
   },
   {
     path: "/recipe/:id",

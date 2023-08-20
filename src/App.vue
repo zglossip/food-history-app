@@ -28,22 +28,11 @@
 
     </ion-split-pane> -->
     <ion-router-outlet id="main-content" />
-    <ion-page>
-      <ion-header :translucent="true">
-        <ion-toolbar>
-          <ion-title>Browse</ion-title>
-        </ion-toolbar>
-      </ion-header>
-      <ion-content :fullscreen="true">
-        <recipe-card :recipe="generateRecipe()" />
-      </ion-content>
-    </ion-page>
   </ion-app>
 </template>
 
 <script setup lang="ts">
-import { generateRecipe } from "../tests/data/defaults";
-import RecipeCard from "./components/common/recipeCard/RecipeCard.vue";
+import { IonApp, IonRouterOutlet } from "@ionic/vue";
 </script>
 
 <style scoped>

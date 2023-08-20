@@ -44,7 +44,12 @@
           @remove-chip="removeChip"
         />
       </ion-row>
-      <ion-button @click="apply()" expand="full" size="large" class="apply-button">
+      <ion-button
+        @click="apply()"
+        expand="full"
+        size="large"
+        class="apply-button"
+      >
         APPLY
       </ion-button>
     </ion-grid>
