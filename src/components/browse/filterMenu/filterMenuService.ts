@@ -19,6 +19,7 @@ export interface FilterMenuService {
 export const injectionKey = Symbol();
 
 //TODO: Write tests
+//TODO Update Story with prop params
 export const useFilterMenuService = (
   startingName: string,
   startingCourseTypes: string[],
