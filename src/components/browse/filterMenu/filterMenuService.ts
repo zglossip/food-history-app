@@ -18,12 +18,22 @@ export interface FilterMenuService {
 
 export const injectionKey = Symbol();
 
-export const useFilterMenuService = (): FilterMenuService => {
+//TODO: Write tests
+export const useFilterMenuService = (
+  startingName: string,
+  startingCourseTypes: string[],
+  startingCuisineTypes: string[],
+  startingTags: string[]
+): FilterMenuService => {
   const currentFilterType = ref(FilterType.COURSE);
   const filterText = ref("");
-  const courseTypeFilters: Ref<string[]> = ref([]);
-  const cuisineTypeFilters: Ref<string[]> = ref([]);
-  const tagFilters: Ref<string[]> = ref([]);
+  const courseTypeFilters: Ref<string[]> = ref(
+    startingCourseTypes ? startingCourseTypes : []
+  );
+  const cuisineTypeFilters: Ref<string[]> = ref(
+    startingCuisineTypes ? startingCuisineTypes : []
+  );
+  const tagFilters: Ref<string[]> = ref(startingTags ? startingTags : []);
 
   const setCurrentFilterType = (_currentFilterType: FilterType) =>
     (currentFilterType.value = _currentFilterType);

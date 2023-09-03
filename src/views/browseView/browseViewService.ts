@@ -5,10 +5,10 @@ import { LocationQueryValue, useRoute } from "vue-router";
 
 export interface BrowseViewService {
   recipes: Ref<Recipe[]>;
-  name: Ref<string>;
-  courses: Ref<string[]>;
-  cuisines: Ref<string[]>;
-  tags: Ref<string[]>;
+  name: string;
+  courses: string[];
+  cuisines: string[];
+  tags: string[];
   fetchRecipes: VoidFunction;
 }
 
@@ -17,10 +17,10 @@ export const injectionKey = Symbol();
 //TODO: Write tests
 export const useBrowseMenuService = (): BrowseViewService => {
   const recipes: Ref<Recipe[]> = ref([]);
-  const name: Ref<string> = ref("");
-  const courses: Ref<string[]> = ref([]);
-  const cuisines: Ref<string[]> = ref([]);
-  const tags: Ref<string[]> = ref([]);
+  let name = "";
+  const courses: string[] = [];
+  const cuisines: string[] = [];
+  const tags: string[] = [];
 
   const route = useRoute();
   const nameQuery = route.query.nameQuery as string;
@@ -29,7 +29,7 @@ export const useBrowseMenuService = (): BrowseViewService => {
   const tagQuery = route.query.tagQuery as LocationQueryValue[];
 
   if (nameQuery) {
-    name.value = nameQuery;
+    name = nameQuery;
   }
 
   if (courseQuery) {
@@ -38,7 +38,7 @@ export const useBrowseMenuService = (): BrowseViewService => {
         return;
       }
 
-      courses.value.push(v.toString());
+      courses.push(v.toString());
     });
   }
 
@@ -48,7 +48,7 @@ export const useBrowseMenuService = (): BrowseViewService => {
         return;
       }
 
-      cuisines.value.push(v.toString());
+      cuisines.push(v.toString());
     });
   }
 
@@ -58,27 +58,27 @@ export const useBrowseMenuService = (): BrowseViewService => {
         return;
       }
 
-      tags.value.push(v.toString());
+      tags.push(v.toString());
     });
   }
 
   const fetchRecipes: VoidFunction = (): void => {
     let url = "/fhapi/recipe?";
 
-    if (name.value) {
-      url += `name=${name.value}`;
+    if (name) {
+      url += `name=${name}`;
     }
 
-    if (courses.value.length) {
-      courses.value.forEach((c: string) => (url += `course=${c}`));
+    if (courses.length) {
+      courses.forEach((c: string) => (url += `course=${c}`));
     }
 
-    if (cuisines.value.length) {
-      cuisines.value.forEach((c: string) => (url += `cuisine=${c}`));
+    if (cuisines.length) {
+      cuisines.forEach((c: string) => (url += `cuisine=${c}`));
     }
 
-    if (tags.value.length) {
-      tags.value.forEach((t: string) => (url += `tag=${t}`));
+    if (tags.length) {
+      tags.forEach((t: string) => (url += `tag=${t}`));
     }
 
     axios

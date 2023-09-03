@@ -80,10 +80,13 @@ import { add } from "ionicons/icons";
 import FilterChips from "@/components/common/filterChips/FilterChips.vue";
 
 interface Props {
-  contentId: string;
+  startingName: string;
+  startingCourseTypes: string[];
+  startingCuisineTypes: string[];
+  startingTags: string[];
 }
 
-defineProps<Props>();
+const props = defineProps<Props>();
 
 const emit = defineEmits(["apply"]);
 const apply = () =>
@@ -104,7 +107,12 @@ const {
   cuisineTypeFilters,
   tagFilters,
   removeChip,
-} = inject(injectionKey, useFilterMenuService)();
+} = inject(injectionKey, useFilterMenuService)(
+  props.startingName,
+  props.startingCourseTypes,
+  props.startingCuisineTypes,
+  props.startingTags
+);
 </script>
 
 <style scoped>
