@@ -9,6 +9,8 @@ export interface FilterMenuService {
   setCurrentFilterType: (_currentFilterType: FilterType) => void;
   filterText: Ref<string>;
   setFilterText: (_filterText: string) => void;
+  nameFilter: Ref<string>;
+  setNameFilter: (_nameFilter: string) => void;
   courseTypeFilters: Ref<string[]>;
   cuisineTypeFilters: Ref<string[]>;
   tagFilters: Ref<string[]>;
@@ -28,18 +30,17 @@ export const useFilterMenuService = (
 ): FilterMenuService => {
   const currentFilterType = ref(FilterType.COURSE);
   const filterText = ref("");
-  const courseTypeFilters: Ref<string[]> = ref(
-    startingCourseTypes ? startingCourseTypes : []
-  );
-  const cuisineTypeFilters: Ref<string[]> = ref(
-    startingCuisineTypes ? startingCuisineTypes : []
-  );
-  const tagFilters: Ref<string[]> = ref(startingTags ? startingTags : []);
+  const nameFilter = ref(startingName ?? "");
+  const courseTypeFilters: Ref<string[]> = ref(startingCourseTypes ?? []);
+  const cuisineTypeFilters: Ref<string[]> = ref(startingCuisineTypes ?? []);
+  const tagFilters: Ref<string[]> = ref(startingTags ?? []);
 
   const setCurrentFilterType = (_currentFilterType: FilterType) =>
     (currentFilterType.value = _currentFilterType);
   const setFilterText = (_filterText: string) =>
     (filterText.value = _filterText);
+  const setNameFilter = (_nameFilter: string) =>
+    (nameFilter.value = _nameFilter);
 
   const addFilter = () => {
     switch (currentFilterType.value) {
@@ -91,7 +92,9 @@ export const useFilterMenuService = (
     currentFilterType: readonly(currentFilterType),
     setCurrentFilterType,
     filterText: readonly(filterText),
+    nameFilter: readonly(nameFilter),
     setFilterText,
+    setNameFilter,
     courseTypeFilters: courseTypeFilters,
     cuisineTypeFilters: cuisineTypeFilters,
     tagFilters: tagFilters,

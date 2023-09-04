@@ -1,3 +1,4 @@
+import { BACKEND_BASE } from "@/services/constants";
 import { Recipe } from "@/types/Recipe";
 import axios from "axios";
 import { Ref, ref } from "vue";
@@ -63,7 +64,7 @@ export const useBrowseMenuService = (): BrowseViewService => {
   }
 
   const fetchRecipes: VoidFunction = (): void => {
-    let url = "/fhapi/recipe?";
+    let url = BACKEND_BASE + "/recipe?";
 
     if (name) {
       url += `name=${name}`;

@@ -32,6 +32,7 @@ const Template: Story = {
     setup: () => {
       const currentFilterType = ref(args.currentFilterType);
       const filterText = ref(args.filterText);
+      const nameFilter = ref(args.nameFilter);
       const courseTypeFilters = ref(args.courseTypeFilters);
       const cuisineTypeFilters = ref(args.cuisineTypeFilters);
       const tagFilters = ref(args.tagFilters);
@@ -49,6 +50,11 @@ const Template: Story = {
           setFilterText: (_filterText: string) => {
             action("set filter text")(_filterText);
             filterText.value = _filterText;
+          },
+          nameFilter: readonly(nameFilter),
+          setNameFilter: (_nameFilter: string) => {
+            action("set name filter")(_nameFilter);
+            nameFilter.value = _nameFilter;
           },
           courseTypeFilters: courseTypeFilters,
           cuisineTypeFilters: cuisineTypeFilters,
@@ -123,6 +129,7 @@ const Template: Story = {
     currentFilterType: FilterType.COURSE,
     filterText: "",
     filterOptions: [FilterType.COURSE, FilterType.CUISINE, FilterType.TAG],
+    nameFilter: "",
     courseTypeFilters: [],
     cuisineTypeFilters: [],
     tagFilters: [],

@@ -5,7 +5,7 @@
         <ion-title>Filter</ion-title>
       </ion-toolbar>
     </ion-header>
-    <ion-content class="ion-padding">
+    <ion-content>
       <filter-menu
         :starting-name="name"
         :starting-course-types="courses"
