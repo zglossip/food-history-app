@@ -67,19 +67,19 @@ export const useBrowseMenuService = (): BrowseViewService => {
     let url = BACKEND_BASE + "/recipe?";
 
     if (name) {
-      url += `name=${name}`;
+      url += `name=${name}&`;
     }
 
     if (courses.length) {
-      courses.forEach((c: string) => (url += `course=${c}`));
+      courses.forEach((c: string) => (url += `course=${c}&`));
     }
 
     if (cuisines.length) {
-      cuisines.forEach((c: string) => (url += `cuisine=${c}`));
+      cuisines.forEach((c: string) => (url += `cuisine=${c}&`));
     }
 
     if (tags.length) {
-      tags.forEach((t: string) => (url += `tag=${t}`));
+      tags.forEach((t: string) => (url += `tag=${t}&`));
     }
 
     axios
