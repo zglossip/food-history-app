@@ -44,6 +44,7 @@ import {
   IonItem,
 } from "@ionic/vue";
 import { arrowForward } from "ionicons/icons";
+import { useRouter } from "vue-router";
 
 interface Props {
   recipe: Recipe;
@@ -58,7 +59,7 @@ const {
   formattedCourseTag,
   formattedTagTag,
   navigate,
-} = inject(injectionKey, useRecipeService)(recipe);
+} = inject(injectionKey, useRecipeService)(recipe, useRouter());
 </script>
 
 <style scoped>
