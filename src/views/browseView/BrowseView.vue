@@ -11,7 +11,7 @@
         :starting-course-types="courses"
         :starting-cuisine-types="cuisines"
         :starting-tags="tags"
-        @apply="fetchRecipes"
+        @apply="applyFilters"
       />
     </ion-content>
   </ion-menu>
@@ -27,8 +27,8 @@
     <ion-content :fullscreen="true">
       <recipe-item
         v-for="recipe in recipes"
-        :recipe="recipe"
         :key="recipe.id"
+        :recipe="recipe"
       />
     </ion-content>
   </ion-page>
@@ -49,6 +49,6 @@ import RecipeItem from "@/components/browse/recipeItem/RecipeItem.vue";
 import FilterMenu from "@/components/browse/filterMenu/FilterMenu.vue";
 import { useBrowseMenuService } from "./browseViewService";
 
-const { recipes, name, courses, cuisines, tags, fetchRecipes } =
+const { recipes, name, courses, cuisines, tags, applyFilters } =
   useBrowseMenuService();
 </script>

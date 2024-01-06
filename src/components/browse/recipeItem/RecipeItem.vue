@@ -1,5 +1,5 @@
 <template>
-  <ion-item @click="navigate" class="recipe-item">
+  <ion-item class="recipe-item" @click="navigate">
     <ion-grid>
       <ion-row>
         <ion-col>

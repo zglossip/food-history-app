@@ -1,3 +1,4 @@
+import { Filters } from "@/components/browse/filterMenu/filterMenuService";
 import { BACKEND_BASE } from "@/services/constants";
 import { Recipe } from "@/types/Recipe";
 import axios from "axios";
@@ -6,11 +7,12 @@ import { LocationQueryValue, useRoute } from "vue-router";
 
 export interface BrowseViewService {
   recipes: Ref<Recipe[]>;
-  name: string;
-  courses: string[];
-  cuisines: string[];
-  tags: string[];
+  name: Ref<string>;
+  courses: Ref<string[]>;
+  cuisines: Ref<string[]>;
+  tags: Ref<string[]>;
   fetchRecipes: VoidFunction;
+  applyFilters: (filter: Filters) => void;
 }
 
 export const injectionKey = Symbol();
@@ -18,10 +20,10 @@ export const injectionKey = Symbol();
 //TODO: Write tests
 export const useBrowseMenuService = (): BrowseViewService => {
   const recipes: Ref<Recipe[]> = ref([]);
-  let name = "";
-  const courses: string[] = [];
-  const cuisines: string[] = [];
-  const tags: string[] = [];
+  const name: Ref<string> = ref("");
+  const courses: Ref<string[]> = ref([]);
+  const cuisines: Ref<string[]> = ref([]);
+  const tags: Ref<string[]> = ref([]);
 
   const route = useRoute();
   const nameQuery = route.query.nameQuery as string;
@@ -30,7 +32,7 @@ export const useBrowseMenuService = (): BrowseViewService => {
   const tagQuery = route.query.tagQuery as LocationQueryValue[];
 
   if (nameQuery) {
-    name = nameQuery;
+    name.value = nameQuery;
   }
 
   if (courseQuery) {
@@ -39,7 +41,7 @@ export const useBrowseMenuService = (): BrowseViewService => {
         return;
       }
 
-      courses.push(v.toString());
+      courses.value.push(v.toString());
     });
   }
 
@@ -49,7 +51,7 @@ export const useBrowseMenuService = (): BrowseViewService => {
         return;
       }
 
-      cuisines.push(v.toString());
+      cuisines.value.push(v.toString());
     });
   }
 
@@ -59,27 +61,27 @@ export const useBrowseMenuService = (): BrowseViewService => {
         return;
       }
 
-      tags.push(v.toString());
+      tags.value.push(v.toString());
     });
   }
 
   const fetchRecipes: VoidFunction = (): void => {
     let url = BACKEND_BASE + "/recipe?";
 
-    if (name) {
-      url += `name=${name}&`;
+    if (name.value) {
+      url += `name=${name.value}&`;
     }
 
-    if (courses.length) {
-      courses.forEach((c: string) => (url += `course=${c}&`));
+    if (courses.value.length) {
+      courses.value.forEach((c: string) => (url += `course=${c}&`));
     }
 
-    if (cuisines.length) {
-      cuisines.forEach((c: string) => (url += `cuisine=${c}&`));
+    if (cuisines.value.length) {
+      cuisines.value.forEach((c: string) => (url += `cuisine=${c}&`));
     }
 
-    if (tags.length) {
-      tags.forEach((t: string) => (url += `tag=${t}&`));
+    if (tags.value.length) {
+      tags.value.forEach((t: string) => (url += `tag=${t}&`));
     }
 
     axios
@@ -88,7 +90,15 @@ export const useBrowseMenuService = (): BrowseViewService => {
       .catch(() => console.error("Error fetching recipes"));
   };
 
+  const applyFilters = (filters: Filters): void => {
+    name.value = filters.nameFilter;
+    courses.value = filters.courseTypeFilters;
+    cuisines.value = filters.cuisineTypeFilters;
+    tags.value = filters.tagFilters;
+    fetchRecipes();
+  };
+
   fetchRecipes();
 
-  return { recipes, name, courses, cuisines, tags, fetchRecipes };
+  return { recipes, name, courses, cuisines, tags, fetchRecipes, applyFilters };
 };

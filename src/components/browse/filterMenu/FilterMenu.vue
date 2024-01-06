@@ -5,9 +5,9 @@
         label="Name"
         clear-input
         :model-value="nameFilter"
-        @update:model-value="setNameFilter"
         fill="solid"
         label-placement="stacked"
+        @update:model-value="setNameFilter"
       />
     </ion-item>
     <ion-item>
@@ -15,8 +15,8 @@
         label="Filter Type"
         placeholder="Select"
         :model-value="currentFilterType"
-        @update:modelValue="setCurrentFilterType"
         fill="solid"
+        @update:modelValue="setCurrentFilterType"
       >
         <ion-select-option
           v-for="filterOption in filterOptions"
@@ -31,8 +31,8 @@
       <ion-input
         :clear-input="true"
         :model-value="filterText"
-        @update:modelValue="setFilterText"
         fill="solid"
+        @update:modelValue="setFilterText"
       />
       <ion-button slot="end" @click="addFilter">
         <ion-icon :icon="add" />
@@ -47,7 +47,7 @@
       />
     </ion-item>
   </ion-list>
-  <ion-button @click="apply()" expand="full" size="large" class="apply-button">
+  <ion-button expand="full" size="large" class="apply-button" @click="apply">
     APPLY
   </ion-button>
 </template>
@@ -55,6 +55,7 @@
 <script setup lang="ts">
 import { inject } from "vue";
 import {
+  Filters,
   injectionKey,
   useFilterMenuService,
 } from "@/components/browse/filterMenu/filterMenuService";
@@ -80,13 +81,8 @@ interface Props {
 const props = defineProps<Props>();
 
 const emit = defineEmits(["apply"]);
-const apply = () =>
-  emit("apply", {
-    courseTypeFilters: courseTypeFilters.value,
-    cuisineTypeFilters: cuisineTypeFilters.value,
-    tagFilters: tagFilters.value,
-    nameFilter: nameFilter.value,
-  });
+
+const emitApply = (filters: Filters) => emit("apply", filters);
 
 const {
   filterOptions,
@@ -101,10 +97,12 @@ const {
   cuisineTypeFilters,
   tagFilters,
   removeChip,
+  apply,
 } = inject(injectionKey, useFilterMenuService)(
   props.startingName,
   props.startingCourseTypes,
   props.startingCuisineTypes,
-  props.startingTags
+  props.startingTags,
+  emitApply
 );
 </script>

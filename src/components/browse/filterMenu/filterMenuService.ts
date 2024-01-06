@@ -16,9 +16,17 @@ export interface FilterMenuService {
   tagFilters: Ref<string[]>;
   addFilter: () => void;
   removeChip: (data: FilterChipData) => void;
+  apply: VoidFunction;
 }
 
 export const injectionKey = Symbol();
+
+export interface Filters {
+  courseTypeFilters: Array<string>;
+  cuisineTypeFilters: Array<string>;
+  tagFilters: Array<string>;
+  nameFilter: string;
+}
 
 //TODO: Write tests
 //TODO Update Story with prop params
@@ -26,7 +34,8 @@ export const useFilterMenuService = (
   startingName: string,
   startingCourseTypes: string[],
   startingCuisineTypes: string[],
-  startingTags: string[]
+  startingTags: string[],
+  emitApply: (filters: Filters) => void
 ): FilterMenuService => {
   const currentFilterType = ref(FilterType.COURSE);
   const filterText = ref("");
@@ -87,6 +96,15 @@ export const useFilterMenuService = (
     }
   };
 
+  const apply = (): void => {
+    emitApply({
+      courseTypeFilters: courseTypeFilters.value,
+      cuisineTypeFilters: cuisineTypeFilters.value,
+      tagFilters: tagFilters.value,
+      nameFilter: nameFilter.value,
+    });
+  };
+
   return {
     filterOptions: FILTER_OPTIONS,
     currentFilterType: readonly(currentFilterType),
@@ -100,5 +118,6 @@ export const useFilterMenuService = (
     tagFilters: tagFilters,
     addFilter,
     removeChip,
+    apply,
   };
 };
