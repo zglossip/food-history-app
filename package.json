@@ -3,7 +3,8 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "dev": "vite --port=8080",
+    "dev": "vite --port=8081",
+    "dev:container": "vite --host=0.0.0.0 --port=8081",
     "build": "vite build",
     "preview": "vite preview",
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore --fix src",
