@@ -1,0 +1,34 @@
+# NOTE: Uncomment the storybook image to run storybook alongside webapp
+
+version: '3.8'
+
+services:
+  webapp:
+    build:
+      context: ../food-history-api
+      dockerfile: Dockerfile.dev
+    ports:
+      - "8080:8080"
+    volumes:
+      - ../food-history-api:/app
+      - ~/.nuget/packages:/root/.nuget/packages
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+  frontend:
+    build:
+      context: .
+      dockerfile: ./docker/Dockerfile.dev
+    ports:
+      - "8081:8081"
+    volumes:
+      - .:/app
+      - /app/node_modules
+  # storybook:
+  #   build:
+  #     context: .
+  #     dockerfile: ./docker/Dockerfile.storybook
+  #   ports:
+  #     - "6006:6006"
+  #   volumes:
+  #     - .:/app
+  #     - /app/node_modules
