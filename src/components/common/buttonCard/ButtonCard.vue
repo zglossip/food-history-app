@@ -1,7 +1,47 @@
+<script setup lang="ts">
+import {
+  IonCard,
+  IonCardHeader,
+  IonGrid,
+  IonRow,
+  IonCol,
+  IonButton,
+  IonCardContent,
+  IonCardTitle,
+} from "@ionic/vue";
+import {
+  useButtonCardService,
+  INJECTION_KEY,
+} from "@/components/common/buttonCard/buttonCardService";
+import { inject } from "vue";
+
+//PROPS
+
+interface Props {
+  buttonText?: string;
+  headerText?: string;
+}
+
+withDefaults(defineProps<Props>(), {
+  buttonText: "EDIT",
+  headerText: "",
+});
+
+//EMITS
+
+const emit = defineEmits(["click"]);
+
+const clickEmit = () => emit("click");
+
+//SERVICE
+
+const { onClick } = inject(INJECTION_KEY, useButtonCardService)(clickEmit);
+</script>
+
 <template>
   <ion-card>
     <ion-card-header>
-      <ion-grid class="button-card-header">
+      <ion-grid :class="$style.buttonCardHeader">
         <ion-row>
           <ion-col>
             <ion-card-title v-if="headerText">
@@ -10,10 +50,7 @@
             <slot name="header" />
           </ion-col>
           <ion-col>
-            <ion-button
-              class="button-card-button"
-              @click="$emit('buttonClicked')"
-            >
+            <ion-button :class="$style.buttonCardButton" @click="onClick">
               {{ buttonText }}
             </ion-button>
           </ion-col>
@@ -26,37 +63,12 @@
   </ion-card>
 </template>
 
-<script setup lang="ts">
-import {
-  IonCard,
-  IonCardHeader,
-  IonGrid,
-  IonRow,
-  IonCol,
-  IonButton,
-  IonCardContent,
-  IonCardTitle,
-} from "@ionic/vue";
-
-interface Props {
-  buttonText?: string;
-  headerText?: string;
-}
-
-withDefaults(defineProps<Props>(), {
-  buttonText: "EDIT",
-  headerText: "",
-});
-
-defineEmits(["buttonClicked"]);
-</script>
-
-<style scoped>
-.button-card-header {
+<style module>
+.buttonCardHeader {
   margin-inline: 0 !important;
 }
 
-.button-card-button {
+.buttonCardButton {
   float: right;
 }
 </style>

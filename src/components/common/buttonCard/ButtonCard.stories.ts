@@ -1,42 +1,45 @@
 import { Meta, StoryObj } from "@storybook/vue3";
 import ButtonCard from "./ButtonCard.vue";
 import { IonCardSubtitle, IonCardTitle } from "@ionic/vue";
+import { provide } from "vue";
+import { INJECTION_KEY } from "./buttonCardService";
+import { action } from "@storybook/addon-actions";
+
+//STUB
+
+export const stubButtonCardService = () => {
+  provide(INJECTION_KEY, () => ({
+    onClick: action("clicked"),
+  }));
+};
+
+//META
 
 const meta: Meta<typeof ButtonCard> = {
+  title: "Common/Button Card",
   component: ButtonCard,
-  argTypes: { onClick: { action: "button clicked" } },
+  excludeStories: /stubButtonCardService/,
+  render: (args: any) => ({
+    components: { ButtonCard },
+    setup: () => {
+      stubButtonCardService();
+      return { ...args };
+    },
+    template: `
+      <ButtonCard :button-text="buttonText" :header-text="headerText" >
+        {{content}}
+      </ButtonCard>
+    `,
+  }),
 };
 
 export default meta;
 
+//STORIES
+
 type Story = StoryObj<typeof ButtonCard>;
 
-//TODO: Why is this here?
-// const generateTemplate = (
-//   template: string,
-//   headerProp: string | null
-// ): Story => ({
-//   render: (args: any) => ({
-//     components: { ButtonCard },
-//     setup: () => ({ args }),
-//     template,
-//   }),
-//   args: {
-//     buttonText: "ACTION",
-//     headerText: headerProp,
-//   },
-// });
-
 export const HeaderProp: Story = {
-  render: (args: any) => ({
-    components: { ButtonCard },
-    setup: () => ({ args }),
-    template: `
-          <ButtonCard v-bind="args" >
-            {{args.content}}
-          </ButtonCard>
-        `,
-  }),
   args: {
     headerText: "Header",
     content: "Some Content",
@@ -46,13 +49,13 @@ export const HeaderProp: Story = {
 export const HeaderSlot: Story = {
   render: (args: any) => ({
     components: { ButtonCard, IonCardTitle, IonCardSubtitle },
-    setup: () => ({ args }),
+    setup: () => ({ ...args }),
     template: `
-        <buttonCard v-bind="args" >
+        <buttonCard :button-text="buttonText" :header-text="headerText">
           <template v-slot:header>
             ${args.headerHtml}
           </template>
-          {{args.content}}
+          {{content}}
         </ButtonCard>
         `,
   }),
@@ -66,15 +69,6 @@ export const HeaderSlot: Story = {
 };
 
 export const CustomButtonText: Story = {
-  render: (args: any) => ({
-    components: { ButtonCard },
-    setup: () => ({ args }),
-    template: `
-        <ButtonCard v-bind="args" >
-          {{args.content}}
-        </ButtonCard>
-      `,
-  }),
   args: {
     content: "Some Content",
     buttonText: "CUSTOM",
