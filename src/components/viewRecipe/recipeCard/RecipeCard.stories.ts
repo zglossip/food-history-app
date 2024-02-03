@@ -46,7 +46,7 @@ const Template: Story = {
           formattedCourseTag: computed(() => args.formattedCourseTag),
           formattedTagTag: computed(() => args.formattedTagTag),
           navigate: () => ({}),
-        })
+        }),
       );
 
       return { args };

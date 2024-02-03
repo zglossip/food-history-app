@@ -26,7 +26,7 @@ interface Setup {
 
 const setup = (
   givens: Partial<Givens> = {},
-  stubs: Partial<Stubs> = {}
+  stubs: Partial<Stubs> = {},
 ): Setup => {
   const verifiedGivens: Givens = {
     ...{ ingredientUrl: "www.test.com" },
@@ -40,11 +40,11 @@ const setup = (
   };
 
   (fetchIngredients as jest.Mock).mockImplementation(
-    verifiedStubs.fetchIngredients
+    verifiedStubs.fetchIngredients,
   );
 
   const service: IngredientCardService = useIngredientCardService(
-    verifiedGivens.ingredientUrl
+    verifiedGivens.ingredientUrl,
   );
 
   return { service, givens: verifiedGivens, stubs: verifiedStubs };

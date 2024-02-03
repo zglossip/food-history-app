@@ -13,9 +13,9 @@ const get = async <T, K>(url: string, d: K): Promise<T | K> => {
 };
 
 export const fetchIngredients = async (
-  ingredientUrl: string
+  ingredientUrl: string,
 ): Promise<Ingredient[]> => get<Ingredient[], Ingredient[]>(ingredientUrl, []);
 
 export const fetchInstructions = async (
-  instructionUrl: string
+  instructionUrl: string,
 ): Promise<string[]> => get<string[], string[]>(instructionUrl, []);

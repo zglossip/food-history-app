@@ -14,7 +14,7 @@
     "noEmit": true,
     "paths": {
       "@/*": ["./src/*"],
-      "@tests/*": ["./tests/*"]
+      "@tests/*": ["./tests/*"],
     },
     "allowJs": true,
   },
@@ -23,7 +23,7 @@
     "src/**/*.tsx",
     "src/**/*.vue",
     "tests/**/*.ts",
-    "tests/**/*.tsx"
+    "tests/**/*.tsx",
   ],
   "references": [{ "path": "./tsconfig.node.json" }],
 }

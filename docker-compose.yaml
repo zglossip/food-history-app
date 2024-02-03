@@ -1,6 +1,6 @@
 # NOTE: Uncomment the storybook image to run storybook alongside webapp
 
-version: '3.8'
+version: "3.8"
 
 services:
   webapp:

@@ -9,7 +9,7 @@ export interface InstructionCardService {
 }
 
 export const useInstructionCardService = (
-  instructionUrl: string
+  instructionUrl: string,
 ): InstructionCardService => {
   const instructions: Ref<string[]> = ref([]);
   const isLoading: Ref<boolean> = ref(true);
@@ -17,7 +17,7 @@ export const useInstructionCardService = (
   fetchInstructions(instructionUrl)
     .then(
       (instructionResponse: string[]) =>
-        (instructions.value = instructionResponse)
+        (instructions.value = instructionResponse),
     )
     .finally(() => (isLoading.value = false));
 
@@ -26,5 +26,5 @@ export const useInstructionCardService = (
 
 export const formatInstruction = (
   position: number,
-  instruction: string
+  instruction: string,
 ): string => `${position}: ${instruction}`;

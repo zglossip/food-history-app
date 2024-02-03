@@ -6,13 +6,13 @@
   "scripts": {
     "dev": "vite --port=8081",
     "dev:container": "vite --host=0.0.0.0 --port=8081",
-    "build": "vite build",
+    "build": "vue-tsc && vite build",
     "preview": "vite preview",
-    "lint": "eslint --ext .js,.vue --ignore-path .gitignore --fix src",
-    "format": "prettier .  --write",
+    "test:unit": "vitest",
+    "lint": "eslint . --fix src",
+    "format": "prettier .  --write --check --log-level warn",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build",
-    "test": "jest --transformIgnorePatterns \"node_modules/(?!axios)/\""
+    "build-storybook": "storybook build"
   },
   "dependencies": {
     "@capacitor/app": "5.0.6",

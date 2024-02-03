@@ -23,7 +23,7 @@ const Template: Story = {
         (): IngredientCardService => ({
           isLoading: ref(args.isLoading),
           ingredients: ref(args.ingredients),
-        })
+        }),
       );
 
       return { args };

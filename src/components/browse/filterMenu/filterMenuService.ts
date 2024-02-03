@@ -34,7 +34,7 @@ export const useFilterMenuService = (
   startingCourseTypes: string[],
   startingCuisineTypes: string[],
   startingTags: string[],
-  emitApply: (filters: Filters) => void
+  emitApply: (filters: Filters) => void,
 ): FilterMenuService => {
   const currentFilterType = ref(FilterType.COURSE);
   const filterText = ref("");
@@ -79,12 +79,12 @@ export const useFilterMenuService = (
     switch (data.type) {
       case FilterType.COURSE:
         courseTypeFilters.value = courseTypeFilters.value.filter(
-          (a) => a !== data.value
+          (a) => a !== data.value,
         );
         break;
       case FilterType.CUISINE:
         cuisineTypeFilters.value = cuisineTypeFilters.value.filter(
-          (a) => a !== data.value
+          (a) => a !== data.value,
         );
         break;
       case FilterType.TAG:

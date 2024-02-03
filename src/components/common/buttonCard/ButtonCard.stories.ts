@@ -11,20 +11,21 @@ export default meta;
 
 type Story = StoryObj<typeof ButtonCard>;
 
-const generateTemplate = (
-  template: string,
-  headerProp: string | null
-): Story => ({
-  render: (args: any) => ({
-    components: { ButtonCard },
-    setup: () => ({ args }),
-    template,
-  }),
-  args: {
-    buttonText: "ACTION",
-    headerText: headerProp,
-  },
-});
+//TODO: Why is this here?
+// const generateTemplate = (
+//   template: string,
+//   headerProp: string | null
+// ): Story => ({
+//   render: (args: any) => ({
+//     components: { ButtonCard },
+//     setup: () => ({ args }),
+//     template,
+//   }),
+//   args: {
+//     buttonText: "ACTION",
+//     headerText: headerProp,
+//   },
+// });
 
 export const HeaderProp: Story = {
   render: (args: any) => ({

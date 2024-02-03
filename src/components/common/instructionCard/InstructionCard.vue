@@ -36,7 +36,7 @@ const props = defineProps<Props>();
 
 const { isLoading, instructions } = inject(
   injectionKey,
-  useInstructionCardService
+  useInstructionCardService,
 )(props.instructionUrl);
 
 defineEmits(["edit"]);

@@ -68,7 +68,7 @@ const Template: Story = {
               case FilterType.COURSE:
                 if (
                   courseTypeFilters.value.find(
-                    (a: any) => a === filterText.value
+                    (a: any) => a === filterText.value,
                   )
                 ) {
                   break;
@@ -78,7 +78,7 @@ const Template: Story = {
               case FilterType.CUISINE:
                 if (
                   cuisineTypeFilters.value.find(
-                    (a: any) => a === filterText.value
+                    (a: any) => a === filterText.value,
                   )
                 ) {
                   break;
@@ -100,25 +100,25 @@ const Template: Story = {
             switch (data.type) {
               case FilterType.COURSE:
                 courseTypeFilters.value = courseTypeFilters.value.filter(
-                  (a: string) => a !== data.value
+                  (a: string) => a !== data.value,
                 );
                 break;
               case FilterType.CUISINE:
                 cuisineTypeFilters.value = cuisineTypeFilters.value.filter(
-                  (a: string) => a !== data.value
+                  (a: string) => a !== data.value,
                 );
                 break;
               case FilterType.TAG:
                 tagFilters.value = tagFilters.value.filter(
-                  (a: string) => a !== data.value
+                  (a: string) => a !== data.value,
                 );
                 break;
               default:
                 return;
             }
           },
-          apply: action('apply')
-        })
+          apply: action("apply"),
+        }),
       );
 
       return { args };

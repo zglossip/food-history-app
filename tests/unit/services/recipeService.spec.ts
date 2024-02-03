@@ -20,7 +20,7 @@ interface Setup {
 
 const setup = (
   givens: Partial<Givens> = {},
-  stubs: Partial<Stubs> = {}
+  stubs: Partial<Stubs> = {},
 ): Setup => {
   const verifiedGivens: Givens = { ...{ recipe: generateRecipe() }, ...givens };
   const verifiedStubs: Stubs = { ...{ push: jest.fn() }, ...stubs };
@@ -55,7 +55,7 @@ describe("useRecipeService.ts", () => {
     });
     const { service } = setup({ recipe });
     expect(service.formattedCuisineTag.value).toBe(
-      "Cusines: Test Cuisine 1, Test Cuisine 2"
+      "Cusines: Test Cuisine 1, Test Cuisine 2",
     );
   });
 
@@ -76,7 +76,7 @@ describe("useRecipeService.ts", () => {
     });
     const { service } = setup({ recipe });
     expect(service.formattedCourseTag.value).toBe(
-      "Courses: Test Course 1, Test Course 2"
+      "Courses: Test Course 1, Test Course 2",
     );
   });
 

@@ -14,11 +14,11 @@ export interface RecipeService {
 
 export const useRecipeService = (
   recipe: Ref<Recipe>,
-  router?: Router
+  router?: Router,
 ): RecipeService => {
   const formatTag = (
     tagName: string,
-    tags: Array<string>
+    tags: Array<string>,
   ): string | boolean => {
     if (!tags || tags.length === 0) {
       return false;
@@ -29,7 +29,7 @@ export const useRecipeService = (
     }
 
     return `${tagName}s: ${tags.reduce(
-      (prev: string, cur: string) => `${prev}, ${cur}`
+      (prev: string, cur: string) => `${prev}, ${cur}`,
     )}`;
   };
 
@@ -38,15 +38,15 @@ export const useRecipeService = (
   });
 
   const formattedCuisineTag: ComputedRef<string | boolean> = computed(() =>
-    formatTag("Cusine", recipe.value.cuisineTypes)
+    formatTag("Cusine", recipe.value.cuisineTypes),
   );
 
   const formattedCourseTag: ComputedRef<string | boolean> = computed(() =>
-    formatTag("Course", recipe.value.courseTypes)
+    formatTag("Course", recipe.value.courseTypes),
   );
 
   const formattedTagTag: ComputedRef<string | boolean> = computed(() =>
-    formatTag("Tag", recipe.value.tags)
+    formatTag("Tag", recipe.value.tags),
   );
 
   const navigate = (): void => {

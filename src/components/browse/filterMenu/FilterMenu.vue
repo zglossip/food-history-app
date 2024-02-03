@@ -103,6 +103,6 @@ const {
   props.startingCourseTypes,
   props.startingCuisineTypes,
   props.startingTags,
-  emitApply
+  emitApply,
 );
 </script>

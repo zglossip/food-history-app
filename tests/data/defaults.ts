@@ -21,7 +21,7 @@ const DEFAULT_INGREDIENT: Ingredient = {
 };
 
 export const generateIngredient = (
-  ingredient: Partial<Ingredient> = {}
+  ingredient: Partial<Ingredient> = {},
 ): Ingredient => ({
   ...DEFAULT_INGREDIENT,
   ...ingredient,

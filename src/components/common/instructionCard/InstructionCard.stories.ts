@@ -24,7 +24,7 @@ const Template: Story = {
         (): InstructionCardService => ({
           isLoading: ref(args.isLoading),
           instructions: ref(args.instructions),
-        })
+        }),
       );
 
       return { args };

@@ -10,7 +10,7 @@ export interface IngredientCardService {
 }
 
 export const useIngredientCardService = (
-  ingredientUrl: string
+  ingredientUrl: string,
 ): IngredientCardService => {
   const ingredients: Ref<Ingredient[]> = ref([]);
   const isLoading: Ref<boolean> = ref(true);
@@ -18,7 +18,7 @@ export const useIngredientCardService = (
   fetchIngredients(ingredientUrl)
     .then(
       (ingredientResponse: Ingredient[]) =>
-        (ingredients.value = ingredientResponse)
+        (ingredients.value = ingredientResponse),
     )
     .finally(() => (isLoading.value = false));
 
