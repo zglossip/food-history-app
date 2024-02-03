@@ -117,6 +117,7 @@ const Template: Story = {
                 return;
             }
           },
+          apply: action('apply')
         })
       );
 

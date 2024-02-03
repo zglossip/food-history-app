@@ -29,7 +29,6 @@ export interface Filters {
 }
 
 //TODO: Write tests
-//TODO Update Story with prop params
 export const useFilterMenuService = (
   startingName: string,
   startingCourseTypes: string[],
