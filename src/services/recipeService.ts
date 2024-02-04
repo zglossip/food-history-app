@@ -10,11 +10,13 @@ export interface RecipeService {
   formattedCourseTag: ComputedRef<string | boolean>;
   formattedTagTag: ComputedRef<string | boolean>;
   navigate: VoidFunction;
+  onClick: () => void;
 }
 
 export const useRecipeService = (
   recipe: Ref<Recipe>,
   router?: Router,
+  editEmit?: () => void,
 ): RecipeService => {
   const formatTag = (
     tagName: string,
@@ -53,11 +55,18 @@ export const useRecipeService = (
     router?.push(`/recipe/${recipe.value.id}`);
   };
 
+  const onClick = editEmit
+    ? () => editEmit()
+    : () => {
+        throw Error("No emit provided");
+      };
+
   return {
     formattedServingTag,
     formattedCuisineTag,
     formattedCourseTag,
     formattedTagTag,
     navigate,
+    onClick,
   };
 };

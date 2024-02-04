@@ -22,6 +22,7 @@ const stubRecipeService = (args: any) => {
       formattedCourseTag: computed(() => args.formattedCourseTag),
       formattedTagTag: computed(() => args.formattedTagTag),
       navigate: args.navigate,
+      onClick: () => {},
     }),
   );
 };

@@ -1,5 +1,33 @@
+<script setup lang="ts">
+import { inject, toRefs } from "vue";
+import { useRecipeService, injectionKey } from "@/services/recipeService";
+import { IonCardTitle, IonCardSubtitle } from "@ionic/vue";
+import ButtonCard from "@/components/common/buttonCard/ButtonCard.vue";
+import { Props } from "./Props";
+
+//PROPS
+
+const props = defineProps<Props>();
+const { recipe } = toRefs(props);
+
+//EMITS
+
+const emit = defineEmits(["edit"]);
+const editEmit = () => emit("edit");
+
+//SERVICE
+
+const {
+  formattedServingTag,
+  formattedCuisineTag,
+  formattedCourseTag,
+  formattedTagTag,
+  onClick,
+} = inject(injectionKey, useRecipeService)(recipe, undefined, editEmit);
+</script>
+
 <template>
-  <button-card @click="$emit('edit')">
+  <button-card @click="onClick">
     <template #header>
       <ion-card-title>
         <span>{{ recipe.name }}</span>
@@ -18,23 +46,3 @@
     </div>
   </button-card>
 </template>
-
-<script setup lang="ts">
-import { inject, toRefs } from "vue";
-import { useRecipeService, injectionKey } from "@/services/recipeService";
-import { IonCardTitle, IonCardSubtitle } from "@ionic/vue";
-import ButtonCard from "@/components/common/buttonCard/ButtonCard.vue";
-import { Props } from "./Props";
-
-const props = defineProps<Props>();
-const { recipe } = toRefs(props);
-
-const {
-  formattedServingTag,
-  formattedCuisineTag,
-  formattedCourseTag,
-  formattedTagTag,
-} = inject(injectionKey, useRecipeService)(recipe);
-
-defineEmits(["edit"]);
-</script>
