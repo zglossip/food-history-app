@@ -1,10 +1,45 @@
+<script setup lang="ts">
+import { injectionKey, useRecipeService } from "@/services/recipeService";
+import { Recipe } from "@/types/Recipe";
+import { inject, toRefs } from "vue";
+import {
+  IonGrid,
+  IonRow,
+  IonCol,
+  IonIcon,
+  IonLabel,
+  IonItem,
+} from "@ionic/vue";
+import { arrowForward } from "ionicons/icons";
+import { useRouter } from "vue-router";
+
+//PROPS
+
+interface Props {
+  recipe: Recipe;
+}
+
+const props = defineProps<Props>();
+const { recipe } = toRefs(props);
+
+//SERVICE
+
+const {
+  formattedServingTag,
+  formattedCuisineTag,
+  formattedCourseTag,
+  formattedTagTag,
+  navigate,
+} = inject(injectionKey, useRecipeService)(recipe, useRouter());
+</script>
+
 <template>
-  <ion-item class="recipe-item" @click="navigate">
+  <ion-item :class="$style.recipeItem" @click="navigate">
     <ion-grid>
       <ion-row>
         <ion-col>
           <ion-label>
-            <span class="recipe-item-title">
+            <span :class="$style.recipeItemTitle">
               {{ recipe.name }}
             </span>
             <p>
@@ -23,7 +58,7 @@
             </p>
           </ion-label>
         </ion-col>
-        <ion-col size="auto" class="recipe-item-arrow">
+        <ion-col size="auto" :class="$style.recipeItemArrow">
           <ion-icon :icon="arrowForward" size="large" />
         </ion-col>
       </ion-row>
@@ -31,47 +66,16 @@
   </ion-item>
 </template>
 
-<script setup lang="ts">
-import { injectionKey, useRecipeService } from "@/services/recipeService";
-import { Recipe } from "@/types/Recipe";
-import { inject, toRefs } from "vue";
-import {
-  IonGrid,
-  IonRow,
-  IonCol,
-  IonIcon,
-  IonLabel,
-  IonItem,
-} from "@ionic/vue";
-import { arrowForward } from "ionicons/icons";
-import { useRouter } from "vue-router";
-
-interface Props {
-  recipe: Recipe;
-}
-
-const props = defineProps<Props>();
-const { recipe } = toRefs(props);
-
-const {
-  formattedServingTag,
-  formattedCuisineTag,
-  formattedCourseTag,
-  formattedTagTag,
-  navigate,
-} = inject(injectionKey, useRecipeService)(recipe, useRouter());
-</script>
-
-<style scoped>
-.recipe-item {
+<style module>
+.recipeItem {
   cursor: pointer;
 }
 
-.recipe-item-title {
+.recipeItemTitle {
   font-size: 1.5rem;
 }
 
-.recipe-item-arrow {
+.recipeItemArrow {
   display: flex;
   align-items: center;
   float: right;

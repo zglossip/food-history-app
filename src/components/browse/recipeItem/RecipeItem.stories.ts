@@ -11,7 +11,23 @@ const TEST_CUISINE_TAG = "Cuisines: American, Chinese";
 const TEST_COURSE_TAG = "Courses: Main, Side";
 const TEST_TAG_TAG = "Tags: fav, St. Louis";
 
+//STUBS
+
+const stubRecipeService = (args: any) => {
+  provide(
+    injectionKey,
+    (): RecipeService => ({
+      formattedServingTag: computed(() => args.formattedServingTag),
+      formattedCuisineTag: computed(() => args.formattedCuisineTag),
+      formattedCourseTag: computed(() => args.formattedCourseTag),
+      formattedTagTag: computed(() => args.formattedTagTag),
+      navigate: args.navigate,
+    }),
+  );
+};
+
 const meta: Meta<typeof RecipeItem> = {
+  title: "Browse/Recipe Item",
   component: RecipeItem,
   argTypes: {
     formattedCuisineTag: {
@@ -27,30 +43,13 @@ const meta: Meta<typeof RecipeItem> = {
       type: "select",
     },
   },
-};
-
-export default meta;
-
-type Story = StoryObj<typeof RecipeItem>;
-
-const Template: Story = {
   render: (args: any) => ({
     components: { RecipeItem },
     setup: () => {
-      provide(
-        injectionKey,
-        (): RecipeService => ({
-          formattedServingTag: computed(() => args.formattedServingTag),
-          formattedCuisineTag: computed(() => args.formattedCuisineTag),
-          formattedCourseTag: computed(() => args.formattedCourseTag),
-          formattedTagTag: computed(() => args.formattedTagTag),
-          navigate: args.navigate,
-        }),
-      );
-
-      return { args };
+      stubRecipeService(args);
+      return { ...args };
     },
-    template: `<RecipeItem v-bind="args" />`,
+    template: `<RecipeItem :recipe="recipe" />`,
   }),
   args: {
     recipe: generateRecipe({
@@ -64,22 +63,20 @@ const Template: Story = {
   },
 };
 
-export const Default: Story = {
-  ...Template,
-};
+export default meta;
+
+type Story = StoryObj<typeof RecipeItem>;
+
+export const Default: Story = {};
 
 export const OneMissing: Story = {
-  ...Template,
   args: {
-    ...Template.args,
     formattedTagTag: false,
   },
 };
 
 export const AllMissing: Story = {
-  ...Template,
   args: {
-    ...Template.args,
     formattedCuisineTag: false,
     formattedCourseTag: false,
     formattedTagTag: false,
