@@ -1,5 +1,3 @@
-# NOTE: Uncomment the storybook image to run storybook alongside webapp
-
 version: "3.8"
 
 services:
@@ -17,18 +15,9 @@ services:
   frontend:
     build:
       context: .
-      dockerfile: ./docker/Dockerfile.dev
+      dockerfile: Dockerfile.dev
     ports:
       - "8081:8081"
     volumes:
       - .:/app
       - /app/node_modules
-  # storybook:
-  #   build:
-  #     context: .
-  #     dockerfile: ./docker/Dockerfile.storybook
-  #   ports:
-  #     - "6006:6006"
-  #   volumes:
-  #     - .:/app
-  #     - /app/node_modules

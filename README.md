@@ -44,13 +44,8 @@ I've set up a Docker Compose config to load both the frontend's and API's live d
 
 - Requires Docker Desktop
 - Requires food-history-api in same parent directory in food-history-app
-- Run `docker build -f docker/Dockerfile.base -t fh-fe-base:latest .` to create frontend base image before running docker-compose.yaml
 - Run `docker compose up`
 - Application will be hosted at `http://localhost:8081`
-
-#### Storybook
-
-There is an option to also include a Storybook image, but I've found it takes up too much RAM to run everything at once. If you are interested, though, it is commended out in the `docker-compose.yaml` file.\
 
 ## Release History
 

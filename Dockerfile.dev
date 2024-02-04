@@ -9,3 +9,9 @@ COPY package*.json .
 
 # Install dependencies
 RUN npm ci
+
+# Expose port 8081
+EXPOSE 8081
+
+# Start the application
+CMD ["npm", "run", "dev:container"]
