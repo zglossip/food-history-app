@@ -1,5 +1,36 @@
+<script setup lang="ts">
+import { inject } from "vue";
+import { IonSpinner, IonItem, IonLabel, IonList } from "@ionic/vue";
+import ButtonCard from "@/components/common/buttonCard/ButtonCard.vue";
+import {
+  injectionKey,
+  useInstructionCardService,
+  formatInstruction,
+} from "@/components/common/instructionCard/instructionCardService";
+
+//PROPS
+
+interface Props {
+  instructionUrl: string;
+}
+
+const props = defineProps<Props>();
+
+//EMITS
+
+const emit = defineEmits(["edit"]);
+const editEmit = () => emit("edit");
+
+//SERVICE
+
+const { isLoading, instructions, onClick } = inject(
+  injectionKey,
+  useInstructionCardService,
+)(props.instructionUrl, editEmit);
+</script>
+
 <template>
-  <button-card header-text="Instructions" @click="$emit('edit')">
+  <button-card header-text="Instructions" @click="onClick">
     <div v-if="isLoading">
       <ion-spinner />
     </div>
@@ -17,27 +48,3 @@
     </div>
   </button-card>
 </template>
-
-<script setup lang="ts">
-import { inject } from "vue";
-import { IonSpinner, IonItem, IonLabel, IonList } from "@ionic/vue";
-import ButtonCard from "@/components/common/buttonCard/ButtonCard.vue";
-import {
-  injectionKey,
-  useInstructionCardService,
-  formatInstruction,
-} from "@/components/common/instructionCard/instructionCardService";
-
-interface Props {
-  instructionUrl: string;
-}
-
-const props = defineProps<Props>();
-
-const { isLoading, instructions } = inject(
-  injectionKey,
-  useInstructionCardService,
-)(props.instructionUrl);
-
-defineEmits(["edit"]);
-</script>

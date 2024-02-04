@@ -5,28 +5,30 @@ import {
   injectionKey,
 } from "@/components/common/instructionCard/instructionCardService";
 import { provide, ref } from "vue";
+import { action } from "@storybook/addon-actions";
 
-const meta: Meta<typeof InstructionCard> = {
-  component: InstructionCard,
-  argTypes: { onEdit: { action: "edit clicked" } },
+//STUBS
+
+const stubInstructionCardService = (args: any) => {
+  provide(
+    injectionKey,
+    (): InstructionCardService => ({
+      isLoading: ref(args.isLoading),
+      instructions: ref(args.instructions),
+      onClick: action("button clicked"),
+    }),
+  );
 };
 
-export default meta;
+//META
 
-type Story = StoryObj<typeof InstructionCard>;
-
-const Template: Story = {
+const meta: Meta<typeof InstructionCard> = {
+  title: "Common/Instruction Card",
+  component: InstructionCard,
   render: (args: any) => ({
     components: { InstructionCard },
     setup: () => {
-      provide(
-        injectionKey,
-        (): InstructionCardService => ({
-          isLoading: ref(args.isLoading),
-          instructions: ref(args.instructions),
-        }),
-      );
-
+      stubInstructionCardService(args);
       return { args };
     },
     template: '<InstructionCard v-bind="args" />',
@@ -38,23 +40,23 @@ const Template: Story = {
   },
 };
 
-export const Default: Story = {
-  ...Template,
-};
+export default meta;
+
+//STORIES
+
+type Story = StoryObj<typeof InstructionCard>;
+
+export const Default: Story = {};
 
 export const Loading: Story = {
-  ...Template,
   args: {
-    ...Template.args,
     isLoading: true,
     instructions: [],
   },
 };
 
 export const Empty: Story = {
-  ...Template,
   args: {
-    ...Template.args,
     instructions: [],
   },
 };
