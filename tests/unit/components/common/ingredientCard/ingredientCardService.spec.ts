@@ -1,14 +1,13 @@
-jest.mock("@/services/apiService");
-
 import {
   IngredientCardService,
   useIngredientCardService,
 } from "@/components/common/ingredientCard/ingredientCardService";
-
+import {vi, expect, Mock, describe, it} from 'vitest'
 import { Ingredient } from "@/types/Ingredient";
 import { fetchIngredients } from "@/services/apiService";
 import { generateIngredient } from "@tests/data/defaults";
-import { until } from "@vueuse/core";
+
+vi.mock("@/services/apiService");
 
 interface Givens {
   ingredientUrl: string;
@@ -34,17 +33,18 @@ const setup = (
   };
   const verifiedStubs: Stubs = {
     ...{
-      fetchIngredients: jest.fn().mockResolvedValue([generateIngredient()]),
+      fetchIngredients: vi.fn().mockResolvedValue([generateIngredient()]),
     },
     ...stubs,
   };
 
-  (fetchIngredients as jest.Mock).mockImplementation(
+  (fetchIngredients as Mock).mockImplementation(
     verifiedStubs.fetchIngredients,
   );
 
   const service: IngredientCardService = useIngredientCardService(
     verifiedGivens.ingredientUrl,
+    vi.fn()
   );
 
   return { service, givens: verifiedGivens, stubs: verifiedStubs };
@@ -53,7 +53,7 @@ const setup = (
 describe("useIngredientCardService.ts", () => {
   it("loads ingredients", async () => {
     const { service } = setup();
-    await until(service.isLoading).toBe(false);
+    await vi.waitFor(() => expect(service.isLoading.value).toBe(false))
     expect(service.ingredients.value).toStrictEqual([generateIngredient()]);
   });
 });

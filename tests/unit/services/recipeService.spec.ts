@@ -1,6 +1,7 @@
 import { RecipeService, useRecipeService } from "@/services/recipeService";
 import { Recipe } from "@/types/Recipe";
 import { generateRecipe } from "@tests/data/defaults";
+import {describe, it, expect, Mock, vi} from "vitest"
 import { toRef } from "vue";
 import type { Router } from "vue-router";
 
@@ -9,7 +10,7 @@ interface Givens {
 }
 
 interface Stubs {
-  push: jest.Mock<VoidFunction>;
+  push: Mock;
 }
 
 interface Setup {
@@ -23,7 +24,7 @@ const setup = (
   stubs: Partial<Stubs> = {},
 ): Setup => {
   const verifiedGivens: Givens = { ...{ recipe: generateRecipe() }, ...givens };
-  const verifiedStubs: Stubs = { ...{ push: jest.fn() }, ...stubs };
+  const verifiedStubs: Stubs = { ...{ push: vi.fn() }, ...stubs };
   const mockRouter = {
     push: verifiedStubs.push,
   } as unknown as Router;
@@ -106,7 +107,7 @@ describe("useRecipeService.ts", () => {
 
   it("navigates", async () => {
     const id: number = 100;
-    const push = jest.fn();
+    const push = vi.fn();
     const { service } = setup({ recipe: generateRecipe({ id: id }) }, { push });
 
     service.navigate();

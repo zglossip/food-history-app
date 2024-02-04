@@ -31,7 +31,7 @@ To run Storybook:
 - Run `npm run storybook`
 - Storybook will be hosted at `http://localhost:6006`
 
-#### Live Tests (NOTE: currently not working)
+#### Live Tests
 
 To run the vitest tests:
 

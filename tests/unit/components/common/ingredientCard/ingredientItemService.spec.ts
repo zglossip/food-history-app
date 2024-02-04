@@ -1,5 +1,6 @@
 import { formatMeasurementText } from "@/components/common/ingredientCard/ingredientItemService";
 import { generateIngredient } from "@tests/data/defaults";
+import {describe, it, expect} from 'vitest'
 
 describe("useIngredientItemService.ts", () => {
   it("formats with uom", () => {
