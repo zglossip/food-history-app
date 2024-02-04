@@ -34,7 +34,7 @@ const preview: Preview = {
     options: {
       storySort: {
         method: "alphabetical",
-        order: ["Common"],
+        order: ["Common", "Browse"],
       },
     },
   },

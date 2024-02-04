@@ -1,3 +1,64 @@
+<script setup lang="ts">
+import { inject } from "vue";
+import {
+  Filters,
+  injectionKey,
+  useFilterMenuService,
+} from "@/components/browse/filterMenu/filterMenuService";
+import {
+  IonList,
+  IonItem,
+  IonSelect,
+  IonSelectOption,
+  IonInput,
+  IonButton,
+  IonIcon,
+} from "@ionic/vue";
+import { add } from "ionicons/icons";
+import FilterChips from "@/components/common/filterChips/FilterChips.vue";
+
+//PROPS
+
+interface Props {
+  startingName: string;
+  startingCourseTypes: string[];
+  startingCuisineTypes: string[];
+  startingTags: string[];
+}
+
+const props = defineProps<Props>();
+
+//EMITS
+
+const emit = defineEmits(["apply"]);
+
+const emitApply = (filters: Filters) => emit("apply", filters);
+
+//SERVICE
+
+const {
+  filterOptions,
+  currentFilterType,
+  setCurrentFilterType,
+  filterText,
+  setFilterText,
+  setNameFilter,
+  addFilter,
+  nameFilter,
+  courseTypeFilters,
+  cuisineTypeFilters,
+  tagFilters,
+  removeChip,
+  apply,
+} = inject(injectionKey, useFilterMenuService)(
+  props.startingName,
+  props.startingCourseTypes,
+  props.startingCuisineTypes,
+  props.startingTags,
+  emitApply,
+);
+</script>
+
 <template>
   <ion-list>
     <ion-item>
@@ -51,58 +112,3 @@
     APPLY
   </ion-button>
 </template>
-
-<script setup lang="ts">
-import { inject } from "vue";
-import {
-  Filters,
-  injectionKey,
-  useFilterMenuService,
-} from "@/components/browse/filterMenu/filterMenuService";
-import {
-  IonList,
-  IonItem,
-  IonSelect,
-  IonSelectOption,
-  IonInput,
-  IonButton,
-  IonIcon,
-} from "@ionic/vue";
-import { add } from "ionicons/icons";
-import FilterChips from "@/components/common/filterChips/FilterChips.vue";
-
-interface Props {
-  startingName: string;
-  startingCourseTypes: string[];
-  startingCuisineTypes: string[];
-  startingTags: string[];
-}
-
-const props = defineProps<Props>();
-
-const emit = defineEmits(["apply"]);
-
-const emitApply = (filters: Filters) => emit("apply", filters);
-
-const {
-  filterOptions,
-  currentFilterType,
-  setCurrentFilterType,
-  filterText,
-  setFilterText,
-  setNameFilter,
-  addFilter,
-  nameFilter,
-  courseTypeFilters,
-  cuisineTypeFilters,
-  tagFilters,
-  removeChip,
-  apply,
-} = inject(injectionKey, useFilterMenuService)(
-  props.startingName,
-  props.startingCourseTypes,
-  props.startingCuisineTypes,
-  props.startingTags,
-  emitApply,
-);
-</script>
