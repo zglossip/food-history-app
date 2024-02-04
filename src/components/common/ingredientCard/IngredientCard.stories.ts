@@ -1,31 +1,32 @@
 import type { Meta, StoryObj } from "@storybook/vue3";
-
 import IngredientCard from "./IngredientCard.vue";
 import { provide, ref } from "vue";
-import { IngredientCardService, injectionKey } from "./ingredientCardService";
+import { IngredientCardService, INJECTION_KEY } from "./ingredientCardService";
 import { generateIngredient } from "@tests/data/defaults";
+import { action } from "@storybook/addon-actions";
 
-const meta: Meta<typeof IngredientCard> = {
-  component: IngredientCard,
-  argTypes: { onEdit: { action: "edit clicked" } },
+//STUBS
+
+const stubIngredientCardService = (args: any) => {
+  provide(
+    INJECTION_KEY,
+    (): IngredientCardService => ({
+      isLoading: ref(args.isLoading),
+      ingredients: ref(args.ingredients),
+      onClick: action("button clicked"),
+    }),
+  );
 };
 
-export default meta;
+//META
 
-type Story = StoryObj<typeof IngredientCard>;
-
-const Template: Story = {
+const meta: Meta<typeof IngredientCard> = {
+  title: "Common/Ingredient Card",
+  component: IngredientCard,
   render: (args: any) => ({
     components: { IngredientCard },
     setup: () => {
-      provide(
-        injectionKey,
-        (): IngredientCardService => ({
-          isLoading: ref(args.isLoading),
-          ingredients: ref(args.ingredients),
-        }),
-      );
-
+      stubIngredientCardService(args);
       return { args };
     },
     template: '<IngredientCard v-bind="args" />',
@@ -58,23 +59,21 @@ const Template: Story = {
   },
 };
 
-export const Default: Story = {
-  ...Template,
-};
+export default meta;
+
+type Story = StoryObj<typeof IngredientCard>;
+
+export const Default: Story = {};
 
 export const Loading: Story = {
-  ...Template,
   args: {
-    ...Template.args,
     isLoading: true,
     ingredients: [],
   },
 };
 
 export const Empty: Story = {
-  ...Template,
   args: {
-    ...Template.args,
     ingredients: [],
   },
 };

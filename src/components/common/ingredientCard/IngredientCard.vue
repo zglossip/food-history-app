@@ -1,5 +1,33 @@
+<script setup lang="ts">
+import {
+  useIngredientCardService,
+  INJECTION_KEY,
+} from "@/components/common/ingredientCard/ingredientCardService";
+import { inject } from "vue";
+import { IonList, IonSpinner, IonItem, IonLabel } from "@ionic/vue";
+import IngredientItem from "@/components/common/ingredientCard/IngredientItem.vue";
+import ButtonCard from "@/components/common/buttonCard/ButtonCard.vue";
+
+//PROPS
+
+interface Props {
+  ingredientUrl: string;
+}
+
+const props = defineProps<Props>();
+
+//EMITS
+const emit = defineEmits(["edit"]);
+const editEmit = () => emit("edit");
+
+const { isLoading, ingredients, onClick } = inject(
+  INJECTION_KEY,
+  useIngredientCardService,
+)(props.ingredientUrl, editEmit);
+</script>
+
 <template>
-  <button-card header-text="Ingredients" @click="$emit('edit')">
+  <button-card header-text="Ingredients" @click="onClick">
     <div v-if="isLoading">
       <ion-spinner />
     </div>
@@ -19,27 +47,3 @@
     </div>
   </button-card>
 </template>
-
-<script setup lang="ts">
-import {
-  useIngredientCardService,
-  injectionKey,
-} from "@/components/common/ingredientCard/ingredientCardService";
-import { inject } from "vue";
-import { IonList, IonSpinner, IonItem, IonLabel } from "@ionic/vue";
-import IngredientItem from "@/components/common/ingredientCard/IngredientItem.vue";
-import ButtonCard from "@/components/common/buttonCard/ButtonCard.vue";
-
-interface Props {
-  ingredientUrl: string;
-}
-
-const props = defineProps<Props>();
-
-const { isLoading, ingredients } = inject(
-  injectionKey,
-  useIngredientCardService,
-)(props.ingredientUrl);
-
-defineEmits(["edit"]);
-</script>
