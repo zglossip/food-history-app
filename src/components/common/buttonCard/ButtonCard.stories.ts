@@ -49,7 +49,10 @@ export const HeaderProp: Story = {
 export const HeaderSlot: Story = {
   render: (args: any) => ({
     components: { ButtonCard, IonCardTitle, IonCardSubtitle },
-    setup: () => ({ ...args }),
+    setup: () => {
+      stubButtonCardService();
+      return { ...args };
+    },
     template: `
         <buttonCard :button-text="buttonText" :header-text="headerText">
           <template v-slot:header>
