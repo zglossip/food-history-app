@@ -1,7 +1,7 @@
 import { RecipeService, useRecipeService } from "@/services/recipeService";
 import { Recipe } from "@/types/Recipe";
 import { generateRecipe } from "@tests/data/defaults";
-import {describe, it, expect, Mock, vi} from "vitest"
+import { describe, it, expect, Mock, vi } from "vitest";
 import { toRef } from "vue";
 import type { Router } from "vue-router";
 

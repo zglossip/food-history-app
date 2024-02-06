@@ -10,7 +10,6 @@ export interface FilterChipService {
 export const useFilterChipService = (
   removeChipEmit: (data: FilterChipData) => void,
 ): FilterChipService => {
-  //TODO: Write test
   const onClose = (filterType: FilterType, element: string) =>
     removeChipEmit({
       type: filterType,

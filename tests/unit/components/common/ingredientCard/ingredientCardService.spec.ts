@@ -2,7 +2,7 @@ import {
   IngredientCardService,
   useIngredientCardService,
 } from "@/components/common/ingredientCard/ingredientCardService";
-import {vi, expect, Mock, describe, it} from 'vitest'
+import { vi, expect, Mock, describe, it } from "vitest";
 import { Ingredient } from "@/types/Ingredient";
 import { fetchIngredients } from "@/services/apiService";
 import { generateIngredient } from "@tests/data/defaults";
@@ -38,13 +38,11 @@ const setup = (
     ...stubs,
   };
 
-  (fetchIngredients as Mock).mockImplementation(
-    verifiedStubs.fetchIngredients,
-  );
+  (fetchIngredients as Mock).mockImplementation(verifiedStubs.fetchIngredients);
 
   const service: IngredientCardService = useIngredientCardService(
     verifiedGivens.ingredientUrl,
-    vi.fn()
+    vi.fn(),
   );
 
   return { service, givens: verifiedGivens, stubs: verifiedStubs };
@@ -53,7 +51,7 @@ const setup = (
 describe("useIngredientCardService.ts", () => {
   it("loads ingredients", async () => {
     const { service } = setup();
-    await vi.waitFor(() => expect(service.isLoading.value).toBe(false))
+    await vi.waitFor(() => expect(service.isLoading.value).toBe(false));
     expect(service.ingredients.value).toStrictEqual([generateIngredient()]);
   });
 });

@@ -17,7 +17,6 @@ const { recipes, name, courses, cuisines, tags, applyFilters } =
   useBrowseMenuService();
 </script>
 
-
 <template>
   <ion-menu content-id="browse-view" side="end">
     <ion-header>
@@ -53,4 +52,3 @@ const { recipes, name, courses, cuisines, tags, applyFilters } =
     </ion-content>
   </ion-page>
 </template>
-
