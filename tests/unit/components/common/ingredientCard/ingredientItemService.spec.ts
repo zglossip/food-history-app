@@ -1,4 +1,4 @@
-import { formatMeasurementText } from "@/components/common/ingredientCard/ingredientItemService";
+import { formatMeasurementText } from "@/components/viewRecipe/ingredientCard/ingredientItemService";
 import { generateIngredient } from "@tests/data/defaults";
 import { describe, it, expect } from "vitest";
 

@@ -1,7 +1,7 @@
 import {
   IngredientCardService,
   useIngredientCardService,
-} from "@/components/common/ingredientCard/ingredientCardService";
+} from "@/components/viewRecipe/ingredientCard/ingredientCardService";
 import { vi, expect, Mock, describe, it } from "vitest";
 import { Ingredient } from "@/types/Ingredient";
 import { fetchIngredients } from "@/services/apiService";

@@ -21,7 +21,7 @@ const stubIngredientCardService = (args: any) => {
 //META
 
 const meta: Meta<typeof IngredientCard> = {
-  title: "Common/Ingredient Card",
+  title: "View Recipe/Ingredient Card",
   component: IngredientCard,
   render: (args: any) => ({
     components: { IngredientCard },

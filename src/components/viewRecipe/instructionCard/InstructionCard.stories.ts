@@ -3,7 +3,7 @@ import InstructionCard from "@/components/common/instructionCard/InstructionCard
 import {
   InstructionCardService,
   injectionKey,
-} from "@/components/common/instructionCard/instructionCardService";
+} from "@/components/viewRecipe/instructionCard/instructionCardService";
 import { provide, ref } from "vue";
 import { action } from "@storybook/addon-actions";
 
@@ -23,7 +23,7 @@ const stubInstructionCardService = (args: any) => {
 //META
 
 const meta: Meta<typeof InstructionCard> = {
-  title: "Common/Instruction Card",
+  title: "View Recipe/Instruction Card",
   component: InstructionCard,
   render: (args: any) => ({
     components: { InstructionCard },

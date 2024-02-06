@@ -6,7 +6,7 @@ import {
   InstructionCardService,
   useInstructionCardService,
   formatInstruction,
-} from "@/components/common/instructionCard/instructionCardService";
+} from "@/components/viewRecipe/instructionCard/instructionCardService";
 import { fetchInstructions } from "@/services/apiService";
 
 interface Givens {
