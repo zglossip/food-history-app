@@ -17,7 +17,6 @@ export const useInstructionCardService = (
   const isLoading: Ref<boolean> = ref(true);
   const onClick = () => editEmit();
 
-  //TODO Write test
   fetchInstructions(instructionUrl)
     .then(
       (instructionResponse: string[]) =>

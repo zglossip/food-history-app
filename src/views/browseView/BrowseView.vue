@@ -11,10 +11,10 @@ import {
 } from "@ionic/vue";
 import RecipeItem from "@/components/browse/recipeItem/RecipeItem.vue";
 import FilterMenu from "@/components/browse/filterMenu/FilterMenu.vue";
-import { useBrowseMenuService } from "./browseViewService";
+import { useBrowseViewService } from "./browseViewService";
 
 const { recipes, name, courses, cuisines, tags, applyFilters } =
-  useBrowseMenuService();
+  useBrowseViewService();
 </script>
 
 <template>

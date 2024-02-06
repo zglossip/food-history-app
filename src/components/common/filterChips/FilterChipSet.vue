@@ -15,8 +15,6 @@ interface Props {
 defineProps<Props>();
 
 //EMITS
-
-//TODO: Update the story here
 const emit = defineEmits(["close"]);
 
 const closeEmit = (element: string) => emit("close", element);

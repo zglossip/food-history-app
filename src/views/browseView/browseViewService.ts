@@ -1,7 +1,6 @@
 import { Filters } from "@/components/browse/filterMenu/filterMenuService";
-import { BACKEND_BASE } from "@/services/constants";
+import { fetchRecipes as fetchRecipesApi } from "@/services/apiService";
 import { Recipe } from "@/types/Recipe";
-import axios from "axios";
 import { Ref, ref } from "vue";
 import { LocationQueryValue, useRoute } from "vue-router";
 
@@ -11,19 +10,19 @@ export interface BrowseViewService {
   courses: Ref<string[]>;
   cuisines: Ref<string[]>;
   tags: Ref<string[]>;
-  fetchRecipes: VoidFunction;
   applyFilters: (filter: Filters) => void;
+  isLoading: Ref<boolean>;
 }
 
 export const injectionKey = Symbol();
 
-//TODO: Write tests
-export const useBrowseMenuService = (): BrowseViewService => {
+export const useBrowseViewService = (): BrowseViewService => {
   const recipes: Ref<Recipe[]> = ref([]);
   const name: Ref<string> = ref("");
   const courses: Ref<string[]> = ref([]);
   const cuisines: Ref<string[]> = ref([]);
   const tags: Ref<string[]> = ref([]);
+  const isLoading: Ref<boolean> = ref(false);
 
   const route = useRoute();
   const nameQuery = route.query.nameQuery as string;
@@ -66,28 +65,10 @@ export const useBrowseMenuService = (): BrowseViewService => {
   }
 
   const fetchRecipes: VoidFunction = (): void => {
-    let url = BACKEND_BASE + "/recipe?";
-
-    if (name.value) {
-      url += `name=${name.value}&`;
-    }
-
-    if (courses.value.length) {
-      courses.value.forEach((c: string) => (url += `course=${c}&`));
-    }
-
-    if (cuisines.value.length) {
-      cuisines.value.forEach((c: string) => (url += `cuisine=${c}&`));
-    }
-
-    if (tags.value.length) {
-      tags.value.forEach((t: string) => (url += `tag=${t}&`));
-    }
-
-    axios
-      .get(url)
-      .then((response) => (recipes.value = response.data))
-      .catch(() => console.error("Error fetching recipes"));
+    isLoading.value = true;
+    fetchRecipesApi(name.value, cuisines.value, courses.value, tags.value)
+      .then((response) => (recipes.value = response))
+      .finally(() => (isLoading.value = false));
   };
 
   const applyFilters = (filters: Filters): void => {
@@ -100,5 +81,5 @@ export const useBrowseMenuService = (): BrowseViewService => {
 
   fetchRecipes();
 
-  return { recipes, name, courses, cuisines, tags, fetchRecipes, applyFilters };
+  return { recipes, name, courses, cuisines, tags, applyFilters, isLoading };
 };

@@ -28,7 +28,6 @@ export interface Filters {
   nameFilter: string;
 }
 
-//TODO: Write tests
 export const useFilterMenuService = (
   startingName: string,
   startingCourseTypes: string[],
