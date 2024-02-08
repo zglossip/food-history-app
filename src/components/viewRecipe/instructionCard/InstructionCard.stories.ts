@@ -1,9 +1,6 @@
 import { Meta, StoryObj } from "@storybook/vue3";
-import InstructionCard from "@/components/common/instructionCard/InstructionCard.vue";
-import {
-  InstructionCardService,
-  injectionKey,
-} from "@/components/viewRecipe/instructionCard/instructionCardService";
+import InstructionCard from "./InstructionCard.vue";
+import { InstructionCardService, injectionKey } from "./instructionCardService";
 import { provide, ref } from "vue";
 import { action } from "@storybook/addon-actions";
 

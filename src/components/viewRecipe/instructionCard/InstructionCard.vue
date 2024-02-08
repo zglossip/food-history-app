@@ -6,7 +6,7 @@ import {
   injectionKey,
   useInstructionCardService,
   formatInstruction,
-} from "@/components/common/instructionCard/instructionCardService";
+} from "./instructionCardService";
 
 //PROPS
 

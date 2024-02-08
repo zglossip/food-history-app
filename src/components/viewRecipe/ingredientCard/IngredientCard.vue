@@ -2,10 +2,10 @@
 import {
   useIngredientCardService,
   INJECTION_KEY,
-} from "@/components/common/ingredientCard/ingredientCardService";
+} from "./ingredientCardService";
 import { inject } from "vue";
 import { IonList, IonSpinner, IonItem, IonLabel } from "@ionic/vue";
-import IngredientItem from "@/components/common/ingredientCard/IngredientItem.vue";
+import IngredientItem from "@/components/viewRecipe/ingredientCard/IngredientItem.vue";
 import ButtonCard from "@/components/common/buttonCard/ButtonCard.vue";
 
 //PROPS
