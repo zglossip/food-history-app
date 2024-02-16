@@ -11,7 +11,7 @@ import ButtonCard from "@/components/common/buttonCard/ButtonCard.vue";
 //PROPS
 
 interface Props {
-  ingredientUrl: string;
+  id: number;
 }
 
 const props = defineProps<Props>();
@@ -23,7 +23,7 @@ const editEmit = () => emit("edit");
 const { isLoading, ingredients, onClick } = inject(
   INJECTION_KEY,
   useIngredientCardService,
-)(props.ingredientUrl, editEmit);
+)(props.id, editEmit);
 </script>
 
 <template>

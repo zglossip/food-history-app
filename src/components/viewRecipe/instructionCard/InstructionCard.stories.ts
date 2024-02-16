@@ -6,7 +6,7 @@ import { action } from "@storybook/addon-actions";
 
 //STUBS
 
-const stubInstructionCardService = (args: any) => {
+export const stubInstructionCardService = (args: any) => {
   provide(
     injectionKey,
     (): InstructionCardService => ({
@@ -21,6 +21,7 @@ const stubInstructionCardService = (args: any) => {
 
 const meta: Meta<typeof InstructionCard> = {
   title: "View Recipe/Instruction Card",
+  excludeStories: ["stubInstructionCardService"],
   component: InstructionCard,
   render: (args: any) => ({
     components: { InstructionCard },
@@ -31,7 +32,7 @@ const meta: Meta<typeof InstructionCard> = {
     template: '<InstructionCard v-bind="args" />',
   }),
   args: {
-    instructionUrl: "www.test.com",
+    id: 100,
     isLoading: false,
     instructions: ["Mix it", "Cook it", "Bop it"],
   },

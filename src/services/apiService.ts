@@ -1,7 +1,8 @@
-import { Ingredient } from "@/types/Ingredient";
 import { Recipe } from "@/types/Recipe";
 import axios from "axios";
 import { BACKEND_BASE } from "@/services/constants";
+import { IngredientList } from "@/types/IngredientList";
+import { InstructionList } from "@/types/InstructionList";
 
 const get = async <T>(url: string, d: T): Promise<T> => {
   return axios
@@ -41,10 +42,11 @@ export const fetchRecipes = async (
   return get<Recipe[]>(url, []);
 };
 
-export const fetchIngredients = async (
-  ingredientUrl: string,
-): Promise<Ingredient[]> => get<Ingredient[]>(ingredientUrl, []);
+export const fetchRecipe = async (id: number): Promise<Recipe | null> =>
+  get<Recipe | null>(`${BACKEND_BASE}/recipe/${id}`, null);
 
-export const fetchInstructions = async (
-  instructionUrl: string,
-): Promise<string[]> => get<string[]>(instructionUrl, []);
+export const fetchIngredients = async (id: number): Promise<IngredientList> =>
+  get<IngredientList>(`${BACKEND_BASE}/recipe/${id}/ingredients`, {recipeId: -1, ingredients: [{name: "ERROR", quantity: -1}]});
+
+export const fetchInstructions = async (id: number): Promise<InstructionList> =>
+  get<InstructionList>(`${BACKEND_BASE}/recipe/${id}/instructions`, {recipeId: -1, instructions:  ["ERROR"]});

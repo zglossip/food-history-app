@@ -8,7 +8,7 @@ import { action } from "@storybook/addon-actions";
 
 //STUBS
 
-const stubRecipeService = (args: any) => {
+export const stubRecipeService = (args: any) => {
   provide(
     injectionKey,
     (): RecipeService => ({
@@ -33,8 +33,8 @@ const TEST_TAG_TAG = "Tags: fav, St. Louis";
 const meta: Meta<typeof RecipeCard> = {
   title: "View Recipe/Recipe Card",
   component: RecipeCard,
+  excludeStories: ["stubRecipeService"],
   argTypes: {
-    onEdit: { action: "edit clicked" },
     formattedCuisineTag: {
       options: [TEST_CUISINE_TAG, false],
       type: "select",

@@ -1,6 +1,7 @@
 import { Ingredient } from "@/types/Ingredient";
 import { Ref, ref } from "vue";
 import { fetchIngredients } from "@/services/apiService";
+import { IngredientList } from "@/types/IngredientList";
 
 export const INJECTION_KEY = Symbol();
 
@@ -11,17 +12,17 @@ export interface IngredientCardService {
 }
 
 export const useIngredientCardService = (
-  ingredientUrl: string,
+  id: number,
   editEmit: () => void,
 ): IngredientCardService => {
   const ingredients: Ref<Ingredient[]> = ref([]);
   const isLoading: Ref<boolean> = ref(true);
   const onClick = () => editEmit();
 
-  fetchIngredients(ingredientUrl)
+  fetchIngredients(id)
     .then(
-      (ingredientResponse: Ingredient[]) =>
-        (ingredients.value = ingredientResponse),
+      (ingredientResponse: IngredientList) =>
+        (ingredients.value = ingredientResponse.ingredients),
     )
     .finally(() => (isLoading.value = false));
 

@@ -1,4 +1,5 @@
 import { fetchInstructions } from "@/services/apiService";
+import { InstructionList } from "@/types/InstructionList";
 import { Ref, ref } from "vue";
 
 export const injectionKey = Symbol();
@@ -10,17 +11,17 @@ export interface InstructionCardService {
 }
 
 export const useInstructionCardService = (
-  instructionUrl: string,
+  id: number,
   editEmit: () => void,
 ): InstructionCardService => {
   const instructions: Ref<string[]> = ref([]);
   const isLoading: Ref<boolean> = ref(true);
   const onClick = () => editEmit();
 
-  fetchInstructions(instructionUrl)
+  fetchInstructions(id)
     .then(
-      (instructionResponse: string[]) =>
-        (instructions.value = instructionResponse),
+      (instructionResponse: InstructionList) =>
+        (instructions.value = instructionResponse.instructions),
     )
     .finally(() => (isLoading.value = false));
 

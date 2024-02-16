@@ -14,13 +14,13 @@ export interface RecipeService {
 }
 
 export const useRecipeService = (
-  recipe: Ref<Recipe>,
+  recipe: Ref<Recipe | null>,
   router?: Router,
   editEmit?: () => void,
 ): RecipeService => {
   const formatTag = (
     tagName: string,
-    tags: Array<string>,
+    tags?: Array<string>,
   ): string | boolean => {
     if (!tags || tags.length === 0) {
       return false;
@@ -36,23 +36,23 @@ export const useRecipeService = (
   };
 
   const formattedServingTag: ComputedRef<string> = computed(() => {
-    return `${recipe.value.servingAmount} ${recipe.value.servingName}`;
+    return `${recipe.value?.servingAmount} ${recipe.value?.servingName}`;
   });
 
   const formattedCuisineTag: ComputedRef<string | boolean> = computed(() =>
-    formatTag("Cusine", recipe.value.cuisineTypes),
+    formatTag("Cusine", recipe.value?.cuisineTypes),
   );
 
   const formattedCourseTag: ComputedRef<string | boolean> = computed(() =>
-    formatTag("Course", recipe.value.courseTypes),
+    formatTag("Course", recipe.value?.courseTypes),
   );
 
   const formattedTagTag: ComputedRef<string | boolean> = computed(() =>
-    formatTag("Tag", recipe.value.tags),
+    formatTag("Tag", recipe.value?.tags),
   );
 
   const navigate = (): void => {
-    router?.push(`/recipe/${recipe.value.id}`);
+    router?.push(`/recipe/${recipe.value?.id}`);
   };
 
   const onClick = editEmit

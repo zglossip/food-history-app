@@ -3,9 +3,13 @@ import { inject, toRefs } from "vue";
 import { useRecipeService, injectionKey } from "@/services/recipeService";
 import { IonCardTitle, IonCardSubtitle } from "@ionic/vue";
 import ButtonCard from "@/components/common/buttonCard/ButtonCard.vue";
-import { Props } from "./Props";
+import { Recipe } from "@/types/Recipe";
 
 //PROPS
+
+interface Props {
+  recipe: Recipe | null;
+}
 
 const props = defineProps<Props>();
 const { recipe } = toRefs(props);
@@ -30,7 +34,7 @@ const {
   <button-card @click="onClick">
     <template #header>
       <ion-card-title>
-        <span>{{ recipe.name }}</span>
+        <span>{{ recipe?.name }}</span>
       </ion-card-title>
       <ion-card-subtitle>{{ formattedServingTag }}</ion-card-subtitle>
     </template>

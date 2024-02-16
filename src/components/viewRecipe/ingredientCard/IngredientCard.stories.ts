@@ -7,7 +7,7 @@ import { action } from "@storybook/addon-actions";
 
 //STUBS
 
-const stubIngredientCardService = (args: any) => {
+export const stubIngredientCardService = (args: any) => {
   provide(
     INJECTION_KEY,
     (): IngredientCardService => ({
@@ -22,6 +22,7 @@ const stubIngredientCardService = (args: any) => {
 
 const meta: Meta<typeof IngredientCard> = {
   title: "View Recipe/Ingredient Card",
+  excludeStories: ["stubIngredientCardService"],
   component: IngredientCard,
   render: (args: any) => ({
     components: { IngredientCard },
@@ -32,7 +33,7 @@ const meta: Meta<typeof IngredientCard> = {
     template: '<IngredientCard v-bind="args" />',
   }),
   args: {
-    ingredientUrl: "www.test.com",
+    id: 100,
     isLoading: false,
     ingredients: [
       generateIngredient({

@@ -11,7 +11,7 @@ import {
 //PROPS
 
 interface Props {
-  instructionUrl: string;
+  id: number;
 }
 
 const props = defineProps<Props>();
@@ -26,7 +26,7 @@ const editEmit = () => emit("edit");
 const { isLoading, instructions, onClick } = inject(
   injectionKey,
   useInstructionCardService,
-)(props.instructionUrl, editEmit);
+)(props.id, editEmit);
 </script>
 
 <template>
