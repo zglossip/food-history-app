@@ -66,7 +66,7 @@ const meta: Meta<typeof ViewRecipeContainer> = {
         quantity: 2,
       }),
     ],
-    instructions: ["Mix it", "Cook it", "Bop it"]
+    instructions: ["Mix it", "Cook it", "Bop it"],
   },
   argTypes: {
     formattedCuisineTag: {
@@ -92,7 +92,7 @@ const meta: Meta<typeof ViewRecipeContainer> = {
     },
     template: `
       <ion-page><ion-content><ViewRecipeContainer /></ion-content></ion-page>
-    `
+    `,
   }),
 };
 

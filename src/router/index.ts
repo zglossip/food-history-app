@@ -9,7 +9,7 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: "/recipe/:id",
     component: () => import("@/views/RecipeView.vue"),
-    props: true
+    props: true,
   },
   {
     path: "/recipe/create",

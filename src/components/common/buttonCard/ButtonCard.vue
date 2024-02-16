@@ -2,9 +2,6 @@
 import {
   IonCard,
   IonCardHeader,
-  IonGrid,
-  IonRow,
-  IonCol,
   IonButton,
   IonCardContent,
   IonCardTitle,
@@ -41,34 +38,16 @@ const { onClick } = inject(INJECTION_KEY, useButtonCardService)(clickEmit);
 <template>
   <ion-card>
     <ion-card-header>
-      <ion-grid :class="$style.buttonCardHeader">
-        <ion-row>
-          <ion-col>
-            <ion-card-title v-if="headerText">
-              <span>{{ headerText }}</span>
-            </ion-card-title>
-            <slot name="header" />
-          </ion-col>
-          <ion-col>
-            <ion-button :class="$style.buttonCardButton" @click="onClick">
-              {{ buttonText }}
-            </ion-button>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
+      <ion-card-title v-if="headerText">
+        <span>{{ headerText }}</span>
+      </ion-card-title>
+      <slot name="header" />
     </ion-card-header>
     <ion-card-content>
       <slot />
     </ion-card-content>
+    <ion-button @click="onClick" fill="clear">
+      {{ buttonText }}
+    </ion-button>
   </ion-card>
 </template>
-
-<style module>
-.buttonCardHeader {
-  margin-inline: 0 !important;
-}
-
-.buttonCardButton {
-  float: right;
-}
-</style>

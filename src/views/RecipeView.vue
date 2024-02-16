@@ -1,15 +1,20 @@
 <script setup lang="ts">
-import { IonPage, IonContent, IonHeader, IonToolbar, IonTitle } from "@ionic/vue";
+import {
+  IonPage,
+  IonContent,
+  IonHeader,
+  IonToolbar,
+  IonTitle,
+} from "@ionic/vue";
 import ViewRecipeContainer from "@/components/viewRecipe/viewRecipeContainer/ViewRecipeContainer.vue";
 
 //PROPS
 interface Props {
-  id: string
+  id: string;
 }
 
-defineProps<Props>()
+defineProps<Props>();
 </script>
-
 
 <template>
   <ion-page id="recipe-view">
@@ -19,7 +24,7 @@ defineProps<Props>()
       </ion-toolbar>
     </ion-header>
     <ion-content>
-      <ViewRecipeContainer :id="Number(id)"/>
+      <ViewRecipeContainer :id="Number(id)" />
     </ion-content>
   </ion-page>
 </template>

@@ -46,7 +46,13 @@ export const fetchRecipe = async (id: number): Promise<Recipe | null> =>
   get<Recipe | null>(`${BACKEND_BASE}/recipe/${id}`, null);
 
 export const fetchIngredients = async (id: number): Promise<IngredientList> =>
-  get<IngredientList>(`${BACKEND_BASE}/recipe/${id}/ingredients`, {recipeId: -1, ingredients: [{name: "ERROR", quantity: -1}]});
+  get<IngredientList>(`${BACKEND_BASE}/recipe/${id}/ingredients`, {
+    recipeId: -1,
+    ingredients: [{ name: "ERROR", quantity: -1 }],
+  });
 
 export const fetchInstructions = async (id: number): Promise<InstructionList> =>
-  get<InstructionList>(`${BACKEND_BASE}/recipe/${id}/instructions`, {recipeId: -1, instructions:  ["ERROR"]});
+  get<InstructionList>(`${BACKEND_BASE}/recipe/${id}/instructions`, {
+    recipeId: -1,
+    instructions: ["ERROR"],
+  });
