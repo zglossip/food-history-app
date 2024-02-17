@@ -34,7 +34,7 @@ const preview: Preview = {
     options: {
       storySort: {
         method: "alphabetical",
-        order: ["Common", "Browse", "View Recipe"],
+        order: ["Common", "Browse", "View Recipe", "Create Edit"],
       },
     },
   },

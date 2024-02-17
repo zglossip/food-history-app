@@ -15,6 +15,28 @@ const get = async <T>(url: string, d: T): Promise<T> => {
     });
 };
 
+const post = async <T, S>(url: string, d: S, body: T): Promise<S> => {
+  return axios
+    .post(url, body)
+    .then((response) => response.data as S)
+    .catch((error) => {
+      //TODO Toast error
+      console.log(error);
+      return d;
+    });
+};
+
+const put = async <T, S>(url: string, d: S, body: T): Promise<S> => {
+  return axios
+    .put(url, body)
+    .then((response) => response.data as S)
+    .catch((error) => {
+      //TODO Toast error
+      console.log(error);
+      return d;
+    });
+};
+
 export const fetchRecipes = async (
   name: string,
   cuisines: string[],
@@ -44,6 +66,12 @@ export const fetchRecipes = async (
 
 export const fetchRecipe = async (id: number): Promise<Recipe | null> =>
   get<Recipe | null>(`${BACKEND_BASE}/recipe/${id}`, null);
+
+export const saveRecipe = async (recipe: Recipe): Promise<null> =>
+  put<Recipe, null>(`${BACKEND_BASE}/recipe/${recipe.id}`, null, recipe);
+
+export const createRecipe = async (recipe: Recipe): Promise<Recipe | null> =>
+  post<Recipe, Recipe | null>(`${BACKEND_BASE}/recipe`, null, recipe);
 
 export const fetchIngredients = async (id: number): Promise<IngredientList> =>
   get<IngredientList>(`${BACKEND_BASE}/recipe/${id}/ingredients`, {
