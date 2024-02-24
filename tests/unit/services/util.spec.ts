@@ -1,8 +1,8 @@
-import { formatMeasurementText } from "@/components/viewRecipe/ingredientCard/ingredientItemService";
+import { formatMeasurementText } from "@/services/util";
 import { generateIngredient } from "@tests/data/defaults";
 import { describe, it, expect } from "vitest";
 
-describe("useIngredientItemService.ts", () => {
+describe("util.ts", () => {
   it("formats with uom", () => {
     expect(
       formatMeasurementText(generateIngredient({ quantity: 1, uom: "cup" })),

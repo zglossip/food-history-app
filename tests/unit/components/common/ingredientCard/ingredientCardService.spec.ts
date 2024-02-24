@@ -10,7 +10,7 @@ import { generateIngredient } from "@tests/data/defaults";
 vi.mock("@/services/apiService");
 
 interface Givens {
-  ingredientUrl: string;
+  recipeId: number;
 }
 
 interface Stubs {
@@ -28,12 +28,14 @@ const setup = (
   stubs: Partial<Stubs> = {},
 ): Setup => {
   const verifiedGivens: Givens = {
-    ...{ ingredientUrl: "www.test.com" },
+    ...{ recipeId: 100 },
     ...givens,
   };
   const verifiedStubs: Stubs = {
     ...{
-      fetchIngredients: vi.fn().mockResolvedValue([generateIngredient()]),
+      fetchIngredients: vi
+        .fn()
+        .mockResolvedValue({ ingredients: [generateIngredient()] }),
     },
     ...stubs,
   };
@@ -41,7 +43,7 @@ const setup = (
   (fetchIngredients as Mock).mockImplementation(verifiedStubs.fetchIngredients);
 
   const service: IngredientCardService = useIngredientCardService(
-    verifiedGivens.ingredientUrl,
+    verifiedGivens.recipeId,
     vi.fn(),
   );
 

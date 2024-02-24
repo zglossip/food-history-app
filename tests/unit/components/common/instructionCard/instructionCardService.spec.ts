@@ -10,7 +10,7 @@ import {
 import { fetchInstructions } from "@/services/apiService";
 
 interface Givens {
-  instructionUrl: string;
+  recipeId: number;
   editEmit: () => void;
   fetchInstructions: () => Promise<string[]>;
 }
@@ -18,9 +18,9 @@ interface Givens {
 const setup = (givens: Partial<Givens> = {}): InstructionCardService => {
   const verifiedGivens: Givens = {
     ...{
-      instructionUrl: "www.testurl.com",
+      recipeId: 100,
       editEmit: () => {},
-      fetchInstructions: vi.fn().mockResolvedValue([]),
+      fetchInstructions: vi.fn().mockResolvedValue({ instructions: [] }),
     },
     ...givens,
   };
@@ -30,21 +30,21 @@ const setup = (givens: Partial<Givens> = {}): InstructionCardService => {
   );
 
   return useInstructionCardService(
-    verifiedGivens.instructionUrl,
+    verifiedGivens.recipeId,
     verifiedGivens.editEmit,
   );
 };
 
 describe("instructionCardService", () => {
-  it("loads ingredients on load", async () => {
-    const testSteps = ["step 1", "step 2"];
+  it("loads instructions on load", async () => {
+    const instructions = ["step 1", "step 2"];
     const service = setup({
-      fetchInstructions: vi.fn().mockResolvedValue(testSteps),
+      fetchInstructions: vi.fn().mockResolvedValue({ instructions }),
     });
 
     await vi.waitFor(() => expect(service.isLoading.value).to.be.false);
 
-    expect(service.instructions.value).to.deep.equal(testSteps);
+    expect(service.instructions.value).to.deep.equal(instructions);
   });
 
   it("formats instruction", () => {

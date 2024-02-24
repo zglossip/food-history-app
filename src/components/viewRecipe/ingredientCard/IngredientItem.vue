@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { IonItem, IonLabel } from "@ionic/vue";
 import { Ingredient } from "@/types/Ingredient";
-import { formatMeasurementText } from "./ingredientItemService";
+import { formatMeasurementText } from "@/services/util";
 
 interface Props {
   ingredient: Ingredient;
