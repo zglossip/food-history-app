@@ -12,9 +12,8 @@ import {
 import { inject } from "vue";
 import {
   INJECTION_KEY,
-  useEditIngredientService,
-} from "./editIngredientsService";
-import { formatMeasurementText } from "@/services/util";
+  useEditInstructionService,
+} from "./editInstructionsService";
 
 //PROPS
 
@@ -26,9 +25,9 @@ const props = defineProps<Props>();
 
 //SERVICE
 
-const { ingredients, onItemReorder } = inject(
+const { instructions, onItemReorder } = inject(
   INJECTION_KEY,
-  useEditIngredientService,
+  useEditInstructionService,
 )(props.recipeId);
 </script>
 
@@ -40,15 +39,9 @@ const { ingredients, onItemReorder } = inject(
           :disabled="false"
           @ion-item-reorder="onItemReorder($event)"
         >
-          <ion-item v-for="ingredient in ingredients" :key="ingredient.name">
+          <ion-item v-for="instruction in instructions" :key="instruction">
             <ion-label>
-              {{ ingredient.name }}
-              <p v-if="ingredient.notes">{{ ingredient.notes }}</p>
-            </ion-label>
-            <ion-label>
-              <p :class="$style.ingredientMeasurement">
-                {{ formatMeasurementText(ingredient) }}
-              </p>
+              {{ instruction }}
             </ion-label>
             <ion-reorder slot="end"></ion-reorder>
           </ion-item>
@@ -59,9 +52,3 @@ const { ingredients, onItemReorder } = inject(
     <ion-button fill="clear">Confirm</ion-button>
   </ion-card>
 </template>
-
-<style module>
-.ingredientMeasurement {
-  float: right;
-}
-</style>

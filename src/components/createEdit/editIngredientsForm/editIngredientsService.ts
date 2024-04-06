@@ -1,4 +1,5 @@
 import { fetchIngredients } from "@/services/apiService";
+import { reorderIonicItems } from "@/services/util";
 import { Ingredient } from "@/types/Ingredient";
 import { Ref, ref } from "vue";
 
@@ -19,13 +20,7 @@ export const useEditIngredientService = (
   );
 
   const onItemReorder = (evt: CustomEvent) => {
-    const from = evt.detail.from;
-    const to = evt.detail.to;
-
-    const element = ingredients.value.splice(from, 1)[0];
-    ingredients.value.splice(to, 0, element);
-
-    evt.detail.complete();
+    reorderIonicItems(evt, ingredients.value);
   };
 
   return { ingredients, onItemReorder };
