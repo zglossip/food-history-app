@@ -26,6 +26,8 @@ const stubEditInstructionsService = (args: any) => {
         action("items reordered")({ to, from });
         evt.detail.complete();
       },
+      onSaveClick: action("saved"),
+      onCancelClick: action("cancelled"),
     }),
   );
 };
@@ -36,7 +38,7 @@ const meta: Meta<typeof EditInstructionsForm> = {
   title: "Create Edit/Edit Instructions Form",
   component: EditInstructionsForm,
   render: (args: any) => ({
-    components: {EditInstructionsForm},
+    components: { EditInstructionsForm },
     setup: () => {
       stubEditInstructionsService(args);
       return { ...args };

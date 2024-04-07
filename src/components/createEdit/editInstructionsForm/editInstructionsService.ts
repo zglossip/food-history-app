@@ -1,4 +1,4 @@
-import { fetchInstructions } from "@/services/apiService";
+import { fetchInstructions, saveInstructions } from "@/services/apiService";
 import { reorderIonicItems } from "@/services/util";
 import { InstructionList } from "@/types/InstructionList";
 import { Ref, ref } from "vue";
@@ -8,6 +8,8 @@ export const INJECTION_KEY = Symbol();
 export interface EditInstructionsService {
   instructions: Ref<string[]>;
   onItemReorder: (evt: CustomEvent) => void;
+  onSaveClick: () => void;
+  onCancelClick: () => void;
 }
 
 export const useEditInstructionService = (
@@ -23,5 +25,17 @@ export const useEditInstructionService = (
     reorderIonicItems(evt, instructions.value);
   };
 
-  return { instructions, onItemReorder };
+  const onSaveClick = () => {
+    saveInstructions({
+      instructions: instructions.value,
+      recipeId: id,
+    });
+    //TODO: GO BACK
+  };
+
+  const onCancelClick = () => {
+    //TODO: GO BACK
+  };
+
+  return { instructions, onItemReorder, onSaveClick, onCancelClick };
 };

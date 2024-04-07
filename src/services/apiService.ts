@@ -79,8 +79,26 @@ export const fetchIngredients = async (id: number): Promise<IngredientList> =>
     ingredients: [{ name: "ERROR", quantity: -1 }],
   });
 
+export const saveIngredients = async (
+  ingredientList: IngredientList,
+): Promise<null> =>
+  put<IngredientList, null>(
+    `${BACKEND_BASE}/recipe/${ingredientList.recipeId}/ingredients`,
+    null,
+    ingredientList,
+  );
+
 export const fetchInstructions = async (id: number): Promise<InstructionList> =>
   get<InstructionList>(`${BACKEND_BASE}/recipe/${id}/instructions`, {
     recipeId: -1,
     instructions: ["ERROR"],
   });
+
+export const saveInstructions = async (
+  instructionList: InstructionList,
+): Promise<null> =>
+  put<InstructionList, null>(
+    `${BACKEND_BASE}/recipe/${instructionList.recipeId}/instructions`,
+    null,
+    instructionList,
+  );

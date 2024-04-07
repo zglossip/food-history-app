@@ -27,6 +27,8 @@ const stubEditIngredientsFormService = (args: any) => {
         action("items reordered")({ to, from });
         evt.detail.complete();
       },
+      onSaveClick: action("saved"),
+      onCancelClick: action("cancelled"),
     }),
   );
 };

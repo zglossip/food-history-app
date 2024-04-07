@@ -26,7 +26,7 @@ const props = defineProps<Props>();
 
 //SERVICE
 
-const { ingredients, onItemReorder } = inject(
+const { ingredients, onItemReorder, onSaveClick, onCancelClick } = inject(
   INJECTION_KEY,
   useEditIngredientService,
 )(props.recipeId);
@@ -55,8 +55,8 @@ const { ingredients, onItemReorder } = inject(
         </ion-reorder-group>
       </ion-list>
     </ion-card-content>
-    <ion-button fill="clear">Cancel</ion-button>
-    <ion-button fill="clear">Confirm</ion-button>
+    <ion-button fill="clear" @click="onCancelClick">Cancel</ion-button>
+    <ion-button fill="clear" @click="onSaveClick">Confirm</ion-button>
   </ion-card>
 </template>
 
