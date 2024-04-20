@@ -16,14 +16,14 @@ const props = defineProps<Props>();
 
 // SERVICE
 
-const { recipe } = inject(
+const { recipe, onEditHeader } = inject(
   INJECTION_KEY,
   useViewRecipeContainerService,
 )(props.id);
 </script>
 
 <template>
-  <RecipeCard :recipe="recipe" />
+  <RecipeCard :recipe="recipe" @edit="onEditHeader"/>
   <IngredientCard :id="id" />
   <InstructionCard :id="id" />
 </template>

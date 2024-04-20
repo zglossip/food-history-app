@@ -27,15 +27,18 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: "/recipe/edit/:id",
     component: () => import("@/views/createEdit/CreateEditHeaderView.vue"),
+    props: true,
   },
   {
     path: "/recipe/edit/:id/ingredients",
     component: () => import("@/views/createEdit/CreateEditIngredientsView.vue"),
+    props: true,
   },
   {
     path: "/recipe/edit/:id/instructions",
     component: () =>
       import("@/views/createEdit/CreateEditInstructionsView.vue"),
+    props: true,
   },
 ];
 

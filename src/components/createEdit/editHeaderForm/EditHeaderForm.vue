@@ -20,7 +20,7 @@ import { add } from "ionicons/icons";
 import FilterChips from "@/components/common/filterChips/FilterChips.vue";
 
 interface Props {
-  recipe?: Recipe;
+  recipe?: Recipe | null;
 }
 
 const props = defineProps<Props>();

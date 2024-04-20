@@ -4,6 +4,7 @@ import { createRecipe, saveRecipe } from "@/services/apiService";
 import { FILTER_OPTIONS } from "@/services/constants";
 import { FilterType } from "@/types/FilterType";
 import { FilterChipData } from "@/types/FilterChipData";
+import { useRouter } from "vue-router";
 
 export const INJECTION_KEY = Symbol();
 
@@ -24,7 +25,7 @@ export interface EditHeaderFormService {
 }
 
 export const useEditHeaderFormService = (
-  recipe?: Recipe,
+  recipe?: Recipe | null,
 ): EditHeaderFormService => {
   const newName = ref(recipe?.name ?? "");
   const newServingAmount = ref(recipe?.servingAmount ?? 0);
@@ -34,6 +35,8 @@ export const useEditHeaderFormService = (
   const newTags = ref(recipe?.tags ?? []);
   const currentFilterType = ref(FilterType.COURSE);
   const filterText = ref("");
+
+  const router = useRouter();
 
   const removeChip = (data: FilterChipData) => {
     switch (data.type) {
@@ -101,11 +104,11 @@ export const useEditHeaderFormService = (
         tags: newTags.value,
       });
     }
-    //TODO: GO BACK
+    router.go(-1);
   };
 
   const onCancelClick = () => {
-    //TODO: GO BACK
+    router.go(-1);
   };
 
   return {

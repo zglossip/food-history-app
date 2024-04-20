@@ -2,6 +2,7 @@ import { fetchIngredients, saveIngredients } from "@/services/apiService";
 import { reorderIonicItems } from "@/services/util";
 import { Ingredient } from "@/types/Ingredient";
 import { Ref, ref } from "vue";
+import { useRouter } from "vue-router";
 
 export const INJECTION_KEY = Symbol();
 
@@ -17,6 +18,8 @@ export const useEditIngredientService = (
 ): EditIngredientsService => {
   const ingredients: Ref<Ingredient[]> = ref([]);
 
+  const router = useRouter();
+
   fetchIngredients(id).then(
     (response) => (ingredients.value = response.ingredients),
   );
@@ -31,11 +34,11 @@ export const useEditIngredientService = (
       recipeId: id,
     });
 
-    //TODO: GO BACK
+    router.go(-1);
   };
 
   const onCancelClick = () => {
-    //TODO: GO BACK
+    router.go(-1);
   };
 
   return { ingredients, onItemReorder, onSaveClick, onCancelClick };
