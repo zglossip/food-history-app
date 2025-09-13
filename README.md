@@ -10,6 +10,8 @@ Currently a work in progress.
 
 This application requires a REST API. The repository containing the API application can be found [here](https://github.com/zglossip/food-history-api)
 
+It also requires an `.env` file containing a `BACKEND_BASE` property. This property should be the URL to the backend.
+
 ## Instructions
 
 ### Simple Setup
@@ -37,15 +39,6 @@ To run the vitest tests:
 
 - Follow the first two steps above
 - Run `npm run test:unit`
-
-### Docker Compose with API
-
-I've set up a Docker Compose config to load both the frontend's and API's live development. The Dockerfile for the backend is contained in the [API repo](https://github.com/zglossip/food-history-api)
-
-- Requires Docker Desktop
-- Requires food-history-api in same parent directory in food-history-app
-- Run `docker compose up`
-- Application will be hosted at `http://localhost:8081`
 
 ## Release History
 
