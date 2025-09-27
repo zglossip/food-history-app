@@ -23,7 +23,7 @@ const { recipe, onEditHeader } = inject(
 </script>
 
 <template>
-  <RecipeCard :recipe="recipe" @edit="onEditHeader"/>
+  <RecipeCard :recipe="recipe" @edit="onEditHeader" />
   <IngredientCard :id="id" />
   <InstructionCard :id="id" />
 </template>

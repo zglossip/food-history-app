@@ -16,6 +16,10 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import("@/views/createEdit/CreateEditHeaderView.vue"),
   },
   {
+    path: "/recipe/create/single",
+    component: () => import("@/views/createEdit/CreateSingleView.vue"),
+  },
+  {
     path: "/recipe/create/ingredients",
     component: () => import("@/views/createEdit/CreateEditIngredientsView.vue"),
   },

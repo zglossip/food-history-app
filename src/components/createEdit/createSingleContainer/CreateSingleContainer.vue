@@ -1,0 +1,87 @@
+<script setup lang="ts">
+import { useCreateSingleContainerService } from "./createSingleContainerService";
+import {
+  IonInput,
+  IonList,
+  IonItem,
+  IonCard,
+  IonCardContent,
+  IonTextarea,
+} from "@ionic/vue";
+
+const {
+  name,
+  coursesString,
+  cuisinesString,
+  tagsString,
+  servingAmount,
+  servingName,
+  sourceUrl,
+  ingredientsString,
+  add,
+} = useCreateSingleContainerService();
+</script>
+
+<template>
+  <ion-card>
+    <ion-card-content>
+      <ion-list>
+        <ion-item>
+          <ion-input label="Name" label-placement="stacked" v-model="name" />
+        </ion-item>
+        <ion-item>
+          <ion-input
+            label="Course(s)"
+            label-placement="stacked"
+            v-model="coursesString"
+          />
+        </ion-item>
+        <ion-item>
+          <ion-input
+            label="Cusine(s)"
+            label-placement="stacked"
+            v-model="cuisinesString"
+          />
+        </ion-item>
+        <ion-item>
+          <ion-input
+            label="Tag(s)"
+            label-placement="stacked"
+            v-model="tagsString"
+          />
+        </ion-item>
+        <ion-item>
+          <ion-input
+            label="Serving Amount"
+            label-placement="stacked"
+            v-model="servingAmount"
+            type="number"
+          />
+        </ion-item>
+        <ion-item>
+          <ion-input
+            label="Serving Name"
+            label-placement="stacked"
+            v-model="servingName"
+          />
+        </ion-item>
+        <ion-item>
+          <ion-input
+            label="Source URL"
+            label-placement="stacked"
+            v-model="sourceUrl"
+            type="url"
+          />
+        </ion-item>
+        <ion-item>
+          <ion-textarea
+            label="Ingredients (one per line)"
+            label-placement="stacked"
+            v-model="ingredientsString"
+          />
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+    <ion-button fill="clear" @click="add">Add</ion-button>
+  </ion-card>
+</template>
