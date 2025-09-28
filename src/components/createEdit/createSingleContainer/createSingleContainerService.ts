@@ -1,5 +1,6 @@
-import { createRecipe, saveIngredients } from "@/services/apiService";
+import { createRecipe, saveIngredients, saveInstructions } from "@/services/apiService";
 import { IngredientList } from "@/types/IngredientList";
+import { InstructionList } from "@/types/InstructionList";
 import { Recipe } from "@/types/Recipe";
 import { ref, Ref } from "vue";
 
@@ -14,6 +15,7 @@ export interface CreateSingleContainerService {
   servingName: Ref<string>;
   sourceUrl: Ref<string>;
   ingredientsString: Ref<string>;
+  instructionsString: Ref<string>;
   add: () => void;
 }
 
@@ -26,6 +28,7 @@ export function useCreateSingleContainerService(): CreateSingleContainerService 
   const servingName = ref("");
   const sourceUrl = ref("");
   const ingredientsString = ref("");
+  const instructionsString = ref("")
 
   async function add(): Promise<void> {
     await addRecipe();
@@ -48,6 +51,7 @@ export function useCreateSingleContainerService(): CreateSingleContainerService 
     if (response) {
       //We can assume the recipe has an ID if it was successful
       await addIngredients(response.id!);
+      await addInstructions(response.id!);
     } else {
       //TODO Toast error
       console.log("Error creating recipe");
@@ -85,6 +89,15 @@ export function useCreateSingleContainerService(): CreateSingleContainerService 
     await saveIngredients(ingredientList);
   }
 
+  async function addInstructions(recipeId: number): Promise<void> {
+    const instructionList: InstructionList = {
+      recipeId,
+      instructions: instructionsString.value.split("\n")
+    }
+
+    await saveInstructions(instructionList)
+  }
+
   return {
     name,
     coursesString,
@@ -94,6 +107,7 @@ export function useCreateSingleContainerService(): CreateSingleContainerService 
     servingName,
     sourceUrl,
     ingredientsString,
+    instructionsString,
     add,
   };
 }

@@ -21,6 +21,7 @@ const stubCreateSingleContainerService = (): void => {
       servingName: ref(""),
       sourceUrl: ref(""),
       ingredientsString: ref(""),
+      instructionsString: ref(""),
       add: action("add"),
     }),
   );

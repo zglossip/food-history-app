@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { useCreateSingleContainerService } from "./createSingleContainerService";
+import { inject } from "vue";
+import { INJECTION_KEY, useCreateSingleContainerService } from "./createSingleContainerService";
 import {
   IonInput,
   IonList,
@@ -18,8 +19,9 @@ const {
   servingName,
   sourceUrl,
   ingredientsString,
+  instructionsString,
   add,
-} = useCreateSingleContainerService();
+} = inject(INJECTION_KEY, useCreateSingleContainerService)();
 </script>
 
 <template>
@@ -75,10 +77,17 @@ const {
         </ion-item>
         <ion-item>
           <ion-textarea
-            label="Ingredients (one per line)"
+            label="Ingredients"
             label-placement="stacked"
             v-model="ingredientsString"
           />
+        </ion-item>
+        <ion-item>
+          <ion-textarea
+            label="Instructions"
+            label-placement="stacked"
+            v-model="instructionsString"
+            />s
         </ion-item>
       </ion-list>
     </ion-card-content>
