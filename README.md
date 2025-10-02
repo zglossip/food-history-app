@@ -10,7 +10,7 @@ Currently a work in progress.
 
 This application requires a REST API. The repository containing the API application can be found [here](https://github.com/zglossip/food-history-api)
 
-It also requires an `.env` file containing a `BACKEND_BASE` property. This property should be the URL to the backend.
+It also requires an `.env` file containing a `VITE_BACKEND_BASE` property. This property should be the URL to the backend.
 
 ## Instructions
 
