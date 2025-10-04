@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import { inject } from "vue";
-import { INJECTION_KEY, useCreateSingleContainerService } from "./createSingleContainerService";
+import {
+  INJECTION_KEY,
+  useCreateSingleContainerService,
+} from "./createSingleContainerService";
 import {
   IonInput,
   IonList,
@@ -87,7 +90,7 @@ const {
             label="Instructions"
             label-placement="stacked"
             v-model="instructionsString"
-            />s
+          />s
         </ion-item>
       </ion-list>
     </ion-card-content>
