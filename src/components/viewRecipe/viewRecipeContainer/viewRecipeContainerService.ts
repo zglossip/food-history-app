@@ -1,5 +1,6 @@
 import { fetchRecipe } from "@/services/apiService";
 import { Recipe } from "@/types/Recipe";
+import { onIonViewWillEnter } from "@ionic/vue";
 import { Ref, ref } from "vue";
 import { useRouter } from "vue-router";
 
@@ -11,6 +12,7 @@ export interface ViewRecipeContainerService {
   onEditHeader: () => void;
   onEditIngredients: () => void;
   onEditInstructions: () => void;
+  refreshData: () => void;
 }
 
 export const useViewRecipeContainerService = (
@@ -21,7 +23,7 @@ export const useViewRecipeContainerService = (
 
   const router = useRouter();
 
-  fetchRecipe(id).then((r) => (recipe.value = r));
+  const refreshData = () => fetchRecipe(id).then((r) => (recipe.value = r))
 
   const onEditHeader = () => {
     router.push(`/recipe/edit/${id}`);
@@ -41,5 +43,6 @@ export const useViewRecipeContainerService = (
     onEditHeader,
     onEditIngredients,
     onEditInstructions,
+    refreshData,
   };
 };

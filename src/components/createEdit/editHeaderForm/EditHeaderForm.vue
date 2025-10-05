@@ -55,7 +55,7 @@ const {
           <ion-input
             label="Serving Amount"
             label-placement="stacked"
-            :value="newServingAmount"
+            v-model="newServingAmount"
             name="servamt"
             autocomplete="off"
           />
@@ -64,7 +64,7 @@ const {
           <ion-input
             label="Serving Name"
             label-placement="stacked"
-            :value="newServingName"
+            v-model="newServingName"
           />
         </ion-item>
         <ion-item>

@@ -16,10 +16,14 @@ const props = defineProps<Props>();
 
 // SERVICE
 
-const { recipe, onEditHeader } = inject(
+const { recipe, onEditHeader, refreshData } = inject(
   INJECTION_KEY,
   useViewRecipeContainerService,
 )(props.id);
+
+defineExpose({
+  refreshData,
+});
 </script>
 
 <template>
