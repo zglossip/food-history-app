@@ -2,7 +2,7 @@ import { Filters } from "@/components/browse/filterMenu/filterMenuService";
 import { fetchRecipes as fetchRecipesApi } from "@/services/apiService";
 import { Recipe } from "@/types/Recipe";
 import { onIonViewWillEnter } from "@ionic/vue";
-import { onActivated, onMounted, Ref, ref } from "vue";
+import { Ref, ref } from "vue";
 import { LocationQueryValue, useRoute } from "vue-router";
 
 export interface BrowseViewService {

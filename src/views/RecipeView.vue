@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import ViewRecipeContainer from "@/components/viewRecipe/viewRecipeContainer/ViewRecipeContainer.vue";
 import BasePage from "@/components/common/basePage/BasePage.vue";
-import { onIonViewDidEnter, onIonViewWillEnter } from "@ionic/vue";
+import { onIonViewDidEnter } from "@ionic/vue";
 import { ref } from "vue";
 
 //PROPS
@@ -9,7 +9,7 @@ interface Props {
   id: string;
 }
 
-  const container = ref();
+const container = ref();
 
 defineProps<Props>();
 
@@ -18,6 +18,6 @@ onIonViewDidEnter(() => container.value?.refreshData());
 
 <template>
   <BasePage title="View Recipe">
-    <ViewRecipeContainer :id="Number(id)" ref="container"/>
+    <ViewRecipeContainer :id="Number(id)" ref="container" />
   </BasePage>
 </template>
