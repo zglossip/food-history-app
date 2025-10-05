@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Recipe } from "@/types/Recipe";
-import { inject } from "vue";
+import { inject, Ref, toRef } from "vue";
 import {
   INJECTION_KEY,
   useEditHeaderFormService,
@@ -20,10 +20,12 @@ import { add } from "ionicons/icons";
 import FilterChips from "@/components/common/filterChips/FilterChips.vue";
 
 interface Props {
-  recipe?: Recipe | null;
+  recipe?: Recipe;
 }
 
 const props = defineProps<Props>();
+
+const recipe: Ref<Recipe | undefined> = toRef(props, "recipe")
 
 const {
   newName,
@@ -39,7 +41,7 @@ const {
   removeChip,
   onSaveClick,
   onCancelClick,
-} = inject(INJECTION_KEY, useEditHeaderFormService)(props.recipe);
+} = inject(INJECTION_KEY, useEditHeaderFormService)(recipe);
 </script>
 
 <template>
@@ -67,7 +69,7 @@ const {
         </ion-item>
         <ion-item>
           <ion-select
-            label="Filter Type"
+            label="Property Type"
             v-model="currentFilterType"
             fill="solid"
             label-placement="stacked"
@@ -85,7 +87,7 @@ const {
           <ion-input
             label-placement="stacked"
             v-model="filterText"
-            label="Filter"
+            label="Property"
           />
           <ion-button slot="end" @click="addChip">
             <ion-icon :icon="add" />
@@ -99,7 +101,6 @@ const {
             @remove-chip="removeChip"
           />
         </ion-item>
-        <ion-item> </ion-item>
       </ion-list>
     </ion-card-content>
     <ion-button fill="clear" @click="onCancelClick">Cancel</ion-button>

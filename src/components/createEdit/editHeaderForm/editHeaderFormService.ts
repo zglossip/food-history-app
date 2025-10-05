@@ -1,5 +1,5 @@
 import { Recipe } from "@/types/Recipe";
-import { Ref, ref } from "vue";
+import { Ref, ref, watch } from "vue";
 import { createRecipe, saveRecipe } from "@/services/apiService";
 import { FILTER_OPTIONS } from "@/services/constants";
 import { FilterType } from "@/types/FilterType";
@@ -25,18 +25,30 @@ export interface EditHeaderFormService {
 }
 
 export const useEditHeaderFormService = (
-  recipe?: Recipe | null,
+  recipe: Ref<Recipe | undefined>,
 ): EditHeaderFormService => {
-  const newName = ref(recipe?.name ?? "");
-  const newServingAmount = ref(recipe?.servingAmount ?? 0);
-  const newServingName = ref(recipe?.servingName ?? "");
-  const newCourseTypes = ref(recipe?.courseTypes ?? []);
-  const newCuisineTypes = ref(recipe?.cuisineTypes ?? []);
-  const newTags = ref(recipe?.tags ?? []);
+  const newName = ref(recipe.value?.name ?? "");
+  const newServingAmount = ref(recipe.value?.servingAmount ?? 0);
+  const newServingName = ref(recipe.value?.servingName ?? "");
+  const newCourseTypes = ref(recipe.value?.courseTypes ?? []);
+  const newCuisineTypes = ref(recipe.value?.cuisineTypes ?? []);
+  const newTags = ref(recipe.value?.tags ?? []);
   const currentFilterType = ref(FilterType.COURSE);
   const filterText = ref("");
 
   const router = useRouter();
+
+  watch(() => recipe.value, (newVal)  => {
+    if(newVal) {
+      newName.value = newVal.name
+      newServingAmount.value = newVal.servingAmount
+      newServingName.value = newVal.servingName
+      newCourseTypes.value = newVal.courseTypes
+      newCuisineTypes.value = newVal.cuisineTypes
+      newTags.value = newVal.tags
+    }
+  })
+
 
   const removeChip = (data: FilterChipData) => {
     switch (data.type) {
@@ -83,9 +95,9 @@ export const useEditHeaderFormService = (
     }
   };
 
-  const onSaveClick = () => {
+  const onSaveClick = async () => {
     if (recipe) {
-      saveRecipe({
+      await saveRecipe({
         ...recipe,
         name: newName.value,
         servingAmount: newServingAmount.value,
@@ -95,7 +107,7 @@ export const useEditHeaderFormService = (
         tags: newTags.value,
       });
     } else {
-      createRecipe({
+      await createRecipe({
         name: newName.value,
         servingAmount: newServingAmount.value,
         servingName: newServingName.value,
