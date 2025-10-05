@@ -7,6 +7,7 @@ import {
   IonTitle,
 } from "@ionic/vue";
 import ViewRecipeContainer from "@/components/viewRecipe/viewRecipeContainer/ViewRecipeContainer.vue";
+import BasePage from "@/components/common/basePage/BasePage.vue";
 
 //PROPS
 interface Props {
@@ -17,14 +18,7 @@ defineProps<Props>();
 </script>
 
 <template>
-  <ion-page id="recipe-view">
-    <ion-header :translucent="true">
-      <ion-toolbar>
-        <ion-title>View asdf</ion-title>
-      </ion-toolbar>
-    </ion-header>
-    <ion-content>
-      <ViewRecipeContainer :id="Number(id)" />
-    </ion-content>
-  </ion-page>
+  <BasePage title="View Recipe">
+    <ViewRecipeContainer :id="Number(id)" />
+  </BasePage>
 </template>

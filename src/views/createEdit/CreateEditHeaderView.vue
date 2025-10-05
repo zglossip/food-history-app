@@ -1,12 +1,6 @@
 <script setup lang="ts">
-import {
-  IonPage,
-  IonHeader,
-  IonToolbar,
-  IonTitle,
-  IonContent,
-} from "@ionic/vue";
 import EditHeaderContainer from "@/components/createEdit/editHeaderContainer/EditHeaderContainer.vue";
+import BasePage from "@/components/common/basePage/BasePage.vue";
 
 //PROPS
 interface Props {
@@ -17,14 +11,7 @@ defineProps<Props>();
 </script>
 
 <template>
-  <ion-page id="edit-header-view">
-    <ion-header>
-      <ion-toolbar>
-        <ion-title>Edit Recipe</ion-title>
-      </ion-toolbar>
-    </ion-header>
-    <ion-content :fullscreen="true">
-      <EditHeaderContainer :id="Number(id)" />
-    </ion-content>
-  </ion-page>
+  <BasePage title="Edit Recipe">
+    <EditHeaderContainer :id="Number(id)" />
+  </BasePage>
 </template>

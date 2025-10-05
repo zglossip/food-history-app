@@ -9,10 +9,11 @@ import {
   IonTitle,
   IonContent,
   IonPage,
-  IonMenuButton
+  IonMenuButton,
 } from "@ionic/vue";
 import { home } from "ionicons/icons";
 import { useSlots } from "vue";
+import { useRouter } from "vue-router";
 
 //PROPS
 
@@ -24,6 +25,11 @@ interface Props {
 const { title, menuTitle = "Menu" } = defineProps<Props>();
 
 const slots = useSlots();
+const router = useRouter();
+
+const goHome = (): void => {
+  router?.push(`/`)
+}
 </script>
 
 <template>
@@ -43,7 +49,7 @@ const slots = useSlots();
     <ion-header :translucent="true">
       <ion-toolbar>
         <ion-buttons slot="start">
-          <ion-button>
+          <ion-button @click="goHome">
             <ion-icon slot="icon-only" :icon="home" />
           </ion-button>
         </ion-buttons>

@@ -3,7 +3,8 @@ import { RouteRecordRaw } from "vue-router";
 
 const routes: Array<RouteRecordRaw> = [
   {
-    path: "/browse",
+    path: "/",
+    alias: "/browse",
     component: () => import("@/views/browseView/BrowseView.vue"),
   },
   {
