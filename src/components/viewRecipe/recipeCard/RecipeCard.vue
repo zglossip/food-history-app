@@ -26,6 +26,7 @@ const {
   formattedCuisineTag,
   formattedCourseTag,
   formattedTagTag,
+  recipeSourceUrl,
   onClick,
 } = inject(injectionKey, useRecipeService)(recipe, undefined, editEmit);
 </script>
@@ -48,5 +49,6 @@ const {
     >
       <span v-if="tag">{{ tag }}</span>
     </div>
+    <span v-if="recipeSourceUrl">Source: {{ recipeSourceUrl }}</span>
   </button-card>
 </template>

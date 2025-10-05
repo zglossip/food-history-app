@@ -16,6 +16,7 @@ export const stubRecipeService = (args: any) => {
       formattedCuisineTag: computed(() => args.formattedCuisineTag),
       formattedCourseTag: computed(() => args.formattedCourseTag),
       formattedTagTag: computed(() => args.formattedTagTag),
+      recipeSourceUrl: computed(() => args.recipeSourceUrl),
       navigate: () => ({}),
       onClick: action("button clicked"),
     }),
@@ -29,6 +30,7 @@ const TEST_SERVING_TAG = "4 servings";
 const TEST_CUISINE_TAG = "Cuisines: American, Chinese";
 const TEST_COURSE_TAG = "Courses: Main, Side";
 const TEST_TAG_TAG = "Tags: fav, St. Louis";
+const TEST_RECIPE_SOURCE = "http://www.fake-recipe.com/";
 
 const meta: Meta<typeof RecipeCard> = {
   title: "View Recipe/Recipe Card",
@@ -47,6 +49,9 @@ const meta: Meta<typeof RecipeCard> = {
       options: [TEST_TAG_TAG, false],
       type: "select",
     },
+    recipeSourceUrl: {
+      options: [TEST_RECIPE_SOURCE, null],
+    },
   },
   render: (args: any) => ({
     components: { RecipeCard },
@@ -64,6 +69,7 @@ const meta: Meta<typeof RecipeCard> = {
     formattedCuisineTag: TEST_CUISINE_TAG,
     formattedCourseTag: TEST_COURSE_TAG,
     formattedTagTag: TEST_TAG_TAG,
+    recipeSourceUrl: TEST_RECIPE_SOURCE,
   },
 };
 
