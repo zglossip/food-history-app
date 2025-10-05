@@ -28,8 +28,8 @@ const slots = useSlots();
 const router = useRouter();
 
 const goHome = (): void => {
-  router?.push(`/`)
-}
+  router?.push(`/`);
+};
 </script>
 
 <template>
