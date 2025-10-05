@@ -8,6 +8,7 @@ const DEFAULT_RECIPE: Recipe = {
   tags: [],
   servingAmount: 1,
   servingName: "serving",
+  uploaded: null,
 };
 
 export const generateRecipe = (recipe: Partial<Recipe> = {}): Recipe => ({

@@ -46,6 +46,7 @@ export function useCreateSingleContainerService(): CreateSingleContainerService 
       tags: tagsString.value.split(",").map((s) => s.trim()),
       servingAmount: servingAmount.value,
       servingName: servingName.value,
+      uploaded: null,
     };
 
     if (sourceUrl.value) recipe.recipeSourceUrl = sourceUrl.value;

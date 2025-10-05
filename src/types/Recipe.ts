@@ -10,4 +10,5 @@ export type Recipe = {
   recipeSourceUrl?: string;
   ingredients?: string;
   instructions?: string;
+  uploaded: string | null;
 };

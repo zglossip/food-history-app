@@ -98,9 +98,9 @@ export const useEditHeaderFormService = (
   };
 
   const onSaveClick = async () => {
-    if (recipe) {
+    if (recipe.value) {
       await saveRecipe({
-        ...recipe,
+        ...recipe.value,
         name: newName.value,
         servingAmount: newServingAmount.value,
         servingName: newServingName.value,
@@ -116,6 +116,7 @@ export const useEditHeaderFormService = (
         courseTypes: newCourseTypes.value,
         cuisineTypes: newCuisineTypes.value,
         tags: newTags.value,
+        uploaded: null,
       });
     }
     router.go(-1);
