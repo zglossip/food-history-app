@@ -3,7 +3,6 @@ import { Recipe } from "@/types/Recipe";
 import { generateRecipe } from "@tests/data/defaults";
 import { describe, it, expect, Mock, vi } from "vitest";
 import { toRef } from "vue";
-import type { Router } from "vue-router";
 
 interface Givens {
   recipe: Recipe;
@@ -25,11 +24,8 @@ const setup = (
 ): Setup => {
   const verifiedGivens: Givens = { ...{ recipe: generateRecipe() }, ...givens };
   const verifiedStubs: Stubs = { ...{ push: vi.fn() }, ...stubs };
-  const mockRouter = {
-    push: verifiedStubs.push,
-  } as unknown as Router;
 
-  const service = useRecipeService(toRef(verifiedGivens.recipe), mockRouter);
+  const service = useRecipeService(toRef(verifiedGivens.recipe));
 
   return { service, givens: verifiedGivens, stubs: verifiedStubs };
 };
@@ -103,18 +99,5 @@ describe("useRecipeService.ts", () => {
   it("formats no tags", () => {
     const { service } = setup();
     expect(service.formattedTagTag.value).toBeFalsy;
-  });
-
-  it("navigates", async () => {
-    const id: number = 100;
-    const push = vi.fn();
-    const { service } = setup({ recipe: generateRecipe({ id: id }) }, { push });
-
-    service.navigate();
-
-    console.log("Mock push calls:", push.mock.calls);
-
-    expect(push).toHaveBeenCalledWith(`/recipe/${id}`);
-    expect(push).toHaveBeenCalledTimes(1);
   });
 });

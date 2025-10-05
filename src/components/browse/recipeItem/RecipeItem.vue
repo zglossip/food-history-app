@@ -11,7 +11,6 @@ import {
   IonItem,
 } from "@ionic/vue";
 import { arrowForward } from "ionicons/icons";
-import { useRouter } from "vue-router";
 
 //PROPS
 
@@ -30,7 +29,7 @@ const {
   formattedCourseTag,
   formattedTagTag,
   navigate,
-} = inject(injectionKey, useRecipeService)(recipe, useRouter());
+} = inject(injectionKey, useRecipeService)(recipe);
 </script>
 
 <template>

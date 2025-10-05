@@ -28,12 +28,12 @@ const slots = useSlots();
 const router = useRouter();
 
 const goHome = (): void => {
-  router?.push(`/`);
+  router.push("/");
 };
 </script>
 
 <template>
-  <ion-menu v-if="!!slots.menu" content-id="fh-view" side="end">
+  <ion-menu v-if="!!slots.menu" content-id="main-content" side="end">
     <ion-header>
       <ion-toolbar>
         <ion-title>
@@ -45,7 +45,7 @@ const goHome = (): void => {
       <slot name="menu" />
     </ion-content>
   </ion-menu>
-  <ion-page content-id="fh-view">
+  <ion-page content-id="main-content">
     <ion-header :translucent="true">
       <ion-toolbar>
         <ion-buttons slot="start">

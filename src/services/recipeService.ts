@@ -1,6 +1,6 @@
 import { Recipe } from "@/types/Recipe";
 import { ComputedRef, Ref, computed } from "vue";
-import { Router } from "vue-router";
+import { useRouter } from "vue-router";
 
 export const injectionKey = Symbol();
 
@@ -16,9 +16,10 @@ export interface RecipeService {
 
 export const useRecipeService = (
   recipe: Ref<Recipe | null>,
-  router?: Router,
   editEmit?: () => void,
 ): RecipeService => {
+  const router = useRouter();
+
   const formatTag = (
     tagName: string,
     tags?: Array<string>,
@@ -61,7 +62,7 @@ export const useRecipeService = (
   });
 
   const navigate = (): void => {
-    router?.push(`/recipe/${recipe.value?.id}`);
+    router.push(`/recipe/${recipe.value?.id}`);
   };
 
   const onClick = editEmit

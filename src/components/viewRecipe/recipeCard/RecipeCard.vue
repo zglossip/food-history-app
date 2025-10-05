@@ -28,7 +28,7 @@ const {
   formattedTagTag,
   recipeSourceUrl,
   onClick,
-} = inject(injectionKey, useRecipeService)(recipe, undefined, editEmit);
+} = inject(injectionKey, useRecipeService)(recipe, editEmit);
 </script>
 
 <template>
