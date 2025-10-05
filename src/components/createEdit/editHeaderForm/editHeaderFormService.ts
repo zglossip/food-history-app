@@ -38,17 +38,19 @@ export const useEditHeaderFormService = (
 
   const router = useRouter();
 
-  watch(() => recipe.value, (newVal)  => {
-    if(newVal) {
-      newName.value = newVal.name
-      newServingAmount.value = newVal.servingAmount
-      newServingName.value = newVal.servingName
-      newCourseTypes.value = newVal.courseTypes
-      newCuisineTypes.value = newVal.cuisineTypes
-      newTags.value = newVal.tags
-    }
-  })
-
+  watch(
+    () => recipe.value,
+    (newVal) => {
+      if (newVal) {
+        newName.value = newVal.name;
+        newServingAmount.value = newVal.servingAmount;
+        newServingName.value = newVal.servingName;
+        newCourseTypes.value = newVal.courseTypes;
+        newCuisineTypes.value = newVal.cuisineTypes;
+        newTags.value = newVal.tags;
+      }
+    },
+  );
 
   const removeChip = (data: FilterChipData) => {
     switch (data.type) {

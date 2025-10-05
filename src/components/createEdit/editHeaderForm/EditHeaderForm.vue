@@ -25,7 +25,7 @@ interface Props {
 
 const props = defineProps<Props>();
 
-const recipe: Ref<Recipe | undefined> = toRef(props, "recipe")
+const recipe: Ref<Recipe | undefined> = toRef(props, "recipe");
 
 const {
   newName,

@@ -17,8 +17,8 @@ export const ERROR_RECIPE: Recipe = {
   cuisineTypes: ["ERROR"],
   tags: ["ERROR"],
   servingAmount: -1,
-  servingName: "ERROR"
-}
+  servingName: "ERROR",
+};
 
 export const LOADING_RECIPE: Recipe = {
   name: "Loading...",
@@ -26,5 +26,5 @@ export const LOADING_RECIPE: Recipe = {
   cuisineTypes: ["Loading..."],
   tags: ["Loading..."],
   servingAmount: 0,
-  servingName: "Loading..."
-}
+  servingName: "Loading...",
+};
