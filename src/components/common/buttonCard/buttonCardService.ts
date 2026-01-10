@@ -1,6 +1,6 @@
 export const INJECTION_KEY = Symbol();
 
-interface ButtonCardService {
+export interface ButtonCardService {
   onClick: () => void;
 }
 
