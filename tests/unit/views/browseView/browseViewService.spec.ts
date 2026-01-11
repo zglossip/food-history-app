@@ -2,6 +2,9 @@ import { vi, describe, it, expect, Mock } from "vitest";
 
 vi.mock("@/services/apiService");
 vi.mock("vue-router");
+vi.mock("@ionic/vue", () => ({
+  onIonViewWillEnter: (cb: () => void) => cb(),
+}));
 
 import { fetchRecipes } from "@/services/apiService";
 import { useRoute } from "vue-router";

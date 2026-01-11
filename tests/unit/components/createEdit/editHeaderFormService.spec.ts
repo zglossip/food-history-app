@@ -15,9 +15,13 @@ vi.mock("vue-router");
 
 const setup = (
   existingRecipe?: Recipe,
-): { service: EditHeaderFormService; recipeRef: Ref<Recipe | undefined>; routerGo: () => void } => {
-  vi.resetAllMocks()
-  
+): {
+  service: EditHeaderFormService;
+  recipeRef: Ref<Recipe | undefined>;
+  routerGo: () => void;
+} => {
+  vi.resetAllMocks();
+
   const routerGo = vi.fn();
 
   (useRouter as Mock).mockReturnValue({ go: routerGo });
@@ -125,7 +129,7 @@ describe("editHeaderFormService", () => {
   });
 
   it("creates a recipe when one does not exist and navigates back", async () => {
-    const {service, routerGo} = setup(undefined)
+    const { service, routerGo } = setup(undefined);
 
     service.newName.value = "New Recipe";
     service.newServingAmount.value = 3;
