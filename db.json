@@ -1,0 +1,104 @@
+{
+  "recipe": [
+    {
+      "id": 1,
+      "name": "Weeknight Chili",
+      "courseTypes": ["Dinner"],
+      "cuisineTypes": ["American"],
+      "tags": ["spicy", "slow-cooker"],
+      "servingAmount": 4,
+      "servingName": "bowls",
+      "recipeSourceUrl": "https://example.com/recipes/chili",
+      "uploaded": "2024-01-10"
+    },
+    {
+      "id": 2,
+      "name": "Lemon Herb Salmon",
+      "courseTypes": ["Dinner"],
+      "cuisineTypes": ["Mediterranean"],
+      "tags": ["seafood", "quick"],
+      "servingAmount": 2,
+      "servingName": "filets",
+      "recipeSourceUrl": "https://example.com/recipes/salmon",
+      "uploaded": "2024-02-03"
+    },
+    {
+      "id": 3,
+      "name": "Blueberry Oat Parfaits",
+      "courseTypes": ["Breakfast"],
+      "cuisineTypes": ["American"],
+      "tags": ["make-ahead", "vegetarian"],
+      "servingAmount": 3,
+      "servingName": "jars",
+      "recipeSourceUrl": "https://example.com/recipes/parfaits",
+      "uploaded": "2024-03-12"
+    }
+  ],
+  "ingredientLists": [
+    {
+      "id": 1,
+      "recipeId": 1,
+      "recipe": "Weeknight Chili",
+      "ingredients": [
+        { "name": "Ground beef", "quantity": 1, "uom": "lb" },
+        { "name": "Kidney beans", "quantity": 2, "uom": "cans" },
+        { "name": "Diced tomatoes", "quantity": 1, "uom": "can" },
+        { "name": "Chili powder", "quantity": 2, "uom": "tbsp" }
+      ]
+    },
+    {
+      "id": 2,
+      "recipeId": 2,
+      "recipe": "Lemon Herb Salmon",
+      "ingredients": [
+        { "name": "Salmon fillets", "quantity": 2, "uom": "pieces" },
+        { "name": "Lemon", "quantity": 1, "uom": "whole" },
+        { "name": "Olive oil", "quantity": 2, "uom": "tbsp" },
+        { "name": "Fresh dill", "quantity": 1, "uom": "tbsp", "notes": "chopped" }
+      ]
+    },
+    {
+      "id": 3,
+      "recipeId": 3,
+      "recipe": "Blueberry Oat Parfaits",
+      "ingredients": [
+        { "name": "Greek yogurt", "quantity": 2, "uom": "cups" },
+        { "name": "Blueberries", "quantity": 1, "uom": "cup" },
+        { "name": "Rolled oats", "quantity": 0.5, "uom": "cup" },
+        { "name": "Honey", "quantity": 2, "uom": "tbsp" }
+      ]
+    }
+  ],
+  "instructionLists": [
+    {
+      "id": 1,
+      "recipeId": 1,
+      "recipe": "Weeknight Chili",
+      "instructions": [
+        "Brown the beef in a heavy pot over medium heat.",
+        "Stir in beans, tomatoes, and chili powder.",
+        "Simmer uncovered for 25 minutes, stirring occasionally."
+      ]
+    },
+    {
+      "id": 2,
+      "recipeId": 2,
+      "recipe": "Lemon Herb Salmon",
+      "instructions": [
+        "Pat salmon dry and season with salt and pepper.",
+        "Whisk lemon juice, olive oil, and herbs together.",
+        "Bake at 400F for 12 minutes, then spoon sauce on top."
+      ]
+    },
+    {
+      "id": 3,
+      "recipeId": 3,
+      "recipe": "Blueberry Oat Parfaits",
+      "instructions": [
+        "Toast oats lightly in a dry skillet until fragrant.",
+        "Layer yogurt, oats, and blueberries in jars.",
+        "Drizzle with honey and chill until ready to serve."
+      ]
+    }
+  ]
+}

@@ -12,6 +12,8 @@ This application requires a REST API. The repository containing the API applicat
 
 It also requires an `.env` file containing a `VITE_BACKEND_BASE` property. This property should be the URL to the backend.
 
+For local dev without the backend, run the mock API with `npm run mock:api` (json-server) and keep `VITE_BACKEND_BASE=http://localhost:3001` (see `.env.development`).
+
 ## Instructions
 
 ### Simple Setup

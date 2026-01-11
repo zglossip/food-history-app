@@ -1,0 +1,4 @@
+{
+  "/recipe/:id/ingredients": "/ingredientLists/:id",
+  "/recipe/:id/instructions": "/instructionLists/:id"
+}
