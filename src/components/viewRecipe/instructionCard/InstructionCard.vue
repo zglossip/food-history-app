@@ -23,7 +23,7 @@ const editEmit = () => emit("edit");
 
 //SERVICE
 
-const { isLoading, instructions, onClick } = inject(
+const { isLoading, instructions, onClick, displayError } = inject(
   injectionKey,
   useInstructionCardService,
 )(props.id, editEmit);
@@ -33,6 +33,11 @@ const { isLoading, instructions, onClick } = inject(
   <button-card header-text="Instructions" @click="onClick">
     <div v-if="isLoading">
       <ion-spinner />
+    </div>
+    <div v-else-if="displayError">
+      <ion-item>
+        <ion-label color="danger">Unable to load instructions.</ion-label>
+      </ion-item>
     </div>
     <div v-else-if="instructions.length === 0">
       <ion-item>

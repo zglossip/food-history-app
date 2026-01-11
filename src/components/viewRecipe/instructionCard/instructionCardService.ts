@@ -1,5 +1,4 @@
 import { fetchInstructions } from "@/services/apiService";
-import { InstructionList } from "@/types/InstructionList";
 import { Ref, ref } from "vue";
 
 export const injectionKey = Symbol();
@@ -8,6 +7,7 @@ export interface InstructionCardService {
   instructions: Ref<string[]>;
   isLoading: Ref<boolean>;
   onClick: () => void;
+  displayError: Ref<boolean>;
 }
 
 export const useInstructionCardService = (
@@ -17,15 +17,21 @@ export const useInstructionCardService = (
   const instructions: Ref<string[]> = ref([]);
   const isLoading: Ref<boolean> = ref(true);
   const onClick = () => editEmit();
+  const displayError: Ref<boolean> = ref(false);
 
   fetchInstructions(id)
-    .then(
-      (instructionResponse: InstructionList) =>
-        (instructions.value = instructionResponse.instructions),
-    )
+    .then((instructionResponse) => {
+      if (instructionResponse.ok) {
+        instructions.value = instructionResponse.data.instructions;
+        displayError.value = false;
+        return;
+      }
+      instructions.value = [];
+      displayError.value = true;
+    })
     .finally(() => (isLoading.value = false));
 
-  return { instructions, isLoading, onClick };
+  return { instructions, isLoading, onClick, displayError };
 };
 
 export const formatInstruction = (

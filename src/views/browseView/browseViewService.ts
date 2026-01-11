@@ -13,6 +13,7 @@ export interface BrowseViewService {
   tags: Ref<string[]>;
   applyFilters: (filter: Filters) => void;
   isLoading: Ref<boolean>;
+  displayError: Ref<boolean>;
 }
 
 export const injectionKey = Symbol();
@@ -24,6 +25,8 @@ export const useBrowseViewService = (): BrowseViewService => {
   const cuisines: Ref<string[]> = ref([]);
   const tags: Ref<string[]> = ref([]);
   const isLoading: Ref<boolean> = ref(false);
+  const displayError: Ref<boolean> = ref(false);
+
 
   const route = useRoute();
   const nameQuery = route.query.nameQuery as string;
@@ -68,7 +71,16 @@ export const useBrowseViewService = (): BrowseViewService => {
   const fetchRecipes: VoidFunction = (): void => {
     isLoading.value = true;
     fetchRecipesApi(name.value, cuisines.value, courses.value, tags.value)
-      .then((response) => (recipes.value = response))
+      .then((response) => {
+        if (response.ok) {
+          recipes.value = response.data;
+          displayError.value = false;
+          return;
+        }
+
+        recipes.value = [];
+        displayError.value = true;
+      })
       .finally(() => (isLoading.value = false));
   };
 
@@ -82,5 +94,14 @@ export const useBrowseViewService = (): BrowseViewService => {
 
   onIonViewWillEnter(fetchRecipes);
 
-  return { recipes, name, courses, cuisines, tags, applyFilters, isLoading };
+  return {
+    recipes,
+    name,
+    courses,
+    cuisines,
+    tags,
+    applyFilters,
+    isLoading,
+    displayError,
+  };
 };

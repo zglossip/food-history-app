@@ -3,38 +3,59 @@ import axios from "axios";
 import { BACKEND_BASE } from "@/services/constants";
 import { IngredientList } from "@/types/IngredientList";
 import { InstructionList } from "@/types/InstructionList";
+import { useToast } from "@/composables/useToast";
 
-const get = async <T>(url: string, d: T): Promise<T> => {
-  return axios
-    .get(url)
-    .then((response) => response.data as T)
-    .catch((error) => {
-      //TODO Toast error
-      console.log(error);
-      return d;
-    });
+export type ApiResult<T> =
+  | { ok: true; data: T }
+  | { ok: false; error: string };
+
+const getErrorMessage = (error: unknown): string => {
+  if (axios.isAxiosError(error)) {
+    if (typeof error.response?.data === "string") {
+      return error.response.data;
+    }
+    return error.message || "Request failed.";
+  }
+
+  if (error instanceof Error) {
+    return error.message;
+  }
+
+  return "Request failed.";
 };
 
-const post = async <T, S>(url: string, d: S, body: T): Promise<S> => {
-  return axios
-    .post(url, body)
-    .then((response) => response.data as S)
-    .catch((error) => {
-      //TODO Toast error
-      console.log(error);
-      return d;
-    });
+const handleError = <T>(error: unknown): ApiResult<T> => {
+  const { showToast } = useToast();
+  const message = getErrorMessage(error);
+  showToast(message);
+  return { ok: false, error: message };
 };
 
-const put = async <T, S>(url: string, d: S, body: T): Promise<S> => {
-  return axios
-    .put(url, body)
-    .then((response) => response.data as S)
-    .catch((error) => {
-      //TODO Toast error
-      console.log(error);
-      return d;
-    });
+const get = async <T>(url: string): Promise<ApiResult<T>> => {
+  try {
+    const response = await axios.get(url);
+    return { ok: true, data: response.data as T };
+  } catch (error) {
+    return handleError<T>(error);
+  }
+};
+
+const post = async <T, S>(url: string, body: T): Promise<ApiResult<S>> => {
+  try {
+    const response = await axios.post(url, body);
+    return { ok: true, data: response.data as S };
+  } catch (error) {
+    return handleError<S>(error);
+  }
+};
+
+const put = async <T, S>(url: string, body: T): Promise<ApiResult<S>> => {
+  try {
+    const response = await axios.put(url, body);
+    return { ok: true, data: response.data as S };
+  } catch (error) {
+    return handleError<S>(error);
+  }
 };
 
 export const fetchRecipes = async (
@@ -42,7 +63,7 @@ export const fetchRecipes = async (
   cuisines: string[],
   courses: string[],
   tags: string[],
-): Promise<Recipe[]> => {
+): Promise<ApiResult<Recipe[]>> => {
   let url = BACKEND_BASE + "/recipe?";
 
   if (name) {
@@ -61,44 +82,43 @@ export const fetchRecipes = async (
     tags.forEach((t: string) => (url += `tag=${t}&`));
   }
 
-  return get<Recipe[]>(url, []);
+  return get<Recipe[]>(url);
 };
 
-export const fetchRecipe = async (id: number): Promise<Recipe | null> =>
-  get<Recipe | null>(`${BACKEND_BASE}/recipe/${id}`, null);
+export const fetchRecipe = async (
+  id: number,
+): Promise<ApiResult<Recipe>> => get<Recipe>(`${BACKEND_BASE}/recipe/${id}`);
 
-export const saveRecipe = async (recipe: Recipe): Promise<null> =>
-  put<Recipe, null>(`${BACKEND_BASE}/recipe/${recipe.id}`, null, recipe);
+export const saveRecipe = async (recipe: Recipe): Promise<ApiResult<null>> =>
+  put<Recipe, null>(`${BACKEND_BASE}/recipe/${recipe.id}`, recipe);
 
-export const createRecipe = async (recipe: Recipe): Promise<Recipe | null> =>
-  post<Recipe, Recipe | null>(`${BACKEND_BASE}/recipe`, null, recipe);
+export const createRecipe = async (
+  recipe: Recipe,
+): Promise<ApiResult<Recipe>> =>
+  post<Recipe, Recipe>(`${BACKEND_BASE}/recipe`, recipe);
 
-export const fetchIngredients = async (id: number): Promise<IngredientList> =>
-  get<IngredientList>(`${BACKEND_BASE}/recipe/${id}/ingredients`, {
-    recipeId: -1,
-    ingredients: [{ name: "ERROR", quantity: -1 }],
-  });
+export const fetchIngredients = async (
+  id: number,
+): Promise<ApiResult<IngredientList>> =>
+  get<IngredientList>(`${BACKEND_BASE}/recipe/${id}/ingredients`);
 
 export const saveIngredients = async (
   ingredientList: IngredientList,
-): Promise<null> =>
+): Promise<ApiResult<null>> =>
   put<IngredientList, null>(
     `${BACKEND_BASE}/recipe/${ingredientList.recipeId}/ingredients`,
-    null,
     ingredientList,
   );
 
-export const fetchInstructions = async (id: number): Promise<InstructionList> =>
-  get<InstructionList>(`${BACKEND_BASE}/recipe/${id}/instructions`, {
-    recipeId: -1,
-    instructions: ["ERROR"],
-  });
+export const fetchInstructions = async (
+  id: number,
+): Promise<ApiResult<InstructionList>> =>
+  get<InstructionList>(`${BACKEND_BASE}/recipe/${id}/instructions`);
 
 export const saveInstructions = async (
   instructionList: InstructionList,
-): Promise<null> =>
+): Promise<ApiResult<null>> =>
   put<InstructionList, null>(
     `${BACKEND_BASE}/recipe/${instructionList.recipeId}/instructions`,
-    null,
     instructionList,
   );

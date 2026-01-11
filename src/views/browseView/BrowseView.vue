@@ -10,11 +10,13 @@ import {
   IonIcon,
   IonModal,
   IonContent,
+  IonItem,
+  IonLabel,
 } from "@ionic/vue";
 import { ref } from "vue";
 import { Filters } from "@/components/browse/filterMenu/filterMenuService";
 
-const { recipes, name, courses, cuisines, tags, applyFilters } =
+const { recipes, name, courses, cuisines, tags, applyFilters, displayError } =
   useBrowseViewService();
 
 const modalOpen = ref(false);
@@ -30,6 +32,9 @@ const onApply = (filters: Filters) => {
 
 <template>
   <BasePage title="Browse">
+    <ion-item v-if="displayError">
+      <ion-label color="danger">Unable to load recipes. Please try again.</ion-label>
+    </ion-item>
     <recipe-item v-for="recipe in recipes" :key="recipe.id" :recipe="recipe" />
     <ion-fab vertical="bottom" horizontal="end" slot="fixed">
       <ion-fab-button @click="openModal">

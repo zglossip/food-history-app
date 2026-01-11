@@ -7,7 +7,7 @@ import {
   useViewRecipeContainerService,
   ViewRecipeContainerService,
 } from "@/components/viewRecipe/viewRecipeContainer/viewRecipeContainerService";
-import { fetchRecipe } from "@/services/apiService";
+import { ApiResult, fetchRecipe } from "@/services/apiService";
 import { generateRecipe } from "@tests/data/defaults";
 import { useRouter } from "vue-router";
 
@@ -22,7 +22,15 @@ const setup = (options: SetupOptions = {}) => {
 
   const push = vi.fn();
   (useRouter as Mock).mockReturnValue({ push });
-  (fetchRecipe as Mock).mockResolvedValue(recipeResponse);
+  (fetchRecipe as Mock).mockResolvedValue(
+    recipeResponse
+      ? ({ ok: true, data: recipeResponse } satisfies ApiResult<
+          ReturnType<typeof generateRecipe>
+        >)
+      : ({ ok: false, error: "Failed to load" } satisfies ApiResult<
+          ReturnType<typeof generateRecipe>
+        >),
+  );
 
   const service: ViewRecipeContainerService = useViewRecipeContainerService(id);
 

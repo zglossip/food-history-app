@@ -1,7 +1,6 @@
 import { Ingredient } from "@/types/Ingredient";
 import { Ref, ref } from "vue";
 import { fetchIngredients } from "@/services/apiService";
-import { IngredientList } from "@/types/IngredientList";
 
 export const INJECTION_KEY = Symbol();
 
@@ -9,6 +8,7 @@ export interface IngredientCardService {
   ingredients: Ref<Ingredient[]>;
   isLoading: Ref<boolean>;
   onClick: () => void;
+  displayError: Ref<boolean>;
 }
 
 export const useIngredientCardService = (
@@ -18,13 +18,19 @@ export const useIngredientCardService = (
   const ingredients: Ref<Ingredient[]> = ref([]);
   const isLoading: Ref<boolean> = ref(true);
   const onClick = () => editEmit();
+  const displayError: Ref<boolean> = ref(false);
 
   fetchIngredients(id)
-    .then(
-      (ingredientResponse: IngredientList) =>
-        (ingredients.value = ingredientResponse.ingredients),
-    )
+    .then((ingredientResponse) => {
+      if (ingredientResponse.ok) {
+        ingredients.value = ingredientResponse.data.ingredients;
+        displayError.value = false;
+        return;
+      }
+      ingredients.value = [];
+      displayError.value = true;
+    })
     .finally(() => (isLoading.value = false));
 
-  return { ingredients, isLoading, onClick };
+  return { ingredients, isLoading, onClick, displayError };
 };

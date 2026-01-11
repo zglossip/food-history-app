@@ -7,6 +7,7 @@ import {
 import RecipeCard from "@/components/viewRecipe/recipeCard/RecipeCard.vue";
 import IngredientCard from "../ingredientCard/IngredientCard.vue";
 import InstructionCard from "../instructionCard/InstructionCard.vue";
+import { IonItem, IonLabel } from "@ionic/vue";
 
 // PROPS
 interface Props {
@@ -16,7 +17,7 @@ const props = defineProps<Props>();
 
 // SERVICE
 
-const { recipe, onEditHeader, refreshData } = inject(
+const { recipe, onEditHeader, refreshData, displayError } = inject(
   INJECTION_KEY,
   useViewRecipeContainerService,
 )(props.id);
@@ -27,6 +28,9 @@ defineExpose({
 </script>
 
 <template>
+  <ion-item v-if="displayError">
+    <ion-label color="danger">Unable to load recipe.</ion-label>
+  </ion-item>
   <RecipeCard :recipe="recipe" @edit="onEditHeader" />
   <IngredientCard :id="id" />
   <InstructionCard :id="id" />

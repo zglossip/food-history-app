@@ -1,9 +1,13 @@
-import { describe, it, expect, vi, beforeEach, Mock } from "vitest";
+import { describe, it, expect, vi, Mock } from "vitest";
 import {
   useEditIngredientService,
   EditIngredientsService,
 } from "@/components/createEdit/editIngredientsForm/editIngredientsService";
-import { fetchIngredients, saveIngredients } from "@/services/apiService";
+import {
+  ApiResult,
+  fetchIngredients,
+  saveIngredients,
+} from "@/services/apiService";
 import { reorderIonicItems } from "@/services/util";
 import { useRouter } from "vue-router";
 import { generateIngredient } from "@tests/data/defaults";
@@ -29,9 +33,15 @@ const setup = (
   const routerGo = vi.fn();
 
   (useRouter as Mock).mockReturnValue({ go: routerGo });
-  (saveIngredients as Mock).mockResolvedValue(null);
+  (saveIngredients as Mock).mockResolvedValue({
+    ok: true,
+    data: null,
+  } satisfies ApiResult<null>);
   (reorderIonicItems as Mock).mockImplementation(() => {});
-  (fetchIngredients as Mock).mockResolvedValue(ingredientListResponse);
+  (fetchIngredients as Mock).mockResolvedValue({
+    ok: true,
+    data: ingredientListResponse,
+  } satisfies ApiResult<IngredientList>);
 
   const service = useEditIngredientService(recipeId);
 

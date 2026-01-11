@@ -6,26 +6,27 @@ import {
   useEditHeaderContainerService,
   EditHeaderContainerService,
 } from "@/components/createEdit/editHeaderContainer/editHeaderContainerService";
-import { fetchRecipe } from "@/services/apiService";
+import { ApiResult, fetchRecipe } from "@/services/apiService";
 import { generateRecipe } from "@tests/data/defaults";
 import { ERROR_RECIPE, LOADING_RECIPE } from "@/services/constants";
 
-type RecipeResponse = ReturnType<typeof generateRecipe> | null;
-
 interface SetupOptions {
-  fetchRecipe?: () => Promise<RecipeResponse>;
+  fetchRecipe?: () => Promise<ApiResult<ReturnType<typeof generateRecipe>>>;
   id?: number;
 }
 
 interface TestSetup {
   service: EditHeaderContainerService;
-  fetchRecipe: () => Promise<RecipeResponse>;
+  fetchRecipe: () => Promise<ApiResult<ReturnType<typeof generateRecipe>>>;
   id: number;
 }
 
 const setup = (options: SetupOptions = {}): TestSetup => {
   const {
-    fetchRecipe: fetchRecipeMock = vi.fn().mockResolvedValue(generateRecipe()),
+    fetchRecipe: fetchRecipeMock = vi.fn().mockResolvedValue({
+      ok: true,
+      data: generateRecipe(),
+    } satisfies ApiResult<ReturnType<typeof generateRecipe>>),
     id = 1,
   } = options;
 
@@ -45,7 +46,10 @@ describe("editHeaderContainerService", () => {
     const { service } = setup({
       fetchRecipe: vi
         .fn()
-        .mockResolvedValue(generateRecipe({ name: "Loaded Recipe" })),
+        .mockResolvedValue({
+          ok: true,
+          data: generateRecipe({ name: "Loaded Recipe" }),
+        } satisfies ApiResult<ReturnType<typeof generateRecipe>>),
     });
 
     await vi.waitFor(() =>
@@ -54,7 +58,12 @@ describe("editHeaderContainerService", () => {
   });
 
   it("falls back to error recipe when request fails", async () => {
-    const { service } = setup({ fetchRecipe: vi.fn().mockResolvedValue(null) });
+    const { service } = setup({
+      fetchRecipe: vi.fn().mockResolvedValue({
+        ok: false,
+        error: "Failed to load",
+      } satisfies ApiResult<ReturnType<typeof generateRecipe>>),
+    });
 
     await vi.waitFor(() => expect(service.recipe.value).toEqual(ERROR_RECIPE));
   });

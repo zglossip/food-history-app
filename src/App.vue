@@ -1,11 +1,21 @@
 <template>
   <ion-app>
     <ion-router-outlet id="main-content" />
+    <ion-toast
+      :is-open="toastState.isOpen"
+      :message="toastState.message"
+      :color="toastState.color"
+      :duration="4000"
+      @did-dismiss="dismissToast"
+    />
   </ion-app>
 </template>
 
 <script setup lang="ts">
-import { IonApp, IonRouterOutlet } from "@ionic/vue";
+import { IonApp, IonRouterOutlet, IonToast } from "@ionic/vue";
+import { useToast } from "@/composables/useToast";
+
+const { toastState, dismissToast } = useToast();
 </script>
 
 <style scoped>

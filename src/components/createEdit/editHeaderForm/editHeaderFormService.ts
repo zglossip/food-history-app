@@ -1,6 +1,6 @@
 import { Recipe } from "@/types/Recipe";
 import { Ref, ref, watch } from "vue";
-import { createRecipe, saveRecipe } from "@/services/apiService";
+import { ApiResult, createRecipe, saveRecipe } from "@/services/apiService";
 import { FILTER_OPTIONS } from "@/services/constants";
 import { FilterType } from "@/types/FilterType";
 import { FilterChipData } from "@/types/FilterChipData";
@@ -99,7 +99,7 @@ export const useEditHeaderFormService = (
 
   const onSaveClick = async () => {
     if (recipe.value) {
-      await saveRecipe({
+      const response: ApiResult<null> = await saveRecipe({
         ...recipe.value,
         name: newName.value,
         servingAmount: newServingAmount.value,
@@ -108,8 +108,11 @@ export const useEditHeaderFormService = (
         cuisineTypes: newCuisineTypes.value,
         tags: newTags.value,
       });
+      if (!response.ok) {
+        return;
+      }
     } else {
-      await createRecipe({
+      const response: ApiResult<Recipe> = await createRecipe({
         name: newName.value,
         servingAmount: newServingAmount.value,
         servingName: newServingName.value,
@@ -118,6 +121,9 @@ export const useEditHeaderFormService = (
         tags: newTags.value,
         uploaded: null,
       });
+      if (!response.ok) {
+        return;
+      }
     }
     router.go(-1);
   };

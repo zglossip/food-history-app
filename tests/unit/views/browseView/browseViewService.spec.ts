@@ -6,7 +6,7 @@ vi.mock("@ionic/vue", () => ({
   onIonViewWillEnter: (cb: () => void) => cb(),
 }));
 
-import { fetchRecipes } from "@/services/apiService";
+import { ApiResult, fetchRecipes } from "@/services/apiService";
 import { useRoute } from "vue-router";
 import {
   useBrowseViewService,
@@ -16,18 +16,21 @@ import { Recipe } from "@/types/Recipe";
 import { generateRecipe } from "@tests/data/defaults";
 
 interface SetupOptions {
-  fetchRecipes?: () => Promise<Recipe[]>;
+  fetchRecipes?: () => Promise<ApiResult<Recipe[]>>;
   routeQuery?: Record<string, unknown>;
 }
 
 interface TestSetup {
   service: BrowseViewService;
-  fetchRecipes: () => Promise<Recipe[]>;
+  fetchRecipes: () => Promise<ApiResult<Recipe[]>>;
 }
 
 const setup = (options: SetupOptions = {}): TestSetup => {
   const {
-    fetchRecipes: fetchRecipesMock = vi.fn().mockResolvedValue([]),
+    fetchRecipes: fetchRecipesMock = vi.fn().mockResolvedValue({
+      ok: true,
+      data: [],
+    } satisfies ApiResult<Recipe[]>),
     routeQuery = {},
   } = options;
 
@@ -46,7 +49,10 @@ describe("browseViewService", () => {
     const testRecipe = generateRecipe();
 
     const { service } = setup({
-      fetchRecipes: vi.fn().mockResolvedValue([testRecipe]),
+      fetchRecipes: vi.fn().mockResolvedValue({
+        ok: true,
+        data: [testRecipe],
+      } satisfies ApiResult<Recipe[]>),
     });
 
     await vi.waitFor(() => expect(service.isLoading.value).toBe(false));
@@ -55,7 +61,10 @@ describe("browseViewService", () => {
   });
 
   it("loads recipes with params", async () => {
-    const fetchRecipesMock = vi.fn().mockResolvedValue([]);
+    const fetchRecipesMock = vi.fn().mockResolvedValue({
+      ok: true,
+      data: [],
+    } satisfies ApiResult<Recipe[]>);
     const { service, fetchRecipes } = setup({
       routeQuery: {
         nameQuery: "Test Name",

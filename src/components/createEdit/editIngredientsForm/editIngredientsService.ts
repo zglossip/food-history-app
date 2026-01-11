@@ -20,9 +20,11 @@ export const useEditIngredientService = (
 
   const router = useRouter();
 
-  fetchIngredients(id).then(
-    (response) => (ingredients.value = response.ingredients),
-  );
+  fetchIngredients(id).then((response) => {
+    if (response.ok) {
+      ingredients.value = response.data.ingredients;
+    }
+  });
 
   const onItemReorder = (evt: CustomEvent) => {
     reorderIonicItems(evt, ingredients.value);

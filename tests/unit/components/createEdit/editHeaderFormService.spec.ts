@@ -1,4 +1,4 @@
-import { describe, it, expect, vi, beforeEach, Mock } from "vitest";
+import { describe, it, expect, vi, Mock } from "vitest";
 import { ref, nextTick, Ref } from "vue";
 import { generateRecipe } from "@tests/data/defaults";
 import { FilterType } from "@/types/FilterType";
@@ -6,7 +6,7 @@ import {
   useEditHeaderFormService,
   EditHeaderFormService,
 } from "@/components/createEdit/editHeaderForm/editHeaderFormService";
-import { saveRecipe, createRecipe } from "@/services/apiService";
+import { ApiResult, saveRecipe, createRecipe } from "@/services/apiService";
 import { useRouter } from "vue-router";
 import { Recipe } from "@/types/Recipe";
 
@@ -25,8 +25,14 @@ const setup = (
   const routerGo = vi.fn();
 
   (useRouter as Mock).mockReturnValue({ go: routerGo });
-  (saveRecipe as Mock).mockResolvedValue({});
-  (createRecipe as Mock).mockResolvedValue(generateRecipe({ id: 42 }));
+  (saveRecipe as Mock).mockResolvedValue({
+    ok: true,
+    data: null,
+  } satisfies ApiResult<null>);
+  (createRecipe as Mock).mockResolvedValue({
+    ok: true,
+    data: generateRecipe({ id: 42 }),
+  } satisfies ApiResult<Recipe>);
 
   const recipeRef = ref<Recipe | undefined>(existingRecipe);
   const service = useEditHeaderFormService(recipeRef);

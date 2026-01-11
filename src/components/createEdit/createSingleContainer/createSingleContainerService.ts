@@ -1,4 +1,5 @@
 import {
+  ApiResult,
   createRecipe,
   saveIngredients,
   saveInstructions,
@@ -51,16 +52,15 @@ export function useCreateSingleContainerService(): CreateSingleContainerService 
 
     if (sourceUrl.value) recipe.recipeSourceUrl = sourceUrl.value;
 
-    const response: Recipe | null = await createRecipe(recipe);
+    const response: ApiResult<Recipe> = await createRecipe(recipe);
 
-    if (response) {
-      //We can assume the recipe has an ID if it was successful
-      await addIngredients(response.id!);
-      await addInstructions(response.id!);
-    } else {
-      //TODO Toast error
-      console.log("Error creating recipe");
+    if (!response.ok) {
+      return;
     }
+
+    // We can assume the recipe has an ID if it was successful.
+    await addIngredients(response.data.id!);
+    await addInstructions(response.data.id!);
   }
 
   async function addIngredients(recipeId: number): Promise<void> {
