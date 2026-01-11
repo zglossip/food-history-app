@@ -84,9 +84,7 @@ describe("apiService", () => {
 
     const result = await fetchRecipe(12);
 
-    expect(axiosMock.get).toHaveBeenCalledWith(
-      "http://example.com/recipe/12",
-    );
+    expect(axiosMock.get).toHaveBeenCalledWith("http://example.com/recipe/12");
     expect(result).toEqual({ ok: true, data });
   });
 

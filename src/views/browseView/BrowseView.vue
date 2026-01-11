@@ -33,7 +33,9 @@ const onApply = (filters: Filters) => {
 <template>
   <BasePage title="Browse">
     <ion-item v-if="displayError">
-      <ion-label color="danger">Unable to load recipes. Please try again.</ion-label>
+      <ion-label color="danger"
+        >Unable to load recipes. Please try again.</ion-label
+      >
     </ion-item>
     <recipe-item v-for="recipe in recipes" :key="recipe.id" :recipe="recipe" />
     <ion-fab vertical="bottom" horizontal="end" slot="fixed">

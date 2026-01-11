@@ -5,9 +5,7 @@ import { IngredientList } from "@/types/IngredientList";
 import { InstructionList } from "@/types/InstructionList";
 import { useToast } from "@/composables/useToast";
 
-export type ApiResult<T> =
-  | { ok: true; data: T }
-  | { ok: false; error: string };
+export type ApiResult<T> = { ok: true; data: T } | { ok: false; error: string };
 
 const getErrorMessage = (error: unknown): string => {
   if (axios.isAxiosError(error)) {
@@ -85,9 +83,8 @@ export const fetchRecipes = async (
   return get<Recipe[]>(url);
 };
 
-export const fetchRecipe = async (
-  id: number,
-): Promise<ApiResult<Recipe>> => get<Recipe>(`${BACKEND_BASE}/recipe/${id}`);
+export const fetchRecipe = async (id: number): Promise<ApiResult<Recipe>> =>
+  get<Recipe>(`${BACKEND_BASE}/recipe/${id}`);
 
 export const saveRecipe = async (recipe: Recipe): Promise<ApiResult<null>> =>
   put<Recipe, null>(`${BACKEND_BASE}/recipe/${recipe.id}`, recipe);

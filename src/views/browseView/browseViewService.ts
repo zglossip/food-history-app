@@ -27,7 +27,6 @@ export const useBrowseViewService = (): BrowseViewService => {
   const isLoading: Ref<boolean> = ref(false);
   const displayError: Ref<boolean> = ref(false);
 
-
   const route = useRoute();
   const nameQuery = route.query.nameQuery as string;
   const courseQuery = route.query.courseQuery as LocationQueryValue[];

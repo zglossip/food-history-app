@@ -38,7 +38,9 @@ const setup = (
     data: response,
   } satisfies ApiResult<typeof response>);
 
-  const service = useEditInstructionService(defaultInstructionsResponse.recipeId);
+  const service = useEditInstructionService(
+    defaultInstructionsResponse.recipeId,
+  );
 
   return { service, routerGo };
 };

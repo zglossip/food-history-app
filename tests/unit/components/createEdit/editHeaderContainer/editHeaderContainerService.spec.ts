@@ -44,12 +44,10 @@ describe("editHeaderContainerService", () => {
 
   it("loads the requested recipe", async () => {
     const { service } = setup({
-      fetchRecipe: vi
-        .fn()
-        .mockResolvedValue({
-          ok: true,
-          data: generateRecipe({ name: "Loaded Recipe" }),
-        } satisfies ApiResult<ReturnType<typeof generateRecipe>>),
+      fetchRecipe: vi.fn().mockResolvedValue({
+        ok: true,
+        data: generateRecipe({ name: "Loaded Recipe" }),
+      } satisfies ApiResult<ReturnType<typeof generateRecipe>>),
     });
 
     await vi.waitFor(() =>

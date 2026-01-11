@@ -26,19 +26,22 @@ const setup = (options: SetupOptions = {}): TestSetup => {
   const {
     recipeId = 100,
     editEmit = vi.fn(),
-    fetchInstructions: fetchInstructionsMock = vi
-      .fn()
-      .mockResolvedValue({
-        ok: true,
-        data: { instructions: [] },
-      } satisfies ApiResult<{ instructions: string[] }>),
+    fetchInstructions: fetchInstructionsMock = vi.fn().mockResolvedValue({
+      ok: true,
+      data: { instructions: [] },
+    } satisfies ApiResult<{ instructions: string[] }>),
   } = options;
 
   (fetchInstructions as Mock).mockImplementation(fetchInstructionsMock);
 
   const service = useInstructionCardService(recipeId, editEmit);
 
-  return { service, recipeId, editEmit, fetchInstructions: fetchInstructionsMock };
+  return {
+    service,
+    recipeId,
+    editEmit,
+    fetchInstructions: fetchInstructionsMock,
+  };
 };
 
 describe("instructionCardService", () => {

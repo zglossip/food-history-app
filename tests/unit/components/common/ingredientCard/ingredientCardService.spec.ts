@@ -26,12 +26,10 @@ const setup = (options: SetupOptions = {}): TestSetup => {
   const defaultIngredient = generateIngredient();
   const {
     recipeId = 100,
-    fetchIngredients: fetchIngredientsMock = vi
-      .fn()
-      .mockResolvedValue({
-        ok: true,
-        data: { ingredients: [defaultIngredient] },
-      } satisfies ApiResult<{ ingredients: Ingredient[] }>),
+    fetchIngredients: fetchIngredientsMock = vi.fn().mockResolvedValue({
+      ok: true,
+      data: { ingredients: [defaultIngredient] },
+    } satisfies ApiResult<{ ingredients: Ingredient[] }>),
     closeEmit = vi.fn(),
   } = options;
 

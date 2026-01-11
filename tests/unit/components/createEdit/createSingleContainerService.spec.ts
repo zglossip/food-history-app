@@ -27,7 +27,10 @@ const setup = (
   const createRecipeMock = vi.fn().mockResolvedValue(
     recipe
       ? ({ ok: true, data: recipe } satisfies ApiResult<Recipe>)
-      : ({ ok: false, error: "Failed to create" } satisfies ApiResult<Recipe>),
+      : ({
+          ok: false,
+          error: "Failed to create",
+        } satisfies ApiResult<Recipe>),
   );
 
   const saveIngredientsMock = vi
