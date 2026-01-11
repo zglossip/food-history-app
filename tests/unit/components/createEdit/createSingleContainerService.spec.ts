@@ -1,34 +1,41 @@
-import { describe, it, expect, vi, beforeEach, Mock } from "vitest";
+import { describe, it, expect, vi, Mock } from "vitest";
 import {
   useCreateSingleContainerService,
   CreateSingleContainerService,
 } from "@/components/createEdit/createSingleContainer/createSingleContainerService";
 import {
+  ApiResult,
   createRecipe,
   saveIngredients,
   saveInstructions,
 } from "@/services/apiService";
 import { generateRecipe } from "@tests/data/defaults";
 import { Recipe } from "@/types/Recipe";
-import { IngredientList } from "@/types/IngredientList";
-import { InstructionList } from "@/types/InstructionList";
 
 vi.mock("@/services/apiService");
 
 interface SetupResult {
   service: CreateSingleContainerService;
-  createRecipe: () => Recipe | null;
-  saveIngredients: () => IngredientList;
-  saveInstructions: () => InstructionList;
+  createRecipe: () => ApiResult<Recipe>;
+  saveIngredients: () => ApiResult<null>;
+  saveInstructions: () => ApiResult<null>;
 }
 
 const setup = (
   recipe: Recipe | null = generateRecipe({ id: 55 }),
 ): SetupResult => {
-  const createRecipeMock = vi.fn().mockResolvedValue(recipe);
+  const createRecipeMock = vi.fn().mockResolvedValue(
+    recipe
+      ? ({ ok: true, data: recipe } satisfies ApiResult<Recipe>)
+      : ({ ok: false, error: "Failed to create" } satisfies ApiResult<Recipe>),
+  );
 
-  const saveIngredientsMock = vi.fn().mockResolvedValue(null);
-  const saveInstructionsMock = vi.fn().mockResolvedValue(null);
+  const saveIngredientsMock = vi
+    .fn()
+    .mockResolvedValue({ ok: true, data: null } satisfies ApiResult<null>);
+  const saveInstructionsMock = vi
+    .fn()
+    .mockResolvedValue({ ok: true, data: null } satisfies ApiResult<null>);
 
   (createRecipe as Mock).mockImplementation(createRecipeMock);
   (saveIngredients as Mock).mockImplementation(saveIngredientsMock);

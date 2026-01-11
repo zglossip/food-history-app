@@ -3,7 +3,11 @@ import {
   useEditInstructionService,
   EditInstructionsService,
 } from "@/components/createEdit/editInstructionsForm/editInstructionsService";
-import { fetchInstructions, saveInstructions } from "@/services/apiService";
+import {
+  ApiResult,
+  fetchInstructions,
+  saveInstructions,
+} from "@/services/apiService";
 import { reorderIonicItems } from "@/services/util";
 import { useRouter } from "vue-router";
 
@@ -24,9 +28,15 @@ const setup = (
   const routerGo = vi.fn();
 
   (useRouter as Mock).mockReturnValue({ go: routerGo });
-  (saveInstructions as Mock).mockResolvedValue(null);
+  (saveInstructions as Mock).mockResolvedValue({
+    ok: true,
+    data: null,
+  } satisfies ApiResult<null>);
   (reorderIonicItems as Mock).mockImplementation(() => {});
-  (fetchInstructions as Mock).mockResolvedValue(response);
+  (fetchInstructions as Mock).mockResolvedValue({
+    ok: true,
+    data: response,
+  } satisfies ApiResult<typeof response>);
 
   const service = useEditInstructionService(defaultInstructionsResponse.recipeId);
 
