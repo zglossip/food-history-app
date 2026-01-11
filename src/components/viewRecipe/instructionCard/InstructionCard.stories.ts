@@ -12,6 +12,7 @@ export const stubInstructionCardService = (args: any) => {
     (): InstructionCardService => ({
       isLoading: ref(args.isLoading),
       instructions: ref(args.instructions),
+      displayError: ref(args.displayError ?? false),
       onClick: action("button clicked"),
     }),
   );
@@ -55,6 +56,13 @@ export const Loading: Story = {
 
 export const Empty: Story = {
   args: {
+    instructions: [],
+  },
+};
+
+export const Error: Story = {
+  args: {
+    displayError: true,
     instructions: [],
   },
 };

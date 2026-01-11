@@ -20,7 +20,7 @@ const props = defineProps<Props>();
 const emit = defineEmits(["edit"]);
 const editEmit = () => emit("edit");
 
-const { isLoading, ingredients, onClick } = inject(
+const { isLoading, ingredients, onClick, displayError } = inject(
   INJECTION_KEY,
   useIngredientCardService,
 )(props.id, editEmit);
@@ -30,6 +30,11 @@ const { isLoading, ingredients, onClick } = inject(
   <button-card header-text="Ingredients" @click="onClick">
     <div v-if="isLoading">
       <ion-spinner />
+    </div>
+    <div v-else-if="displayError">
+      <ion-item>
+        <ion-label color="danger">Unable to load ingredients.</ion-label>
+      </ion-item>
     </div>
     <div v-else-if="ingredients.length === 0">
       <ion-item>

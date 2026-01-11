@@ -18,6 +18,11 @@ const stubViewRecipeContainerService = (args: any) => {
     (): ViewRecipeContainerService => ({
       recipe: ref(args.recipe),
       isLoading: ref(args.isLoading),
+      displayError: ref(args.displayError ?? false),
+      onEditHeader: () => null,
+      onEditIngredients: () => null,
+      onEditInstructions: () => null,
+      refreshData: () => null,
     }),
   );
 };
@@ -103,3 +108,9 @@ export default meta;
 type Story = StoryObj<typeof ViewRecipeContainer>;
 
 export const Default: Story = {};
+
+export const Error: Story = {
+  args: {
+    displayError: true,
+  },
+};

@@ -12,6 +12,7 @@ export interface ViewRecipeContainerService {
   onEditIngredients: () => void;
   onEditInstructions: () => void;
   refreshData: () => void;
+  displayError: Ref<boolean>;
 }
 
 export const useViewRecipeContainerService = (
@@ -19,10 +20,26 @@ export const useViewRecipeContainerService = (
 ): ViewRecipeContainerService => {
   const isLoading: Ref<boolean> = ref(false);
   const recipe: Ref<Recipe | null> = ref(null);
+  const displayError: Ref<boolean> = ref(false);
 
   const router = useRouter();
 
-  const refreshData = () => fetchRecipe(id).then((r) => (recipe.value = r));
+  const refreshData = () => {
+    isLoading.value = true;
+    fetchRecipe(id)
+      .then((response) => {
+        if (response.ok) {
+          recipe.value = response.data;
+          displayError.value = false;
+          return;
+        }
+        recipe.value = null;
+        displayError.value = true;
+      })
+      .finally(() => {
+        isLoading.value = false;
+      });
+  };
 
   const onEditHeader = () => {
     router.push(`/recipe/edit/${id}`);
@@ -43,5 +60,6 @@ export const useViewRecipeContainerService = (
     onEditIngredients,
     onEditInstructions,
     refreshData,
+    displayError,
   };
 };

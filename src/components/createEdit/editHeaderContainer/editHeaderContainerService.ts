@@ -15,7 +15,7 @@ export const useEditHeaderContainerService = (
   const recipe: Ref<Recipe> = ref(LOADING_RECIPE);
 
   fetchRecipe(id).then((recipeResponse) => {
-    recipe.value = recipeResponse ?? ERROR_RECIPE;
+    recipe.value = recipeResponse.ok ? recipeResponse.data : ERROR_RECIPE;
   });
 
   return { recipe };

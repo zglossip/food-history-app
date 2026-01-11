@@ -13,6 +13,7 @@ export const stubIngredientCardService = (args: any) => {
     (): IngredientCardService => ({
       isLoading: ref(args.isLoading),
       ingredients: ref(args.ingredients),
+      displayError: ref(args.displayError ?? false),
       onClick: action("button clicked"),
     }),
   );
@@ -75,6 +76,13 @@ export const Loading: Story = {
 
 export const Empty: Story = {
   args: {
+    ingredients: [],
+  },
+};
+
+export const Error: Story = {
+  args: {
+    displayError: true,
     ingredients: [],
   },
 };
