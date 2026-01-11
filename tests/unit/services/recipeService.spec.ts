@@ -58,7 +58,7 @@ describe("useRecipeService.ts", () => {
 
   it("formats no cuisines", () => {
     const { service } = setup();
-    expect(service.formattedCuisineTag.value).toBeFalsy;
+    expect(service.formattedCuisineTag.value).toBeFalsy();
   });
 
   it("formats one course", () => {
@@ -79,7 +79,7 @@ describe("useRecipeService.ts", () => {
 
   it("formats no courses", () => {
     const { service } = setup();
-    expect(service.formattedCourseTag.value).toBeFalsy;
+    expect(service.formattedCourseTag.value).toBeFalsy();
   });
 
   it("formats one tag", () => {
@@ -98,6 +98,6 @@ describe("useRecipeService.ts", () => {
 
   it("formats no tags", () => {
     const { service } = setup();
-    expect(service.formattedTagTag.value).toBeFalsy;
+    expect(service.formattedTagTag.value).toBeFalsy();
   });
 });

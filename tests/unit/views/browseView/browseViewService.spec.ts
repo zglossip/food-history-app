@@ -50,9 +50,9 @@ describe("browseViewService", () => {
       fetchRecipes: vi.fn().mockResolvedValue([testRecipe]),
     });
 
-    await vi.waitFor(() => expect(service.isLoading.value).to.be.false);
+    await vi.waitFor(() => expect(service.isLoading.value).toBe(false));
 
-    expect(service.recipes.value).to.deep.equal([testRecipe]);
+    expect(service.recipes.value).toEqual([testRecipe]);
   });
 
   it("loads recipes with params", async () => {
@@ -68,9 +68,9 @@ describe("browseViewService", () => {
       fetchRecipes: vi.fn().mockResolvedValue([]),
     });
 
-    await vi.waitFor(() => expect(service.isLoading.value).to.be.false);
+    await vi.waitFor(() => expect(service.isLoading.value).toBe(false));
 
-    expect(service.recipes.value).to.deep.equal([]);
+    expect(service.recipes.value).toEqual([]);
     expect(givens.fetchRecipes).toHaveBeenCalledWith(
       "Test Name",
       ["Cuisine 1", "Cuisine 2"],
@@ -82,7 +82,7 @@ describe("browseViewService", () => {
   it("applies filters", async () => {
     const { service, givens } = setup({});
 
-    await vi.waitFor(() => expect(service.isLoading.value).to.be.false);
+    await vi.waitFor(() => expect(service.isLoading.value).toBe(false));
 
     service.applyFilters({
       nameFilter: "Test Name",
@@ -91,7 +91,7 @@ describe("browseViewService", () => {
       tagFilters: ["Tag 1", "Tag 2"],
     });
 
-    await vi.waitFor(() => expect(service.isLoading.value).to.be.false);
+    await vi.waitFor(() => expect(service.isLoading.value).toBe(false));
 
     expect(givens.fetchRecipes).toHaveBeenCalledWith(
       "Test Name",

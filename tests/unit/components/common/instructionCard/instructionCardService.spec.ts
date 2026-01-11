@@ -42,12 +42,12 @@ describe("instructionCardService", () => {
       fetchInstructions: vi.fn().mockResolvedValue({ instructions }),
     });
 
-    await vi.waitFor(() => expect(service.isLoading.value).to.be.false);
+    await vi.waitFor(() => expect(service.isLoading.value).toBe(false));
 
-    expect(service.instructions.value).to.deep.equal(instructions);
+    expect(service.instructions.value).toEqual(instructions);
   });
 
   it("formats instruction", () => {
-    expect(formatInstruction(100, "instruction")).to.equal("100: instruction");
+    expect(formatInstruction(100, "instruction")).toEqual("100: instruction");
   });
 });
