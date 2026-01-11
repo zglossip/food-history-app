@@ -1,33 +1,23 @@
 import { RecipeService, useRecipeService } from "@/services/recipeService";
 import { Recipe } from "@/types/Recipe";
 import { generateRecipe } from "@tests/data/defaults";
-import { describe, it, expect, Mock, vi } from "vitest";
+import { describe, it, expect } from "vitest";
 import { toRef } from "vue";
 
-interface Givens {
+interface SetupOptions {
+  recipe?: Recipe;
+}
+
+interface TestSetup {
+  service: RecipeService;
   recipe: Recipe;
 }
 
-interface Stubs {
-  push: Mock;
-}
+const setup = (options: SetupOptions = {}): TestSetup => {
+  const recipe = options.recipe ?? generateRecipe();
+  const service = useRecipeService(toRef(recipe));
 
-interface Setup {
-  service: RecipeService;
-  givens: Givens;
-  stubs: Stubs;
-}
-
-const setup = (
-  givens: Partial<Givens> = {},
-  stubs: Partial<Stubs> = {},
-): Setup => {
-  const verifiedGivens: Givens = { ...{ recipe: generateRecipe() }, ...givens };
-  const verifiedStubs: Stubs = { ...{ push: vi.fn() }, ...stubs };
-
-  const service = useRecipeService(toRef(verifiedGivens.recipe));
-
-  return { service, givens: verifiedGivens, stubs: verifiedStubs };
+  return { service, recipe };
 };
 
 describe("useRecipeService.ts", () => {

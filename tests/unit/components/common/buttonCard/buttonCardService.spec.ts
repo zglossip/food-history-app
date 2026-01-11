@@ -4,11 +4,20 @@ import {
   ButtonCardService,
 } from "@/components/common/buttonCard/buttonCardService";
 
+interface TestSetup {
+  service: ButtonCardService;
+  emit: () => void;
+}
+
+const setup = (emit: () => void = vi.fn()): TestSetup => {
+  const service: ButtonCardService = useButtonCardService(emit);
+
+  return { service, emit };
+};
+
 describe("buttonCardService", () => {
   it("emits click", () => {
-    const emit = vi.fn();
-
-    const service: ButtonCardService = useButtonCardService(emit);
+    const { service, emit } = setup();
 
     service.onClick();
 

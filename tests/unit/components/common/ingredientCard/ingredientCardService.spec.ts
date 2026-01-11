@@ -3,51 +3,47 @@ import {
   useIngredientCardService,
 } from "@/components/viewRecipe/ingredientCard/ingredientCardService";
 import { vi, expect, Mock, describe, it } from "vitest";
-import { Ingredient } from "@/types/Ingredient";
 import { fetchIngredients } from "@/services/apiService";
 import { generateIngredient } from "@tests/data/defaults";
+import { Ingredient } from "@/types/Ingredient";
 
 vi.mock("@/services/apiService");
 
-interface Givens {
-  recipeId: number;
+interface SetupOptions {
+  recipeId?: number;
+  fetchIngredients?: () => Promise<{ ingredients: Ingredient[] }>;
+  closeEmit?: () => void;
 }
 
-interface Stubs {
-  fetchIngredients: (recipeId: number) => Ingredient[];
-}
-
-interface Setup {
+interface TestSetup {
   service: IngredientCardService;
-  givens: Givens;
-  stubs: Stubs;
+  recipeId: number;
+  fetchIngredients: () => Promise<{ ingredients: Ingredient[] }>;
+  closeEmit: () => void;
 }
 
-const setup = (
-  givens: Partial<Givens> = {},
-  stubs: Partial<Stubs> = {},
-): Setup => {
-  const verifiedGivens: Givens = {
-    ...{ recipeId: 100 },
-    ...givens,
-  };
-  const verifiedStubs: Stubs = {
-    ...{
-      fetchIngredients: vi
-        .fn()
-        .mockResolvedValue({ ingredients: [generateIngredient()] }),
-    },
-    ...stubs,
-  };
+const setup = (options: SetupOptions = {}): TestSetup => {
+  const {
+    recipeId = 100,
+    fetchIngredients: fetchIngredientsMock = vi
+      .fn()
+      .mockResolvedValue({ ingredients: [generateIngredient()] }),
+    closeEmit = vi.fn(),
+  } = options;
 
-  (fetchIngredients as Mock).mockImplementation(verifiedStubs.fetchIngredients);
+  (fetchIngredients as Mock).mockImplementation(fetchIngredientsMock);
 
   const service: IngredientCardService = useIngredientCardService(
-    verifiedGivens.recipeId,
-    vi.fn(),
+    recipeId,
+    closeEmit,
   );
 
-  return { service, givens: verifiedGivens, stubs: verifiedStubs };
+  return {
+    service,
+    recipeId,
+    fetchIngredients: fetchIngredientsMock,
+    closeEmit,
+  };
 };
 
 describe("useIngredientCardService.ts", () => {

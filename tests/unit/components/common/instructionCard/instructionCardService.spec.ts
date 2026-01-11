@@ -9,36 +9,39 @@ import {
 } from "@/components/viewRecipe/instructionCard/instructionCardService";
 import { fetchInstructions } from "@/services/apiService";
 
-interface Givens {
-  recipeId: number;
-  editEmit: () => void;
-  fetchInstructions: () => Promise<string[]>;
+interface SetupOptions {
+  recipeId?: number;
+  editEmit?: () => void;
+  fetchInstructions?: () => Promise<{ instructions: string[] }>;
 }
 
-const setup = (givens: Partial<Givens> = {}): InstructionCardService => {
-  const verifiedGivens: Givens = {
-    ...{
-      recipeId: 100,
-      editEmit: () => {},
-      fetchInstructions: vi.fn().mockResolvedValue({ instructions: [] }),
-    },
-    ...givens,
-  };
+interface TestSetup {
+  service: InstructionCardService;
+  recipeId: number;
+  editEmit: () => void;
+  fetchInstructions: () => Promise<{ instructions: string[] }>;
+}
 
-  (fetchInstructions as Mock).mockImplementation(
-    verifiedGivens.fetchInstructions,
-  );
+const setup = (options: SetupOptions = {}): TestSetup => {
+  const {
+    recipeId = 100,
+    editEmit = vi.fn(),
+    fetchInstructions: fetchInstructionsMock = vi
+      .fn()
+      .mockResolvedValue({ instructions: [] }),
+  } = options;
 
-  return useInstructionCardService(
-    verifiedGivens.recipeId,
-    verifiedGivens.editEmit,
-  );
+  (fetchInstructions as Mock).mockImplementation(fetchInstructionsMock);
+
+  const service = useInstructionCardService(recipeId, editEmit);
+
+  return { service, recipeId, editEmit, fetchInstructions: fetchInstructionsMock };
 };
 
 describe("instructionCardService", () => {
   it("loads instructions on load", async () => {
     const instructions = ["step 1", "step 2"];
-    const service = setup({
+    const { service } = setup({
       fetchInstructions: vi.fn().mockResolvedValue({ instructions }),
     });
 

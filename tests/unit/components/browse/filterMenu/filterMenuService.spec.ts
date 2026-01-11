@@ -1,4 +1,4 @@
-import { describe, it, expect } from "vitest";
+import { describe, it, expect, vi } from "vitest";
 import {
   FilterMenuService,
   Filters,
@@ -6,57 +6,36 @@ import {
 } from "@/components/browse/filterMenu/filterMenuService";
 import { FilterType } from "@/types/FilterType";
 
-interface Givens {
-  startingName: string;
-  startingCourseTypes: string[];
-  startingCuisineTypes: string[];
-  startingTags: string[];
+interface SetupOptions {
+  startingName?: string;
+  startingCourseTypes?: string[];
+  startingCuisineTypes?: string[];
+  startingTags?: string[];
+  emitApply?: (filters: Filters) => void;
 }
 
-interface Stubs {
+interface TestSetup {
+  service: FilterMenuService;
   emitApply: (filters: Filters) => void;
 }
 
-interface Setup {
-  service: FilterMenuService;
-  givens: Givens;
-  stubs: Stubs;
-}
-
-const setup = (
-  givens: Partial<Givens> = {},
-  stubs: Partial<Stubs> = {},
-): Setup => {
-  const verifiedGivens: Givens = {
-    ...{
-      startingName: "Test Name",
-      startingCourseTypes: [],
-      startingCuisineTypes: [],
-      startingTags: [],
-    },
-    ...givens,
-  };
-
-  const verifiedStubs: Stubs = {
-    ...{
-      emitApply: () => {},
-    },
-    ...stubs,
-  };
-
+const setup = (options: SetupOptions = {}): TestSetup => {
+  const {
+    startingName = "Test Name",
+    startingCourseTypes = [],
+    startingCuisineTypes = [],
+    startingTags = [],
+    emitApply = vi.fn(),
+  } = options;
   const service: FilterMenuService = useFilterMenuService(
-    verifiedGivens.startingName,
-    verifiedGivens.startingCourseTypes,
-    verifiedGivens.startingCuisineTypes,
-    verifiedGivens.startingTags,
-    verifiedStubs.emitApply,
+    startingName,
+    startingCourseTypes,
+    startingCuisineTypes,
+    startingTags,
+    emitApply,
   );
 
-  return {
-    service,
-    givens: verifiedGivens,
-    stubs: verifiedStubs,
-  };
+  return { service, emitApply };
 };
 
 describe("filterMenuService", () => {

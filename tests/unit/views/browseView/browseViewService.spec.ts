@@ -15,31 +15,30 @@ import {
 import { Recipe } from "@/types/Recipe";
 import { generateRecipe } from "@tests/data/defaults";
 
-interface Givens {
-  fetchRecipes: () => Promise<Recipe[]>;
-  useRoute: () => object;
+interface SetupOptions {
+  fetchRecipes?: () => Promise<Recipe[]>;
+  routeQuery?: Record<string, unknown>;
 }
 
-interface Setup {
+interface TestSetup {
   service: BrowseViewService;
-  givens: Givens;
+  fetchRecipes: () => Promise<Recipe[]>;
 }
 
-const setup = (givens: Partial<Givens> = {}): Setup => {
-  const verifiedGivens: Givens = {
-    ...{
-      fetchRecipes: vi.fn().mockResolvedValue([]),
-      useRoute: vi.fn().mockReturnValue({ query: {} }),
-    },
-    ...givens,
-  };
+const setup = (options: SetupOptions = {}): TestSetup => {
+  const {
+    fetchRecipes: fetchRecipesMock = vi.fn().mockResolvedValue([]),
+    routeQuery = {},
+  } = options;
 
-  (fetchRecipes as Mock).mockImplementation(verifiedGivens.fetchRecipes);
-  (useRoute as Mock).mockImplementation(verifiedGivens.useRoute);
+  (fetchRecipes as Mock).mockImplementation(fetchRecipesMock);
+  (useRoute as Mock).mockImplementation(
+    vi.fn().mockReturnValue({ query: routeQuery }),
+  );
 
   const service = useBrowseViewService();
 
-  return { service, givens: verifiedGivens };
+  return { service, fetchRecipes: fetchRecipesMock };
 };
 
 describe("browseViewService", () => {
@@ -56,22 +55,21 @@ describe("browseViewService", () => {
   });
 
   it("loads recipes with params", async () => {
-    const { service, givens } = setup({
-      useRoute: vi.fn().mockReturnValue({
-        query: {
-          nameQuery: "Test Name",
-          cuisineQuery: ["Cuisine 1", "Cuisine 2"],
-          courseQuery: ["Course 1", "Course 2"],
-          tagQuery: ["Tag 1", "Tag 2"],
-        },
-      }),
-      fetchRecipes: vi.fn().mockResolvedValue([]),
+    const fetchRecipesMock = vi.fn().mockResolvedValue([]);
+    const { service, fetchRecipes } = setup({
+      routeQuery: {
+        nameQuery: "Test Name",
+        cuisineQuery: ["Cuisine 1", "Cuisine 2"],
+        courseQuery: ["Course 1", "Course 2"],
+        tagQuery: ["Tag 1", "Tag 2"],
+      },
+      fetchRecipes: fetchRecipesMock,
     });
 
     await vi.waitFor(() => expect(service.isLoading.value).toBe(false));
 
     expect(service.recipes.value).toEqual([]);
-    expect(givens.fetchRecipes).toHaveBeenCalledWith(
+    expect(fetchRecipes).toHaveBeenCalledWith(
       "Test Name",
       ["Cuisine 1", "Cuisine 2"],
       ["Course 1", "Course 2"],
@@ -80,7 +78,7 @@ describe("browseViewService", () => {
   });
 
   it("applies filters", async () => {
-    const { service, givens } = setup({});
+    const { service, fetchRecipes } = setup();
 
     await vi.waitFor(() => expect(service.isLoading.value).toBe(false));
 
@@ -93,7 +91,7 @@ describe("browseViewService", () => {
 
     await vi.waitFor(() => expect(service.isLoading.value).toBe(false));
 
-    expect(givens.fetchRecipes).toHaveBeenCalledWith(
+    expect(fetchRecipes).toHaveBeenCalledWith(
       "Test Name",
       ["Cuisine 1", "Cuisine 2"],
       ["Course 1", "Course 2"],
