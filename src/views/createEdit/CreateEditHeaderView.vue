@@ -4,7 +4,7 @@ import BasePage from "@/components/common/basePage/BasePage.vue";
 
 //PROPS
 interface Props {
-  id: string;
+  id?: string;
 }
 
 defineProps<Props>();
@@ -12,6 +12,6 @@ defineProps<Props>();
 
 <template>
   <BasePage title="Edit Recipe">
-    <EditHeaderContainer :id="Number(id)" />
+    <EditHeaderContainer :id="id ? Number(id) : undefined" />
   </BasePage>
 </template>

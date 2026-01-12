@@ -19,7 +19,7 @@ import { formatMeasurementText } from "@/services/util";
 //PROPS
 
 interface Props {
-  recipeId: number;
+  recipeId?: number;
 }
 
 const props = defineProps<Props>();

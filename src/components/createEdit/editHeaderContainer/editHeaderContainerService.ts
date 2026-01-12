@@ -1,5 +1,5 @@
 import { fetchRecipe } from "@/services/apiService";
-import { ERROR_RECIPE, LOADING_RECIPE } from "@/services/constants";
+import { EMPTY_RECIPE, ERROR_RECIPE, LOADING_RECIPE } from "@/services/constants";
 import { Recipe } from "@/types/Recipe";
 import { Ref, ref } from "vue";
 
@@ -10,13 +10,15 @@ export interface EditHeaderContainerService {
 }
 
 export const useEditHeaderContainerService = (
-  id: number,
+  id?: number,
 ): EditHeaderContainerService => {
-  const recipe: Ref<Recipe> = ref(LOADING_RECIPE);
+  const recipe: Ref<Recipe> = ref(id === undefined ? EMPTY_RECIPE : LOADING_RECIPE);
 
-  fetchRecipe(id).then((recipeResponse) => {
-    recipe.value = recipeResponse.ok ? recipeResponse.data : ERROR_RECIPE;
-  });
+  if (id !== undefined) {
+    fetchRecipe(id).then((recipeResponse) => {
+      recipe.value = recipeResponse.ok ? recipeResponse.data : ERROR_RECIPE;
+    });
+  }
 
   return { recipe };
 };

@@ -4,7 +4,7 @@ import EditIngredientsForm from "@/components/createEdit/editIngredientsForm/Edi
 
 //PROPS
 interface Props {
-  id: string;
+  id?: string;
 }
 
 defineProps<Props>();
@@ -12,6 +12,6 @@ defineProps<Props>();
 
 <template>
   <BasePage title="Edit Ingredients">
-    <EditIngredientsForm :recipe-id="Number(id)" />
+    <EditIngredientsForm :recipe-id="id ? Number(id) : undefined" />
   </BasePage>
 </template>
