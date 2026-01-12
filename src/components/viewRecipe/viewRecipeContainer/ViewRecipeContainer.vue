@@ -17,10 +17,14 @@ const props = defineProps<Props>();
 
 // SERVICE
 
-const { recipe, onEditHeader, refreshData, displayError } = inject(
-  INJECTION_KEY,
-  useViewRecipeContainerService,
-)(props.id);
+const {
+  recipe,
+  onEditHeader,
+  onEditIngredients,
+  onEditInstructions,
+  refreshData,
+  displayError,
+} = inject(INJECTION_KEY, useViewRecipeContainerService)(props.id);
 
 defineExpose({
   refreshData,
@@ -32,6 +36,6 @@ defineExpose({
     <ion-label color="danger">Unable to load recipe.</ion-label>
   </ion-item>
   <RecipeCard :recipe="recipe" @edit="onEditHeader" />
-  <IngredientCard :id="id" />
-  <InstructionCard :id="id" />
+  <IngredientCard :id="id" @edit="onEditIngredients" />
+  <InstructionCard :id="id" @edit="onEditInstructions" />
 </template>
