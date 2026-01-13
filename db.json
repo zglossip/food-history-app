@@ -9,7 +9,7 @@
       "servingAmount": 4,
       "servingName": "bowls",
       "recipeSourceUrl": "https://example.com/recipes/chili",
-      "uploaded": "2024-01-10"
+      "uploaded": "2025-09-30T21:26:45.844839"
     },
     {
       "id": 2,
@@ -20,7 +20,7 @@
       "servingAmount": 2,
       "servingName": "filets",
       "recipeSourceUrl": "https://example.com/recipes/salmon",
-      "uploaded": "2024-02-03"
+      "uploaded": "2025-10-03T08:15:12.123456"
     },
     {
       "id": 3,
@@ -31,7 +31,7 @@
       "servingAmount": 3,
       "servingName": "jars",
       "recipeSourceUrl": "https://example.com/recipes/parfaits",
-      "uploaded": "2024-03-12"
+      "uploaded": "2025-11-12T14:05:30.987654"
     }
   ],
   "ingredientLists": [
