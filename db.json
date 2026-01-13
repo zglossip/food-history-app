@@ -8,7 +8,7 @@
       "tags": ["spicy", "slow-cooker"],
       "servingAmount": 4,
       "servingName": "bowls",
-      "recipeSourceUrl": "https://example.com/recipes/chili",
+      "source": "https://example.com/recipes/chili",
       "uploaded": "2025-09-30T21:26:45.844839"
     },
     {
@@ -19,7 +19,7 @@
       "tags": ["seafood", "quick"],
       "servingAmount": 2,
       "servingName": "filets",
-      "recipeSourceUrl": "https://example.com/recipes/salmon",
+      "source": "https://example.com/recipes/salmon",
       "uploaded": "2025-10-03T08:15:12.123456"
     },
     {
@@ -30,7 +30,7 @@
       "tags": ["make-ahead", "vegetarian"],
       "servingAmount": 3,
       "servingName": "jars",
-      "recipeSourceUrl": "https://example.com/recipes/parfaits",
+      "source": "https://example.com/recipes/parfaits",
       "uploaded": "2025-11-12T14:05:30.987654"
     }
   ],

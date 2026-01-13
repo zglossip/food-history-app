@@ -50,7 +50,7 @@ export function useCreateSingleContainerService(): CreateSingleContainerService 
       uploaded: null,
     };
 
-    if (sourceUrl.value) recipe.recipeSourceUrl = sourceUrl.value;
+    if (sourceUrl.value) recipe.source = sourceUrl.value;
 
     const response: ApiResult<Recipe> = await createRecipe(recipe);
 

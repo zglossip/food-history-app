@@ -16,7 +16,7 @@ export const stubRecipeService = (args: any) => {
       formattedCuisineTag: computed(() => args.formattedCuisineTag),
       formattedCourseTag: computed(() => args.formattedCourseTag),
       formattedTagTag: computed(() => args.formattedTagTag),
-      recipeSourceUrl: computed(() => args.recipeSourceUrl),
+      source: computed(() => args.source),
       navigate: () => ({}),
       onClick: action("button clicked"),
     }),
@@ -49,7 +49,7 @@ const meta: Meta<typeof RecipeCard> = {
       options: [TEST_TAG_TAG, false],
       type: "select",
     },
-    recipeSourceUrl: {
+    source: {
       options: [TEST_RECIPE_SOURCE, null],
     },
   },
@@ -69,7 +69,7 @@ const meta: Meta<typeof RecipeCard> = {
     formattedCuisineTag: TEST_CUISINE_TAG,
     formattedCourseTag: TEST_COURSE_TAG,
     formattedTagTag: TEST_TAG_TAG,
-    recipeSourceUrl: TEST_RECIPE_SOURCE,
+    source: TEST_RECIPE_SOURCE,
   },
 };
 

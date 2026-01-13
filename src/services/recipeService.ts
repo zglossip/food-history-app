@@ -9,7 +9,7 @@ export interface RecipeService {
   formattedCuisineTag: ComputedRef<string | boolean>;
   formattedCourseTag: ComputedRef<string | boolean>;
   formattedTagTag: ComputedRef<string | boolean>;
-  recipeSourceUrl: ComputedRef<string | null>;
+  source: ComputedRef<string | null>;
   navigate: VoidFunction;
   onClick: () => void;
 }
@@ -53,9 +53,9 @@ export const useRecipeService = (
     formatTag("Tag", recipe.value?.tags),
   );
 
-  const recipeSourceUrl: ComputedRef<string | null> = computed(() => {
-    if (recipe.value && recipe.value.recipeSourceUrl) {
-      return recipe.value.recipeSourceUrl;
+  const source: ComputedRef<string | null> = computed(() => {
+    if (recipe.value && recipe.value.source) {
+      return recipe.value.source;
     }
 
     return null;
@@ -76,7 +76,7 @@ export const useRecipeService = (
     formattedCuisineTag,
     formattedCourseTag,
     formattedTagTag,
-    recipeSourceUrl,
+    source,
     navigate,
     onClick,
   };
