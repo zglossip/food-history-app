@@ -7,6 +7,19 @@ import { useToast } from "@/composables/useToast";
 
 export type ApiResult<T> = { ok: true; data: T } | { ok: false; error: string };
 
+const parseUploaded = (value: string | null): Date | null => {
+  if (!value) {
+    return null;
+  }
+  const date = new Date(value);
+  return Number.isNaN(date.getTime()) ? null : date;
+};
+
+const mapRecipe = (recipe: Recipe & { uploaded: string | null }): Recipe => ({
+  ...recipe,
+  uploaded: parseUploaded(recipe.uploaded),
+});
+
 const getErrorMessage = (error: unknown): string => {
   if (axios.isAxiosError(error)) {
     if (typeof error.response?.data === "string") {
@@ -80,19 +93,38 @@ export const fetchRecipes = async (
     tags.forEach((t: string) => (url += `tag=${t}&`));
   }
 
-  return get<Recipe[]>(url);
+  const result = await get<Array<Recipe & { uploaded: string | null }>>(url);
+  if (!result.ok) {
+    return result;
+  }
+  return { ok: true, data: result.data.map(mapRecipe) };
 };
 
-export const fetchRecipe = async (id: number): Promise<ApiResult<Recipe>> =>
-  get<Recipe>(`${BACKEND_BASE}/recipe/${id}`);
+export const fetchRecipe = async (id: number): Promise<ApiResult<Recipe>> => {
+  const result = await get<Recipe & { uploaded: string | null }>(
+    `${BACKEND_BASE}/recipe/${id}`,
+  );
+  if (!result.ok) {
+    return result;
+  }
+  return { ok: true, data: mapRecipe(result.data) };
+};
 
 export const saveRecipe = async (recipe: Recipe): Promise<ApiResult<null>> =>
   put<Recipe, null>(`${BACKEND_BASE}/recipe/${recipe.id}`, recipe);
 
 export const createRecipe = async (
   recipe: Recipe,
-): Promise<ApiResult<Recipe>> =>
-  post<Recipe, Recipe>(`${BACKEND_BASE}/recipe`, recipe);
+): Promise<ApiResult<Recipe>> => {
+  const result = await post<Recipe, Recipe & { uploaded: string | null }>(
+    `${BACKEND_BASE}/recipe`,
+    recipe,
+  );
+  if (!result.ok) {
+    return result;
+  }
+  return { ok: true, data: mapRecipe(result.data) };
+};
 
 export const fetchIngredients = async (
   id: number,
