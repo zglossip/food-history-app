@@ -2,13 +2,13 @@ import { Ingredient } from "@/types/Ingredient";
 import { Recipe } from "@/types/Recipe";
 
 const DEFAULT_RECIPE: Recipe = {
-  name: "test",
-  courseTypes: [],
-  cuisineTypes: [],
-  tags: [],
+  name: "Test Recipe",
+  courseTypes: ["Main"],
+  cuisineTypes: ["American", "Mexican"],
+  tags: ["fav"],
   servingAmount: 1,
   servingName: "serving",
-  uploaded: null,
+  uploaded: new Date(),
 };
 
 export const generateRecipe = (recipe: Partial<Recipe> = {}): Recipe => ({
