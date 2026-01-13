@@ -10,5 +10,5 @@ export type Recipe = {
   recipeSourceUrl?: string;
   ingredients?: string;
   instructions?: string;
-  uploaded: string | null;
+  uploaded: Date | null;
 };

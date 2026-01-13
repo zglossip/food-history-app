@@ -18,6 +18,7 @@ export const ERROR_RECIPE: Recipe = {
   tags: ["ERROR"],
   servingAmount: -1,
   servingName: "ERROR",
+  uploaded: null,
 };
 
 export const LOADING_RECIPE: Recipe = {
@@ -27,6 +28,7 @@ export const LOADING_RECIPE: Recipe = {
   tags: ["Loading..."],
   servingAmount: 0,
   servingName: "Loading...",
+  uploaded: null,
 };
 
 export const EMPTY_RECIPE: Recipe = {
