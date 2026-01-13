@@ -3,7 +3,7 @@ import { fetchRecipes as fetchRecipesApi } from "@/services/apiService";
 import { Recipe } from "@/types/Recipe";
 import { onIonViewWillEnter } from "@ionic/vue";
 import { Ref, ref } from "vue";
-import { LocationQueryValue, useRoute } from "vue-router";
+import { LocationQueryValue, useRoute, useRouter } from "vue-router";
 
 export interface BrowseViewService {
   recipes: Ref<Recipe[]>;
@@ -12,6 +12,8 @@ export interface BrowseViewService {
   cuisines: Ref<string[]>;
   tags: Ref<string[]>;
   applyFilters: (filter: Filters) => void;
+  goToCreationWizard: () => void;
+  goToQuickAdd: () => void;
   isLoading: Ref<boolean>;
   displayError: Ref<boolean>;
 }
@@ -28,6 +30,7 @@ export const useBrowseViewService = (): BrowseViewService => {
   const displayError: Ref<boolean> = ref(false);
 
   const route = useRoute();
+  const router = useRouter();
   const nameQuery = route.query.nameQuery as string;
   const courseQuery = route.query.courseQuery as LocationQueryValue[];
   const cuisineQuery = route.query.cuisineQuery as LocationQueryValue[];
@@ -91,6 +94,14 @@ export const useBrowseViewService = (): BrowseViewService => {
     fetchRecipes();
   };
 
+  const goToCreationWizard = (): void => {
+    router.push("/recipe/create");
+  };
+
+  const goToQuickAdd = (): void => {
+    router.push("/recipe/create/single");
+  };
+
   onIonViewWillEnter(fetchRecipes);
 
   return {
@@ -100,6 +111,8 @@ export const useBrowseViewService = (): BrowseViewService => {
     cuisines,
     tags,
     applyFilters,
+    goToCreationWizard,
+    goToQuickAdd,
     isLoading,
     displayError,
   };
