@@ -14,23 +14,29 @@ export interface EditIngredientsService {
 }
 
 export const useEditIngredientService = (
-  id: number,
+  id?: number,
 ): EditIngredientsService => {
   const ingredients: Ref<Ingredient[]> = ref([]);
 
   const router = useRouter();
 
-  fetchIngredients(id).then((response) => {
-    if (response.ok) {
-      ingredients.value = response.data.ingredients;
-    }
-  });
+  if (id !== undefined) {
+    fetchIngredients(id).then((response) => {
+      if (response.ok) {
+        ingredients.value = response.data.ingredients;
+      }
+    });
+  }
 
   const onItemReorder = (evt: CustomEvent) => {
     reorderIonicItems(evt, ingredients.value);
   };
 
   const onSaveClick = () => {
+    if (id === undefined) {
+      router.go(-1);
+      return;
+    }
     saveIngredients({
       ingredients: ingredients.value,
       recipeId: id,

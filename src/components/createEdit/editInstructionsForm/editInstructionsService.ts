@@ -13,22 +13,28 @@ export interface EditInstructionsService {
 }
 
 export const useEditInstructionService = (
-  id: number,
+  id?: number,
 ): EditInstructionsService => {
   const instructions: Ref<string[]> = ref([]);
   const router = useRouter();
 
-  fetchInstructions(id).then((response) => {
-    if (response.ok) {
-      instructions.value = response.data.instructions;
-    }
-  });
+  if (id !== undefined) {
+    fetchInstructions(id).then((response) => {
+      if (response.ok) {
+        instructions.value = response.data.instructions;
+      }
+    });
+  }
 
   const onItemReorder = (evt: CustomEvent) => {
     reorderIonicItems(evt, instructions.value);
   };
 
   const onSaveClick = () => {
+    if (id === undefined) {
+      router.go(-1);
+      return;
+    }
     saveInstructions({
       instructions: instructions.value,
       recipeId: id,

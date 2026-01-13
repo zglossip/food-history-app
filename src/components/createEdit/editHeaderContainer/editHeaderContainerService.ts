@@ -6,17 +6,21 @@ import { Ref, ref } from "vue";
 export const INJECTION_KEY = Symbol();
 
 export interface EditHeaderContainerService {
-  recipe: Ref<Recipe>;
+  recipe: Ref<Recipe | undefined>;
 }
 
 export const useEditHeaderContainerService = (
-  id: number,
+  id?: number,
 ): EditHeaderContainerService => {
-  const recipe: Ref<Recipe> = ref(LOADING_RECIPE);
+  const recipe: Ref<Recipe | undefined> = ref(
+    id === undefined ? undefined : LOADING_RECIPE,
+  );
 
-  fetchRecipe(id).then((recipeResponse) => {
-    recipe.value = recipeResponse.ok ? recipeResponse.data : ERROR_RECIPE;
-  });
+  if (id !== undefined) {
+    fetchRecipe(id).then((recipeResponse) => {
+      recipe.value = recipeResponse.ok ? recipeResponse.data : ERROR_RECIPE;
+    });
+  }
 
   return { recipe };
 };

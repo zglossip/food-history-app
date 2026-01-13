@@ -28,3 +28,13 @@ export const LOADING_RECIPE: Recipe = {
   servingAmount: 0,
   servingName: "Loading...",
 };
+
+export const EMPTY_RECIPE: Recipe = {
+  name: "",
+  courseTypes: [],
+  cuisineTypes: [],
+  tags: [],
+  servingAmount: 0,
+  servingName: "",
+  uploaded: null,
+};

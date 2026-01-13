@@ -36,25 +36,57 @@
   ],
   "ingredientLists": [
     {
-      "id": 1,
-      "recipeId": 1,
-      "recipe": "Weeknight Chili",
       "ingredients": [
-        { "name": "Ground beef", "quantity": 1, "uom": "lb" },
-        { "name": "Kidney beans", "quantity": 2, "uom": "cans" },
-        { "name": "Diced tomatoes", "quantity": 1, "uom": "can" },
-        { "name": "Chili powder", "quantity": 2, "uom": "tbsp" }
-      ]
+        {
+          "name": "Chili powder",
+          "quantity": 2,
+          "uom": "tbsp"
+        },
+        {
+          "name": "Kidney beans",
+          "quantity": 2,
+          "uom": "cans"
+        },
+        {
+          "name": "Diced tomatoes",
+          "quantity": 1,
+          "uom": "can"
+        },
+        {
+          "name": "Ground beef",
+          "quantity": 1,
+          "uom": "lb"
+        }
+      ],
+      "recipeId": 1,
+      "id": 1
     },
     {
       "id": 2,
       "recipeId": 2,
       "recipe": "Lemon Herb Salmon",
       "ingredients": [
-        { "name": "Salmon fillets", "quantity": 2, "uom": "pieces" },
-        { "name": "Lemon", "quantity": 1, "uom": "whole" },
-        { "name": "Olive oil", "quantity": 2, "uom": "tbsp" },
-        { "name": "Fresh dill", "quantity": 1, "uom": "tbsp", "notes": "chopped" }
+        {
+          "name": "Salmon fillets",
+          "quantity": 2,
+          "uom": "pieces"
+        },
+        {
+          "name": "Lemon",
+          "quantity": 1,
+          "uom": "whole"
+        },
+        {
+          "name": "Olive oil",
+          "quantity": 2,
+          "uom": "tbsp"
+        },
+        {
+          "name": "Fresh dill",
+          "quantity": 1,
+          "uom": "tbsp",
+          "notes": "chopped"
+        }
       ]
     },
     {
@@ -62,10 +94,26 @@
       "recipeId": 3,
       "recipe": "Blueberry Oat Parfaits",
       "ingredients": [
-        { "name": "Greek yogurt", "quantity": 2, "uom": "cups" },
-        { "name": "Blueberries", "quantity": 1, "uom": "cup" },
-        { "name": "Rolled oats", "quantity": 0.5, "uom": "cup" },
-        { "name": "Honey", "quantity": 2, "uom": "tbsp" }
+        {
+          "name": "Greek yogurt",
+          "quantity": 2,
+          "uom": "cups"
+        },
+        {
+          "name": "Blueberries",
+          "quantity": 1,
+          "uom": "cup"
+        },
+        {
+          "name": "Rolled oats",
+          "quantity": 0.5,
+          "uom": "cup"
+        },
+        {
+          "name": "Honey",
+          "quantity": 2,
+          "uom": "tbsp"
+        }
       ]
     }
   ],

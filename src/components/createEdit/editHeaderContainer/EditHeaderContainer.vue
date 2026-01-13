@@ -7,7 +7,7 @@ import {
 import EditHeaderForm from "@/components/createEdit/editHeaderForm/EditHeaderForm.vue";
 
 interface Props {
-  id: number;
+  id?: number;
 }
 
 const props = defineProps<Props>();
