@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/vue3";
 import BaseFabModal from "./BaseFabModal.vue";
-import { IonButton, IonIcon, IonItem, IonLabel } from "@ionic/vue";
+import { IonButton, IonFab, IonIcon, IonItem, IonLabel } from "@ionic/vue";
 import { filterCircleOutline } from "ionicons/icons";
 
 //META
@@ -11,6 +11,7 @@ const meta: Meta<typeof BaseFabModal> = {
   render: (args: any) => ({
     components: {
       BaseFabModal,
+      IonFab,
       IonButton,
       IonIcon,
       IonItem,
@@ -21,17 +22,19 @@ const meta: Meta<typeof BaseFabModal> = {
       filterCircleOutline,
     }),
     template: `
-      <BaseFabModal :content-class="contentClass">
-        <template #fab>
-          <IonIcon :icon="filterCircleOutline" />
-        </template>
-        <template #default="{ close }">
-          <IonItem>
-            <IonLabel>{{ contentText }}</IonLabel>
-          </IonItem>
-          <IonButton expand="block" @click="close">Close</IonButton>
-        </template>
-      </BaseFabModal>
+      <IonFab vertical="bottom" horizontal="end">
+        <BaseFabModal :content-class="contentClass">
+          <template #fab>
+            <IonIcon :icon="filterCircleOutline" />
+          </template>
+          <template #default="{ close }">
+            <IonItem>
+              <IonLabel>{{ contentText }}</IonLabel>
+            </IonItem>
+            <IonButton expand="block" @click="close">Close</IonButton>
+          </template>
+        </BaseFabModal>
+      </IonFab>
     `,
   }),
   args: {

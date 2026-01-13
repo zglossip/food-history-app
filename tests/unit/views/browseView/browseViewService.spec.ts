@@ -7,7 +7,7 @@ vi.mock("@ionic/vue", () => ({
 }));
 
 import { ApiResult, fetchRecipes } from "@/services/apiService";
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import {
   useBrowseViewService,
   BrowseViewService,
@@ -23,6 +23,7 @@ interface SetupOptions {
 interface TestSetup {
   service: BrowseViewService;
   fetchRecipes: () => Promise<ApiResult<Recipe[]>>;
+  routerPush: Mock;
 }
 
 const setup = (options: SetupOptions = {}): TestSetup => {
@@ -39,9 +40,14 @@ const setup = (options: SetupOptions = {}): TestSetup => {
     vi.fn().mockReturnValue({ query: routeQuery }),
   );
 
+  const routerPush = vi.fn();
+  (useRouter as Mock).mockImplementation(vi.fn().mockReturnValue({
+    push: routerPush,
+  }));
+
   const service = useBrowseViewService();
 
-  return { service, fetchRecipes: fetchRecipesMock };
+  return { service, fetchRecipes: fetchRecipesMock, routerPush };
 };
 
 describe("browseViewService", () => {
@@ -106,5 +112,25 @@ describe("browseViewService", () => {
       ["Course 1", "Course 2"],
       ["Tag 1", "Tag 2"],
     );
+  });
+
+  it("navigates to creation wizard", async () => {
+    const { service, routerPush } = setup();
+
+    await vi.waitFor(() => expect(service.isLoading.value).toBe(false));
+
+    service.goToCreationWizard();
+
+    expect(routerPush).toHaveBeenCalledWith("/recipe/create");
+  });
+
+  it("navigates to quick add", async () => {
+    const { service, routerPush } = setup();
+
+    await vi.waitFor(() => expect(service.isLoading.value).toBe(false));
+
+    service.goToQuickAdd();
+
+    expect(routerPush).toHaveBeenCalledWith("/recipe/create/single");
   });
 });
