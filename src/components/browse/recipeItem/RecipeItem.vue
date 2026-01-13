@@ -11,6 +11,7 @@ import {
   IonItem,
 } from "@ionic/vue";
 import { arrowForward } from "ionicons/icons";
+import { useRecipeUploadedDate } from "@/composables/useDateFormat";
 
 //PROPS
 
@@ -30,6 +31,8 @@ const {
   formattedTagTag,
   navigate,
 } = inject(injectionKey, useRecipeService)(recipe);
+
+const formattedUploaded = useRecipeUploadedDate(recipe);
 </script>
 
 <template>
@@ -54,6 +57,9 @@ const {
               :key="i"
             >
               {{ tag ? tag : "" }}
+            </p>
+            <p v-if="formattedUploaded">
+              Added: {{ formattedUploaded }}
             </p>
           </ion-label>
         </ion-col>
