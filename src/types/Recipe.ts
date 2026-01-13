@@ -7,7 +7,7 @@ export type Recipe = {
   tags: string[];
   servingAmount: number;
   servingName: string;
-  recipeSourceUrl?: string;
+  source?: string;
   ingredients?: string;
   instructions?: string;
   uploaded: Date | null;

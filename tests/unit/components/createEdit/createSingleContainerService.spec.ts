@@ -78,7 +78,7 @@ describe("createSingleContainerService", () => {
       tags: ["Quick", "Favorite"],
       servingAmount: 4,
       servingName: "plates",
-      recipeSourceUrl: "https://example.com",
+      source: "https://example.com",
       uploaded: null,
     });
 

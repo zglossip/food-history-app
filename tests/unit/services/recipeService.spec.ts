@@ -47,7 +47,8 @@ describe("useRecipeService.ts", () => {
   });
 
   it("formats no cuisines", () => {
-    const { service } = setup();
+    const recipe: Recipe = generateRecipe({ cuisineTypes: [] });
+    const { service } = setup({ recipe });
     expect(service.formattedCuisineTag.value).toBeFalsy();
   });
 
@@ -68,7 +69,8 @@ describe("useRecipeService.ts", () => {
   });
 
   it("formats no courses", () => {
-    const { service } = setup();
+    const recipe: Recipe = generateRecipe({ courseTypes: [] });
+    const { service } = setup({ recipe });
     expect(service.formattedCourseTag.value).toBeFalsy();
   });
 
@@ -87,7 +89,8 @@ describe("useRecipeService.ts", () => {
   });
 
   it("formats no tags", () => {
-    const { service } = setup();
+    const recipe: Recipe = generateRecipe({ tags: [] });
+    const { service } = setup({ recipe });
     expect(service.formattedTagTag.value).toBeFalsy();
   });
 });
