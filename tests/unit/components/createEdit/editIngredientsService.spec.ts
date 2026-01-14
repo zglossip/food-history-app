@@ -16,6 +16,9 @@ import { IngredientList } from "@/types/IngredientList";
 vi.mock("@/services/apiService");
 vi.mock("@/services/util");
 vi.mock("vue-router");
+vi.mock("@/composables/usePageRefresher", () => ({
+  usePageRefresher: () => {},
+}));
 
 const recipeId = 10;
 const testName = "Test Ingredient";

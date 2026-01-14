@@ -5,6 +5,9 @@ vi.mock("vue-router");
 vi.mock("@ionic/vue", () => ({
   onIonViewWillEnter: (cb: () => void) => cb(),
 }));
+vi.mock("@/composables/usePageRefresher", () => ({
+  usePageRefresher: () => {},
+}));
 
 import { ApiResult, fetchRecipes } from "@/services/apiService";
 import { useRoute, useRouter } from "vue-router";
