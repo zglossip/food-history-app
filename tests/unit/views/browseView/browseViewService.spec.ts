@@ -44,9 +44,11 @@ const setup = (options: SetupOptions = {}): TestSetup => {
   );
 
   const routerPush = vi.fn();
-  (useRouter as Mock).mockImplementation(vi.fn().mockReturnValue({
-    push: routerPush,
-  }));
+  (useRouter as Mock).mockImplementation(
+    vi.fn().mockReturnValue({
+      push: routerPush,
+    }),
+  );
 
   const service = useBrowseViewService();
 

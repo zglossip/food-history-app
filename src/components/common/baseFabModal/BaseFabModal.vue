@@ -8,7 +8,7 @@ withDefaults(
   }>(),
   {
     contentClass: "ion-padding",
-  }
+  },
 );
 
 const modalOpen = ref(false);

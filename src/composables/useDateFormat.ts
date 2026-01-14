@@ -8,9 +8,7 @@ const formatDate = (value: Date): string => {
   return `${month}/${day}/${year}`;
 };
 
-export const useRecipeUploadedDate = (
-  recipe: Ref<Recipe | null | undefined>,
-) =>
+export const useRecipeUploadedDate = (recipe: Ref<Recipe | null | undefined>) =>
   computed(() => {
     const uploaded = recipe.value?.uploaded ?? null;
     return uploaded ? formatDate(uploaded) : "";
