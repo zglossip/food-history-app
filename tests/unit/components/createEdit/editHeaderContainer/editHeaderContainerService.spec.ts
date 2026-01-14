@@ -51,7 +51,7 @@ describe("editHeaderContainerService", () => {
     });
 
     await vi.waitFor(() =>
-      expect(service.recipe.value.name).toBe("Loaded Recipe"),
+      expect(service.recipe.value?.name).toBe("Loaded Recipe"),
     );
   });
 

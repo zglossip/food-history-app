@@ -25,5 +25,9 @@
     "tests/**/*.ts",
     "tests/**/*.tsx",
   ],
+  "exclude": [
+    ".storybook/**",
+    "**/*.stories.*",
+  ],
   "references": [{ "path": "./tsconfig.node.json" }],
 }
