@@ -1,5 +1,6 @@
 import { fetchInstructions } from "@/services/apiService";
 import { Ref, ref } from "vue";
+import { usePageRefresher } from "@/composables/usePageRefresher";
 
 export const injectionKey = Symbol();
 
@@ -19,8 +20,10 @@ export const useInstructionCardService = (
   const onClick = () => editEmit();
   const displayError: Ref<boolean> = ref(false);
 
-  fetchInstructions(id)
-    .then((instructionResponse) => {
+  const refreshData = async (): Promise<void> => {
+    isLoading.value = true;
+    try {
+      const instructionResponse = await fetchInstructions(id);
       if (instructionResponse.ok) {
         instructions.value = instructionResponse.data.instructions;
         displayError.value = false;
@@ -28,8 +31,13 @@ export const useInstructionCardService = (
       }
       instructions.value = [];
       displayError.value = true;
-    })
-    .finally(() => (isLoading.value = false));
+    } finally {
+      isLoading.value = false;
+    }
+  };
+
+  usePageRefresher(refreshData);
+  void refreshData();
 
   return { instructions, isLoading, onClick, displayError };
 };

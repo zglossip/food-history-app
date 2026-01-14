@@ -3,6 +3,7 @@ import { reorderIonicItems } from "@/services/util";
 import { Ingredient } from "@/types/Ingredient";
 import { Ref, ref } from "vue";
 import { useRouter } from "vue-router";
+import { usePageRefresher } from "@/composables/usePageRefresher";
 
 export const INJECTION_KEY = Symbol();
 
@@ -20,12 +21,20 @@ export const useEditIngredientService = (
 
   const router = useRouter();
 
+  const refreshData = async (): Promise<void> => {
+    if (id === undefined) {
+      return;
+    }
+    const response = await fetchIngredients(id);
+    if (response.ok) {
+      ingredients.value = response.data.ingredients;
+    }
+  };
+
+  usePageRefresher(refreshData);
+
   if (id !== undefined) {
-    fetchIngredients(id).then((response) => {
-      if (response.ok) {
-        ingredients.value = response.data.ingredients;
-      }
-    });
+    void refreshData();
   }
 
   const onItemReorder = (evt: CustomEvent) => {

@@ -2,6 +2,7 @@ import { fetchInstructions, saveInstructions } from "@/services/apiService";
 import { reorderIonicItems } from "@/services/util";
 import { Ref, ref } from "vue";
 import { useRouter } from "vue-router";
+import { usePageRefresher } from "@/composables/usePageRefresher";
 
 export const INJECTION_KEY = Symbol();
 
@@ -18,12 +19,20 @@ export const useEditInstructionService = (
   const instructions: Ref<string[]> = ref([]);
   const router = useRouter();
 
+  const refreshData = async (): Promise<void> => {
+    if (id === undefined) {
+      return;
+    }
+    const response = await fetchInstructions(id);
+    if (response.ok) {
+      instructions.value = response.data.instructions;
+    }
+  };
+
+  usePageRefresher(refreshData);
+
   if (id !== undefined) {
-    fetchInstructions(id).then((response) => {
-      if (response.ok) {
-        instructions.value = response.data.instructions;
-      }
-    });
+    void refreshData();
   }
 
   const onItemReorder = (evt: CustomEvent) => {

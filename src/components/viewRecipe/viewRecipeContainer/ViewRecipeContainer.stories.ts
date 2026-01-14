@@ -22,7 +22,7 @@ const stubViewRecipeContainerService = (args: any) => {
       onEditHeader: () => null,
       onEditIngredients: () => null,
       onEditInstructions: () => null,
-      refreshData: () => null,
+      refreshData: async () => undefined,
     }),
   );
 };

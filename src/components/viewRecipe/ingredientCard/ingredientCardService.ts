@@ -1,6 +1,7 @@
 import { Ingredient } from "@/types/Ingredient";
 import { Ref, ref } from "vue";
 import { fetchIngredients } from "@/services/apiService";
+import { usePageRefresher } from "@/composables/usePageRefresher";
 
 export const INJECTION_KEY = Symbol();
 
@@ -20,8 +21,10 @@ export const useIngredientCardService = (
   const onClick = () => editEmit();
   const displayError: Ref<boolean> = ref(false);
 
-  fetchIngredients(id)
-    .then((ingredientResponse) => {
+  const refreshData = async (): Promise<void> => {
+    isLoading.value = true;
+    try {
+      const ingredientResponse = await fetchIngredients(id);
       if (ingredientResponse.ok) {
         ingredients.value = ingredientResponse.data.ingredients;
         displayError.value = false;
@@ -29,8 +32,13 @@ export const useIngredientCardService = (
       }
       ingredients.value = [];
       displayError.value = true;
-    })
-    .finally(() => (isLoading.value = false));
+    } finally {
+      isLoading.value = false;
+    }
+  };
+
+  usePageRefresher(refreshData);
+  void refreshData();
 
   return { ingredients, isLoading, onClick, displayError };
 };
