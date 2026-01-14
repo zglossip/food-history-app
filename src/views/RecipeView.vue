@@ -16,6 +16,8 @@ interface Props {
 
 const props = defineProps<Props>();
 
+  usePageRefreshController();
+
 const viewRecipeContainerService = useViewRecipeContainerService(
   Number(props.id),
 );
@@ -25,8 +27,6 @@ provide(INJECTION_KEY, () => viewRecipeContainerService);
 onIonViewDidEnter(() => {
   viewRecipeContainerService.refreshData();
 });
-
-usePageRefreshController();
 </script>
 
 <template>
