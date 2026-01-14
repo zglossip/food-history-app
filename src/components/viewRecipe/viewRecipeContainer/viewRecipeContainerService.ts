@@ -2,7 +2,6 @@ import { fetchRecipe } from "@/services/apiService";
 import { Recipe } from "@/types/Recipe";
 import { Ref, ref } from "vue";
 import { useRouter } from "vue-router";
-import { onIonViewDidEnter } from "@ionic/vue";
 import { usePageRefresher } from "@/composables/usePageRefresher";
 
 export const INJECTION_KEY = Symbol();
@@ -55,7 +54,6 @@ export const useViewRecipeContainerService = (
   };
 
   usePageRefresher(refreshData);
-  onIonViewDidEnter(refreshData);
 
   return {
     isLoading,
