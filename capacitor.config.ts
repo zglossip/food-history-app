@@ -5,7 +5,8 @@ const config: CapacitorConfig = {
   appName: "Food History",
   webDir: "dist",
   server: {
-    androidScheme: "https",
+    //TODO: Before deploy, set up https and change the androidScheme to https
+    androidScheme: "http",
   },
 };
 
