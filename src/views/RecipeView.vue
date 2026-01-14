@@ -1,23 +1,29 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { provide } from "vue";
 import { onIonViewDidEnter } from "@ionic/vue";
 import ViewRecipeContainer from "@/components/viewRecipe/viewRecipeContainer/ViewRecipeContainer.vue";
 import BasePage from "@/components/common/basePage/BasePage.vue";
 import { usePageRefreshController } from "@/composables/usePageRefresher";
+import {
+  INJECTION_KEY,
+  useViewRecipeContainerService,
+} from "@/components/viewRecipe/viewRecipeContainer/viewRecipeContainerService";
 
 //PROPS
 interface Props {
   id: string;
 }
 
-defineProps<Props>();
+const props = defineProps<Props>();
 
-const viewRecipeContainerRef = ref<InstanceType<
-  typeof ViewRecipeContainer
-> | null>(null);
+const viewRecipeContainerService = useViewRecipeContainerService(
+  Number(props.id),
+);
+
+provide(INJECTION_KEY, () => viewRecipeContainerService);
 
 onIonViewDidEnter(() => {
-  viewRecipeContainerRef.value?.refreshData();
+  viewRecipeContainerService.refreshData();
 });
 
 usePageRefreshController();
@@ -25,6 +31,6 @@ usePageRefreshController();
 
 <template>
   <BasePage title="View Recipe">
-    <ViewRecipeContainer :id="Number(id)" ref="viewRecipeContainerRef" />
+    <ViewRecipeContainer :id="Number(id)" />
   </BasePage>
 </template>
