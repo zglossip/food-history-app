@@ -75,23 +75,20 @@ export const fetchRecipes = async (
   courses: string[],
   tags: string[],
 ): Promise<ApiResult<Recipe[]>> => {
-  let url = BACKEND_BASE + "/recipe?";
+  const params = new URLSearchParams();
 
   if (name) {
-    url += `name=${name}&`;
+    params.set("name", name);
   }
 
-  if (courses.length) {
-    courses.forEach((c: string) => (url += `course=${c}&`));
-  }
+  courses.forEach((course: string) => params.append("course", course));
+  cuisines.forEach((cuisine: string) => params.append("cuisine", cuisine));
+  tags.forEach((tag: string) => params.append("tag", tag));
 
-  if (cuisines.length) {
-    cuisines.forEach((c: string) => (url += `cuisine=${c}&`));
-  }
-
-  if (tags.length) {
-    tags.forEach((t: string) => (url += `tag=${t}&`));
-  }
+  const query = params.toString();
+  const url = query
+    ? `${BACKEND_BASE}/recipe?${query}`
+    : `${BACKEND_BASE}/recipe`;
 
   const result = await get<Array<Recipe & { uploaded: string | null }>>(url);
   if (!result.ok) {
