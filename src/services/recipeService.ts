@@ -38,11 +38,20 @@ export const useRecipeService = (
   };
 
   const formattedServingTag: ComputedRef<string> = computed(() => {
-    return `${recipe.value?.servingAmount} ${recipe.value?.servingName}`;
+    if (!recipe.value) {
+      return "";
+    }
+
+    const { servingAmount, servingName } = recipe.value;
+    if (servingAmount === undefined || servingName === undefined) {
+      return "";
+    }
+
+    return `${servingAmount} ${servingName}`.trim();
   });
 
   const formattedCuisineTag: ComputedRef<string | boolean> = computed(() =>
-    formatTag("Cusine", recipe.value?.cuisineTypes),
+    formatTag("Cuisine", recipe.value?.cuisineTypes),
   );
 
   const formattedCourseTag: ComputedRef<string | boolean> = computed(() =>
