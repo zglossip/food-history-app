@@ -49,7 +49,7 @@ const {
     <ion-card-content>
       <ion-list>
         <ion-item>
-          <ion-input label="Name" label-placement="stacked" :value="newName" />
+          <ion-input label="Name" label-placement="stacked" v-model="newName" />
         </ion-item>
         <ion-item>
           <ion-input
