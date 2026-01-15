@@ -10,6 +10,7 @@ import {
   IonItem,
   IonCard,
   IonCardContent,
+  IonButton,
   IonTextarea,
 } from "@ionic/vue";
 
@@ -43,7 +44,7 @@ const {
         </ion-item>
         <ion-item>
           <ion-input
-            label="Cusine(s)"
+            label="Cuisine(s)"
             label-placement="stacked"
             v-model="cuisinesString"
           />
@@ -90,7 +91,7 @@ const {
             label="Instructions"
             label-placement="stacked"
             v-model="instructionsString"
-          />s
+          />
         </ion-item>
       </ion-list>
     </ion-card-content>
