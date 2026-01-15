@@ -17,7 +17,7 @@ import {
 } from "@ionic/vue";
 import { Filters } from "@/components/browse/filterMenu/filterMenuService";
 
-usePageRefreshController();
+const pageRefreshController = usePageRefreshController();
 
 const {
   recipes,
@@ -29,7 +29,7 @@ const {
   displayError,
   goToCreationWizard,
   goToQuickAdd,
-} = useBrowseViewService();
+} = useBrowseViewService(pageRefreshController);
 
 const onApply = (filters: Filters) => {
   applyFilters(filters);

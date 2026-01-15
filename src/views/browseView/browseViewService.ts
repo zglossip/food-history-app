@@ -2,7 +2,10 @@ import { Filters } from "@/components/browse/filterMenu/filterMenuService";
 import { fetchRecipes as fetchRecipesApi } from "@/services/apiService";
 import { Recipe } from "@/types/Recipe";
 import { onIonViewWillEnter } from "@ionic/vue";
-import { usePageRefresher } from "@/composables/usePageRefresher";
+import {
+  PageRefreshController,
+  usePageRefresher,
+} from "@/composables/usePageRefresher";
 import { Ref, ref } from "vue";
 import { LocationQueryValue, useRoute, useRouter } from "vue-router";
 
@@ -21,7 +24,9 @@ export interface BrowseViewService {
 
 export const injectionKey = Symbol();
 
-export const useBrowseViewService = (): BrowseViewService => {
+export const useBrowseViewService = (
+  pageRefreshController?: PageRefreshController,
+): BrowseViewService => {
   const recipes: Ref<Recipe[]> = ref([]);
   const name: Ref<string> = ref("");
   const courses: Ref<string[]> = ref([]);
@@ -109,7 +114,7 @@ export const useBrowseViewService = (): BrowseViewService => {
     router.push("/recipe/create/single");
   };
 
-  usePageRefresher(refreshData);
+  usePageRefresher(refreshData, pageRefreshController);
   onIonViewWillEnter(refreshData);
 
   return {

@@ -16,10 +16,11 @@ interface Props {
 
 const props = defineProps<Props>();
 
-  usePageRefreshController();
+const pageRefreshController = usePageRefreshController();
 
 const viewRecipeContainerService = useViewRecipeContainerService(
   Number(props.id),
+  pageRefreshController,
 );
 
 provide(INJECTION_KEY, () => viewRecipeContainerService);
