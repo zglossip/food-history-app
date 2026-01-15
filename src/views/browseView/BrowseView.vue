@@ -5,6 +5,7 @@ import BasePage from "@/components/common/basePage/BasePage.vue";
 import BaseFabModal from "@/components/common/baseFabModal/BaseFabModal.vue";
 import { useBrowseViewService } from "./browseViewService";
 import { addCircleOutline, filterCircleOutline, menu } from "ionicons/icons";
+import { usePageRefreshController } from "@/composables/usePageRefresher";
 import {
   IonFab,
   IonFabButton,
@@ -16,6 +17,8 @@ import {
 } from "@ionic/vue";
 import { Filters } from "@/components/browse/filterMenu/filterMenuService";
 
+const pageRefreshController = usePageRefreshController();
+
 const {
   recipes,
   name,
@@ -26,7 +29,7 @@ const {
   displayError,
   goToCreationWizard,
   goToQuickAdd,
-} = useBrowseViewService();
+} = useBrowseViewService(pageRefreshController);
 
 const onApply = (filters: Filters) => {
   applyFilters(filters);

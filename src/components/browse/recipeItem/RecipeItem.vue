@@ -58,9 +58,7 @@ const formattedUploaded = useRecipeUploadedDate(recipe);
             >
               {{ tag ? tag : "" }}
             </p>
-            <p v-if="formattedUploaded">
-              Added: {{ formattedUploaded }}
-            </p>
+            <p v-if="formattedUploaded">Added: {{ formattedUploaded }}</p>
           </ion-label>
         </ion-col>
         <ion-col size="auto" :class="$style.recipeItemArrow">

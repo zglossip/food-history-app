@@ -1,23 +1,37 @@
 <script setup lang="ts">
+import { provide } from "vue";
+import { onIonViewDidEnter } from "@ionic/vue";
 import ViewRecipeContainer from "@/components/viewRecipe/viewRecipeContainer/ViewRecipeContainer.vue";
 import BasePage from "@/components/common/basePage/BasePage.vue";
-import { onIonViewDidEnter } from "@ionic/vue";
-import { ref } from "vue";
+import { usePageRefreshController } from "@/composables/usePageRefresher";
+import {
+  INJECTION_KEY,
+  useViewRecipeContainerService,
+} from "@/components/viewRecipe/viewRecipeContainer/viewRecipeContainerService";
 
 //PROPS
 interface Props {
   id: string;
 }
 
-const container = ref();
+const props = defineProps<Props>();
 
-defineProps<Props>();
+const pageRefreshController = usePageRefreshController();
 
-onIonViewDidEnter(() => container.value?.refreshData());
+const viewRecipeContainerService = useViewRecipeContainerService(
+  Number(props.id),
+  pageRefreshController,
+);
+
+provide(INJECTION_KEY, () => viewRecipeContainerService);
+
+onIonViewDidEnter(() => {
+  viewRecipeContainerService.refreshData();
+});
 </script>
 
 <template>
   <BasePage title="View Recipe">
-    <ViewRecipeContainer :id="Number(id)" ref="container" />
+    <ViewRecipeContainer :id="Number(id)" />
   </BasePage>
 </template>

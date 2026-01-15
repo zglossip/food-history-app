@@ -2,6 +2,12 @@ import { describe, it, expect, vi, Mock, beforeEach } from "vitest";
 
 vi.mock("@/services/apiService");
 vi.mock("vue-router");
+vi.mock("@ionic/vue", () => ({
+  onIonViewDidEnter: (cb: () => void) => cb(),
+}));
+vi.mock("@/composables/usePageRefresher", () => ({
+  usePageRefresher: () => {},
+}));
 
 import {
   useViewRecipeContainerService,
@@ -45,7 +51,7 @@ describe("viewRecipeContainerService", () => {
   it("refreshes the recipe data for the given id", async () => {
     const { service, id, recipeResponse } = setup();
 
-    service.refreshData();
+    await service.refreshData();
 
     await vi.waitFor(() =>
       expect(service.recipe.value).toEqual(recipeResponse),

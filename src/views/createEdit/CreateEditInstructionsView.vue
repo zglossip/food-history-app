@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import BasePage from "@/components/common/basePage/BasePage.vue";
 import EditInstructionsForm from "@/components/createEdit/editInstructionsForm/EditInstructionsForm.vue";
+import { usePageRefreshController } from "@/composables/usePageRefresher";
 
 //PROPS
 interface Props {
@@ -8,6 +9,8 @@ interface Props {
 }
 
 defineProps<Props>();
+
+usePageRefreshController();
 </script>
 
 <template>

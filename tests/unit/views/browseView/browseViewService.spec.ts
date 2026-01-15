@@ -5,6 +5,9 @@ vi.mock("vue-router");
 vi.mock("@ionic/vue", () => ({
   onIonViewWillEnter: (cb: () => void) => cb(),
 }));
+vi.mock("@/composables/usePageRefresher", () => ({
+  usePageRefresher: () => {},
+}));
 
 import { ApiResult, fetchRecipes } from "@/services/apiService";
 import { useRoute, useRouter } from "vue-router";
@@ -41,9 +44,11 @@ const setup = (options: SetupOptions = {}): TestSetup => {
   );
 
   const routerPush = vi.fn();
-  (useRouter as Mock).mockImplementation(vi.fn().mockReturnValue({
-    push: routerPush,
-  }));
+  (useRouter as Mock).mockImplementation(
+    vi.fn().mockReturnValue({
+      push: routerPush,
+    }),
+  );
 
   const service = useBrowseViewService();
 

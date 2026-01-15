@@ -40,7 +40,12 @@ const formattedUploaded = useRecipeUploadedDate(recipe);
       <ion-card-title>
         <span>{{ recipe?.name }}</span>
       </ion-card-title>
-      <ion-card-subtitle>{{ formattedServingTag }}<span v-if="formattedUploaded"> | Added: {{ formattedUploaded }}</span></ion-card-subtitle>
+      <ion-card-subtitle
+        >{{ formattedServingTag
+        }}<span v-if="formattedUploaded">
+          | Added: {{ formattedUploaded }}</span
+        ></ion-card-subtitle
+      >
     </template>
     <div
       v-for="(tag, i) in [

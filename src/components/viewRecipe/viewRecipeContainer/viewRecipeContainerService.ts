@@ -2,6 +2,10 @@ import { fetchRecipe } from "@/services/apiService";
 import { Recipe } from "@/types/Recipe";
 import { Ref, ref } from "vue";
 import { useRouter } from "vue-router";
+import {
+  PageRefreshController,
+  usePageRefresher,
+} from "@/composables/usePageRefresher";
 
 export const INJECTION_KEY = Symbol();
 
@@ -11,12 +15,13 @@ export interface ViewRecipeContainerService {
   onEditHeader: () => void;
   onEditIngredients: () => void;
   onEditInstructions: () => void;
-  refreshData: () => void;
+  refreshData: () => Promise<void>;
   displayError: Ref<boolean>;
 }
 
 export const useViewRecipeContainerService = (
   id: number,
+  pageRefreshController?: PageRefreshController,
 ): ViewRecipeContainerService => {
   const isLoading: Ref<boolean> = ref(false);
   const recipe: Ref<Recipe | null> = ref(null);
@@ -24,21 +29,20 @@ export const useViewRecipeContainerService = (
 
   const router = useRouter();
 
-  const refreshData = () => {
+  const refreshData = async (): Promise<void> => {
     isLoading.value = true;
-    fetchRecipe(id)
-      .then((response) => {
-        if (response.ok) {
-          recipe.value = response.data;
-          displayError.value = false;
-          return;
-        }
-        recipe.value = null;
-        displayError.value = true;
-      })
-      .finally(() => {
-        isLoading.value = false;
-      });
+    try {
+      const response = await fetchRecipe(id);
+      if (response.ok) {
+        recipe.value = response.data;
+        displayError.value = false;
+        return;
+      }
+      recipe.value = null;
+      displayError.value = true;
+    } finally {
+      isLoading.value = false;
+    }
   };
 
   const onEditHeader = () => {
@@ -52,6 +56,8 @@ export const useViewRecipeContainerService = (
   const onEditInstructions = () => {
     router.push(`/recipe/edit/${id}/instructions`);
   };
+
+  usePageRefresher(refreshData, pageRefreshController);
 
   return {
     isLoading,

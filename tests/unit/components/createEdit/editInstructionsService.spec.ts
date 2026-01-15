@@ -14,6 +14,9 @@ import { useRouter } from "vue-router";
 vi.mock("@/services/apiService");
 vi.mock("@/services/util");
 vi.mock("vue-router");
+vi.mock("@/composables/usePageRefresher", () => ({
+  usePageRefresher: () => {},
+}));
 
 const defaultInstructionsResponse = {
   recipeId: 5,

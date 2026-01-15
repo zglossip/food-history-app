@@ -7,10 +7,17 @@ import {
   IonToolbar,
   IonTitle,
   IonContent,
+  IonRefresher,
+  IonRefresherContent,
   IonPage,
   IonMenuButton,
 } from "@ionic/vue";
 import { home } from "ionicons/icons";
+import { inject } from "vue";
+import {
+  PAGE_REFRESH_KEY,
+  PageRefreshController,
+} from "@/composables/usePageRefresher";
 
 //PROPS
 
@@ -19,6 +26,20 @@ interface Props {
 }
 
 defineProps<Props>();
+
+const pageRefresh = inject<PageRefreshController | null>(
+  PAGE_REFRESH_KEY,
+  null,
+);
+
+const handleRefresh = async (event: CustomEvent) => {
+  if (!pageRefresh) {
+    event.detail.complete();
+    return;
+  }
+
+  await pageRefresh.onRefresh(event);
+};
 </script>
 
 <template>
@@ -39,6 +60,9 @@ defineProps<Props>();
       </ion-toolbar>
     </ion-header>
     <ion-content>
+      <ion-refresher slot="fixed" @ionRefresh="handleRefresh">
+        <ion-refresher-content />
+      </ion-refresher>
       <slot />
     </ion-content>
   </ion-page>

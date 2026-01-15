@@ -22,13 +22,8 @@ const {
   onEditHeader,
   onEditIngredients,
   onEditInstructions,
-  refreshData,
   displayError,
 } = inject(INJECTION_KEY, useViewRecipeContainerService)(props.id);
-
-defineExpose({
-  refreshData,
-});
 </script>
 
 <template>

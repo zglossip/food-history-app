@@ -2,6 +2,10 @@ import { Filters } from "@/components/browse/filterMenu/filterMenuService";
 import { fetchRecipes as fetchRecipesApi } from "@/services/apiService";
 import { Recipe } from "@/types/Recipe";
 import { onIonViewWillEnter } from "@ionic/vue";
+import {
+  PageRefreshController,
+  usePageRefresher,
+} from "@/composables/usePageRefresher";
 import { Ref, ref } from "vue";
 import { LocationQueryValue, useRoute, useRouter } from "vue-router";
 
@@ -20,7 +24,9 @@ export interface BrowseViewService {
 
 export const injectionKey = Symbol();
 
-export const useBrowseViewService = (): BrowseViewService => {
+export const useBrowseViewService = (
+  pageRefreshController?: PageRefreshController,
+): BrowseViewService => {
   const recipes: Ref<Recipe[]> = ref([]);
   const name: Ref<string> = ref("");
   const courses: Ref<string[]> = ref([]);
@@ -70,20 +76,26 @@ export const useBrowseViewService = (): BrowseViewService => {
     });
   }
 
-  const fetchRecipes: VoidFunction = (): void => {
+  const refreshData = async (): Promise<void> => {
     isLoading.value = true;
-    fetchRecipesApi(name.value, cuisines.value, courses.value, tags.value)
-      .then((response) => {
-        if (response.ok) {
-          recipes.value = response.data;
-          displayError.value = false;
-          return;
-        }
+    try {
+      const response = await fetchRecipesApi(
+        name.value,
+        cuisines.value,
+        courses.value,
+        tags.value,
+      );
+      if (response.ok) {
+        recipes.value = response.data;
+        displayError.value = false;
+        return;
+      }
 
-        recipes.value = [];
-        displayError.value = true;
-      })
-      .finally(() => (isLoading.value = false));
+      recipes.value = [];
+      displayError.value = true;
+    } finally {
+      isLoading.value = false;
+    }
   };
 
   const applyFilters = (filters: Filters): void => {
@@ -91,7 +103,7 @@ export const useBrowseViewService = (): BrowseViewService => {
     courses.value = filters.courseTypeFilters;
     cuisines.value = filters.cuisineTypeFilters;
     tags.value = filters.tagFilters;
-    fetchRecipes();
+    void refreshData();
   };
 
   const goToCreationWizard = (): void => {
@@ -102,7 +114,8 @@ export const useBrowseViewService = (): BrowseViewService => {
     router.push("/recipe/create/single");
   };
 
-  onIonViewWillEnter(fetchRecipes);
+  usePageRefresher(refreshData, pageRefreshController);
+  onIonViewWillEnter(refreshData);
 
   return {
     recipes,

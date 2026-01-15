@@ -2,6 +2,7 @@ import { fetchRecipe } from "@/services/apiService";
 import { ERROR_RECIPE, LOADING_RECIPE } from "@/services/constants";
 import { Recipe } from "@/types/Recipe";
 import { Ref, ref } from "vue";
+import { usePageRefresher } from "@/composables/usePageRefresher";
 
 export const INJECTION_KEY = Symbol();
 
@@ -16,10 +17,19 @@ export const useEditHeaderContainerService = (
     id === undefined ? undefined : LOADING_RECIPE,
   );
 
+  const refreshData = async (): Promise<void> => {
+    if (id === undefined) {
+      return;
+    }
+    recipe.value = LOADING_RECIPE;
+    const recipeResponse = await fetchRecipe(id);
+    recipe.value = recipeResponse.ok ? recipeResponse.data : ERROR_RECIPE;
+  };
+
+  usePageRefresher(refreshData);
+
   if (id !== undefined) {
-    fetchRecipe(id).then((recipeResponse) => {
-      recipe.value = recipeResponse.ok ? recipeResponse.data : ERROR_RECIPE;
-    });
+    void refreshData();
   }
 
   return { recipe };
